@@ -1,0 +1,470 @@
+// !$*UTF8*$!
+{
+	archiveVersion = 1;
+	classes = {
+	};
+	objectVersion = 50;
+	objects = {
+
+/* Begin PBXBuildFile section */
+		918EEA722280EC8D00920FF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA712280EC8D00920FF8 /* AppDelegate.swift */; };
+		918EEA742280EC8D00920FF8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA732280EC8D00920FF8 /* ViewController.swift */; };
+		918EEA772280EC8D00920FF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 918EEA752280EC8D00920FF8 /* Main.storyboard */; };
+		918EEA792280EC8F00920FF8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 918EEA782280EC8F00920FF8 /* Assets.xcassets */; };
+		918EEA7C2280EC8F00920FF8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 918EEA7A2280EC8F00920FF8 /* LaunchScreen.storyboard */; };
+		918EEA872280EC8F00920FF8 /* yologleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA862280EC8F00920FF8 /* yologleTests.swift */; };
+/* End PBXBuildFile section */
+
+/* Begin PBXContainerItemProxy section */
+		918EEA832280EC8F00920FF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 918EEA662280EC8C00920FF8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 918EEA6D2280EC8C00920FF8;
+			remoteInfo = yologle;
+		};
+/* End PBXContainerItemProxy section */
+
+/* Begin PBXFileReference section */
+		918EEA6E2280EC8D00920FF8 /* yologle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yologle.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		918EEA712280EC8D00920FF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
+		918EEA732280EC8D00920FF8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
+		918EEA762280EC8D00920FF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Main.storyboard; sourceTree = "<group>"; };
+		918EEA782280EC8F00920FF8 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
+		918EEA7B2280EC8F00920FF8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
+		918EEA7D2280EC8F00920FF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		918EEA822280EC8F00920FF8 /* yologleTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yologleTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		918EEA862280EC8F00920FF8 /* yologleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yologleTests.swift; sourceTree = "<group>"; };
+		918EEA882280EC8F00920FF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+/* End PBXFileReference section */
+
+/* Begin PBXFrameworksBuildPhase section */
+		918EEA6B2280EC8C00920FF8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		918EEA7F2280EC8F00920FF8 /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXFrameworksBuildPhase section */
+
+/* Begin PBXGroup section */
+		918EEA652280EC8C00920FF8 = {
+			isa = PBXGroup;
+			children = (
+				918EEA702280EC8D00920FF8 /* yologle */,
+				918EEA852280EC8F00920FF8 /* yologleTests */,
+				918EEA6F2280EC8D00920FF8 /* Products */,
+			);
+			sourceTree = "<group>";
+		};
+		918EEA6F2280EC8D00920FF8 /* Products */ = {
+			isa = PBXGroup;
+			children = (
+				918EEA6E2280EC8D00920FF8 /* yologle.app */,
+				918EEA822280EC8F00920FF8 /* yologleTests.xctest */,
+			);
+			name = Products;
+			sourceTree = "<group>";
+		};
+		918EEA702280EC8D00920FF8 /* yologle */ = {
+			isa = PBXGroup;
+			children = (
+				918EEA712280EC8D00920FF8 /* AppDelegate.swift */,
+				918EEA732280EC8D00920FF8 /* ViewController.swift */,
+				918EEA752280EC8D00920FF8 /* Main.storyboard */,
+				918EEA782280EC8F00920FF8 /* Assets.xcassets */,
+				918EEA7A2280EC8F00920FF8 /* LaunchScreen.storyboard */,
+				918EEA7D2280EC8F00920FF8 /* Info.plist */,
+			);
+			path = yologle;
+			sourceTree = "<group>";
+		};
+		918EEA852280EC8F00920FF8 /* yologleTests */ = {
+			isa = PBXGroup;
+			children = (
+				918EEA862280EC8F00920FF8 /* yologleTests.swift */,
+				918EEA882280EC8F00920FF8 /* Info.plist */,
+			);
+			path = yologleTests;
+			sourceTree = "<group>";
+		};
+/* End PBXGroup section */
+
+/* Begin PBXNativeTarget section */
+		918EEA6D2280EC8C00920FF8 /* yologle */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 918EEA8B2280EC8F00920FF8 /* Build configuration list for PBXNativeTarget "yologle" */;
+			buildPhases = (
+				918EEA6A2280EC8C00920FF8 /* Sources */,
+				918EEA6B2280EC8C00920FF8 /* Frameworks */,
+				918EEA6C2280EC8C00920FF8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+			);
+			name = yologle;
+			productName = yologle;
+			productReference = 918EEA6E2280EC8D00920FF8 /* yologle.app */;
+			productType = "com.apple.product-type.application";
+		};
+		918EEA812280EC8F00920FF8 /* yologleTests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 918EEA8E2280EC8F00920FF8 /* Build configuration list for PBXNativeTarget "yologleTests" */;
+			buildPhases = (
+				918EEA7E2280EC8F00920FF8 /* Sources */,
+				918EEA7F2280EC8F00920FF8 /* Frameworks */,
+				918EEA802280EC8F00920FF8 /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				918EEA842280EC8F00920FF8 /* PBXTargetDependency */,
+			);
+			name = yologleTests;
+			productName = yologleTests;
+			productReference = 918EEA822280EC8F00920FF8 /* yologleTests.xctest */;
+			productType = "com.apple.product-type.bundle.unit-test";
+		};
+/* End PBXNativeTarget section */
+
+/* Begin PBXProject section */
+		918EEA662280EC8C00920FF8 /* Project object */ = {
+			isa = PBXProject;
+			attributes = {
+				LastSwiftUpdateCheck = 1010;
+				LastUpgradeCheck = 1010;
+				ORGANIZATIONNAME = "Mobile Flow LLC";
+				TargetAttributes = {
+					918EEA6D2280EC8C00920FF8 = {
+						CreatedOnToolsVersion = 10.1;
+					};
+					918EEA812280EC8F00920FF8 = {
+						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 918EEA6D2280EC8C00920FF8;
+					};
+				};
+			};
+			buildConfigurationList = 918EEA692280EC8C00920FF8 /* Build configuration list for PBXProject "yologle" */;
+			compatibilityVersion = "Xcode 9.3";
+			developmentRegion = en;
+			hasScannedForEncodings = 0;
+			knownRegions = (
+				en,
+				Base,
+			);
+			mainGroup = 918EEA652280EC8C00920FF8;
+			productRefGroup = 918EEA6F2280EC8D00920FF8 /* Products */;
+			projectDirPath = "";
+			projectRoot = "";
+			targets = (
+				918EEA6D2280EC8C00920FF8 /* yologle */,
+				918EEA812280EC8F00920FF8 /* yologleTests */,
+			);
+		};
+/* End PBXProject section */
+
+/* Begin PBXResourcesBuildPhase section */
+		918EEA6C2280EC8C00920FF8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				918EEA7C2280EC8F00920FF8 /* LaunchScreen.storyboard in Resources */,
+				918EEA792280EC8F00920FF8 /* Assets.xcassets in Resources */,
+				918EEA772280EC8D00920FF8 /* Main.storyboard in Resources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		918EEA802280EC8F00920FF8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXResourcesBuildPhase section */
+
+/* Begin PBXSourcesBuildPhase section */
+		918EEA6A2280EC8C00920FF8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				918EEA742280EC8D00920FF8 /* ViewController.swift in Sources */,
+				918EEA722280EC8D00920FF8 /* AppDelegate.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		918EEA7E2280EC8F00920FF8 /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				918EEA872280EC8F00920FF8 /* yologleTests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXSourcesBuildPhase section */
+
+/* Begin PBXTargetDependency section */
+		918EEA842280EC8F00920FF8 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 918EEA6D2280EC8C00920FF8 /* yologle */;
+			targetProxy = 918EEA832280EC8F00920FF8 /* PBXContainerItemProxy */;
+		};
+/* End PBXTargetDependency section */
+
+/* Begin PBXVariantGroup section */
+		918EEA752280EC8D00920FF8 /* Main.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				918EEA762280EC8D00920FF8 /* Base */,
+			);
+			name = Main.storyboard;
+			sourceTree = "<group>";
+		};
+		918EEA7A2280EC8F00920FF8 /* LaunchScreen.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				918EEA7B2280EC8F00920FF8 /* Base */,
+			);
+			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+/* End PBXVariantGroup section */
+
+/* Begin XCBuildConfiguration section */
+		918EEA892280EC8F00920FF8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = dwarf;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				ENABLE_TESTABILITY = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_DYNAMIC_NO_PIC = NO;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_OPTIMIZATION_LEVEL = 0;
+				GCC_PREPROCESSOR_DEFINITIONS = (
+					"DEBUG=1",
+					"$(inherited)",
+				);
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = INCLUDE_SOURCE;
+				MTL_FAST_MATH = YES;
+				ONLY_ACTIVE_ARCH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_ACTIVE_COMPILATION_CONDITIONS = DEBUG;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
+			};
+			name = Debug;
+		};
+		918EEA8A2280EC8F00920FF8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_SEARCH_USER_PATHS = NO;
+				CLANG_ANALYZER_NONNULL = YES;
+				CLANG_ANALYZER_NUMBER_OBJECT_CONVERSION = YES_AGGRESSIVE;
+				CLANG_CXX_LANGUAGE_STANDARD = "gnu++14";
+				CLANG_CXX_LIBRARY = "libc++";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = YES;
+				CLANG_ENABLE_OBJC_WEAK = YES;
+				CLANG_WARN_BLOCK_CAPTURE_AUTORELEASING = YES;
+				CLANG_WARN_BOOL_CONVERSION = YES;
+				CLANG_WARN_COMMA = YES;
+				CLANG_WARN_CONSTANT_CONVERSION = YES;
+				CLANG_WARN_DEPRECATED_OBJC_IMPLEMENTATIONS = YES;
+				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
+				CLANG_WARN_DOCUMENTATION_COMMENTS = YES;
+				CLANG_WARN_EMPTY_BODY = YES;
+				CLANG_WARN_ENUM_CONVERSION = YES;
+				CLANG_WARN_INFINITE_RECURSION = YES;
+				CLANG_WARN_INT_CONVERSION = YES;
+				CLANG_WARN_NON_LITERAL_NULL_CONVERSION = YES;
+				CLANG_WARN_OBJC_IMPLICIT_RETAIN_SELF = YES;
+				CLANG_WARN_OBJC_LITERAL_CONVERSION = YES;
+				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
+				CLANG_WARN_RANGE_LOOP_ANALYSIS = YES;
+				CLANG_WARN_STRICT_PROTOTYPES = YES;
+				CLANG_WARN_SUSPICIOUS_MOVE = YES;
+				CLANG_WARN_UNGUARDED_AVAILABILITY = YES_AGGRESSIVE;
+				CLANG_WARN_UNREACHABLE_CODE = YES;
+				CLANG_WARN__DUPLICATE_METHOD_MATCH = YES;
+				CODE_SIGN_IDENTITY = "iPhone Developer";
+				COPY_PHASE_STRIP = NO;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
+				ENABLE_NS_ASSERTIONS = NO;
+				ENABLE_STRICT_OBJC_MSGSEND = YES;
+				GCC_C_LANGUAGE_STANDARD = gnu11;
+				GCC_NO_COMMON_BLOCKS = YES;
+				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
+				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
+				GCC_WARN_UNDECLARED_SELECTOR = YES;
+				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
+				GCC_WARN_UNUSED_FUNCTION = YES;
+				GCC_WARN_UNUSED_VARIABLE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.1;
+				MTL_ENABLE_DEBUG_INFO = NO;
+				MTL_FAST_MATH = YES;
+				SDKROOT = iphoneos;
+				SWIFT_COMPILATION_MODE = wholemodule;
+				SWIFT_OPTIMIZATION_LEVEL = "-O";
+				VALIDATE_PRODUCT = YES;
+			};
+			name = Release;
+		};
+		918EEA8C2280EC8F00920FF8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4W8SEMVXD2;
+				INFOPLIST_FILE = yologle/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobileflowllc.yologle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Debug;
+		};
+		918EEA8D2280EC8F00920FF8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4W8SEMVXD2;
+				INFOPLIST_FILE = yologle/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobileflowllc.yologle;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+			};
+			name = Release;
+		};
+		918EEA8F2280EC8F00920FF8 /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4W8SEMVXD2;
+				INFOPLIST_FILE = yologleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobileflowllc.yologleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/yologle.app/yologle";
+			};
+			name = Debug;
+		};
+		918EEA902280EC8F00920FF8 /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				ALWAYS_EMBED_SWIFT_STANDARD_LIBRARIES = YES;
+				BUNDLE_LOADER = "$(TEST_HOST)";
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4W8SEMVXD2;
+				INFOPLIST_FILE = yologleTests/Info.plist;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobileflowllc.yologleTests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 4.2;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/yologle.app/yologle";
+			};
+			name = Release;
+		};
+/* End XCBuildConfiguration section */
+
+/* Begin XCConfigurationList section */
+		918EEA692280EC8C00920FF8 /* Build configuration list for PBXProject "yologle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				918EEA892280EC8F00920FF8 /* Debug */,
+				918EEA8A2280EC8F00920FF8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		918EEA8B2280EC8F00920FF8 /* Build configuration list for PBXNativeTarget "yologle" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				918EEA8C2280EC8F00920FF8 /* Debug */,
+				918EEA8D2280EC8F00920FF8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+		918EEA8E2280EC8F00920FF8 /* Build configuration list for PBXNativeTarget "yologleTests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				918EEA8F2280EC8F00920FF8 /* Debug */,
+				918EEA902280EC8F00920FF8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Release;
+		};
+/* End XCConfigurationList section */
+	};
+	rootObject = 918EEA662280EC8C00920FF8 /* Project object */;
+}
