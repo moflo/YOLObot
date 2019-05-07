@@ -14,12 +14,12 @@ class ViewController: CameraViewController {
 
     @IBAction func doHelpButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "HELPVIEW") as! UINavigationController
+        let vc = storyboard.instantiateViewController(withIdentifier: "ACCOUNTVIEW") as! UINavigationController
         self.present(vc, animated: true)
     }
     @IBAction func doSettingsButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "SETTINGSVIEW") as! UINavigationController
+        let vc = storyboard.instantiateViewController(withIdentifier: "ACTIONSVIEW") as! UINavigationController
         self.present(vc, animated: true)
     }
     @IBAction func doTrainButton(_ sender: Any) {
@@ -214,7 +214,7 @@ extension ViewController {
     
     // MARK: - SceneStability Check
     
-    func sceneStabilityAchieved(_ pixelBuffer: CVImageBuffer) -> Bool {
+    func sceneStabilityAchieved(_ pixelBuffer: CVImageBuffer) -> Bool {        
         guard previousPixelBuffer != nil else {
             previousPixelBuffer = pixelBuffer
             self.resetTranspositionHistory()

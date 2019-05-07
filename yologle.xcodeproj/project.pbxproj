@@ -11,6 +11,9 @@
 		86DB7F34BF7EB56D504F5965 /* Pods_yologle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3EE2427D761ABA798FC95D4 /* Pods_yologle.framework */; };
 		9186A9B6228122BF0095FB60 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9B5228122BF0095FB60 /* CameraViewController.swift */; };
 		9186A9B922812B660095FB60 /* ObjectDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9B72281242C0095FB60 /* ObjectDetector.mlmodel */; };
+		9186A9BB2281E6FB0095FB60 /* About.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9186A9BA2281E4170095FB60 /* About.txt */; };
+		9186A9BE2281E8DE0095FB60 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9BC2281E8DE0095FB60 /* AccountViewController.swift */; };
+		9186A9BF2281E8DE0095FB60 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9BD2281E8DE0095FB60 /* TermsViewController.swift */; };
 		918EEA722280EC8D00920FF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA712280EC8D00920FF8 /* AppDelegate.swift */; };
 		918EEA742280EC8D00920FF8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA732280EC8D00920FF8 /* ViewController.swift */; };
 		918EEA772280EC8D00920FF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 918EEA752280EC8D00920FF8 /* Main.storyboard */; };
@@ -18,7 +21,7 @@
 		918EEA7C2280EC8F00920FF8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 918EEA7A2280EC8F00920FF8 /* LaunchScreen.storyboard */; };
 		918EEA872280EC8F00920FF8 /* yologleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA862280EC8F00920FF8 /* yologleTests.swift */; };
 		918EEA932280ECA100920FF8 /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 918EEA922280ECA100920FF8 /* StoreKit.framework */; };
-		918EEA972280F67C00920FF8 /* HelpViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA962280F67C00920FF8 /* HelpViewController.swift */; };
+		918EEA972280F67C00920FF8 /* ActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA962280F67C00920FF8 /* ActionViewController.swift */; };
 		918EEA992280F69000920FF8 /* SettingsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA982280F69000920FF8 /* SettingsViewController.swift */; };
 		918EEA9B2280F9E600920FF8 /* PolyCatViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA9A2280F9E600920FF8 /* PolyCatViewController.swift */; };
 		918EEA9D2280FB0500920FF8 /* MFPolyEdit.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA9C2280FB0500920FF8 /* MFPolyEdit.swift */; };
@@ -44,6 +47,9 @@
 		361CDBD25A0B9683BA7E3568 /* Pods-yologleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yologleTests.release.xcconfig"; path = "Target Support Files/Pods-yologleTests/Pods-yologleTests.release.xcconfig"; sourceTree = "<group>"; };
 		9186A9B5228122BF0095FB60 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		9186A9B72281242C0095FB60 /* ObjectDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ObjectDetector.mlmodel; sourceTree = "<group>"; };
+		9186A9BA2281E4170095FB60 /* About.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = About.txt; sourceTree = "<group>"; };
+		9186A9BC2281E8DE0095FB60 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
+		9186A9BD2281E8DE0095FB60 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
 		918EEA6E2280EC8D00920FF8 /* yologle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yologle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		918EEA712280EC8D00920FF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		918EEA732280EC8D00920FF8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -56,7 +62,7 @@
 		918EEA882280EC8F00920FF8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		918EEA922280ECA100920FF8 /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		918EEA942280ECA600920FF8 /* yologle.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = yologle.entitlements; sourceTree = "<group>"; };
-		918EEA962280F67C00920FF8 /* HelpViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HelpViewController.swift; sourceTree = "<group>"; };
+		918EEA962280F67C00920FF8 /* ActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionViewController.swift; sourceTree = "<group>"; };
 		918EEA982280F69000920FF8 /* SettingsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewController.swift; sourceTree = "<group>"; };
 		918EEA9A2280F9E600920FF8 /* PolyCatViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PolyCatViewController.swift; sourceTree = "<group>"; };
 		918EEA9C2280FB0500920FF8 /* MFPolyEdit.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MFPolyEdit.swift; sourceTree = "<group>"; };
@@ -65,7 +71,7 @@
 		918EEAA22280FBA800920FF8 /* DataSetManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DataSetManager.swift; sourceTree = "<group>"; };
 		918EEAA42281005C00920FF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		918EEAA62281006800920FF8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
-		918EEAA72281006800920FF8 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
+		918EEAA72281006800920FF8 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		9542E64E2F0D2EB969D5D4CA /* Pods-yologle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yologle.release.xcconfig"; path = "Target Support Files/Pods-yologle/Pods-yologle.release.xcconfig"; sourceTree = "<group>"; };
 		C3EE2427D761ABA798FC95D4 /* Pods_yologle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yologle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCF8DC528E96BA500C66E432 /* Pods_yologleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yologleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -120,8 +126,10 @@
 				918EEA712280EC8D00920FF8 /* AppDelegate.swift */,
 				918EEA732280EC8D00920FF8 /* ViewController.swift */,
 				9186A9B5228122BF0095FB60 /* CameraViewController.swift */,
-				918EEA962280F67C00920FF8 /* HelpViewController.swift */,
+				918EEA962280F67C00920FF8 /* ActionViewController.swift */,
 				918EEA982280F69000920FF8 /* SettingsViewController.swift */,
+				9186A9BC2281E8DE0095FB60 /* AccountViewController.swift */,
+				9186A9BD2281E8DE0095FB60 /* TermsViewController.swift */,
 				918EEAA22280FBA800920FF8 /* DataSetManager.swift */,
 				918EEA9A2280F9E600920FF8 /* PolyCatViewController.swift */,
 				918EEA9C2280FB0500920FF8 /* MFPolyEdit.swift */,
@@ -133,6 +141,7 @@
 				918EEA7A2280EC8F00920FF8 /* LaunchScreen.storyboard */,
 				918EEA7D2280EC8F00920FF8 /* Info.plist */,
 				918EEA942280ECA600920FF8 /* yologle.entitlements */,
+				9186A9BA2281E4170095FB60 /* About.txt */,
 				918EEA952280ECCF00920FF8 /* Vendor */,
 			);
 			path = yologle;
@@ -274,6 +283,7 @@
 				918EEAA52281005C00920FF8 /* GoogleService-Info.plist in Resources */,
 				918EEA792280EC8F00920FF8 /* Assets.xcassets in Resources */,
 				918EEA772280EC8D00920FF8 /* Main.storyboard in Resources */,
+				9186A9BB2281E6FB0095FB60 /* About.txt in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -422,7 +432,9 @@
 			files = (
 				918EEA742280EC8D00920FF8 /* ViewController.swift in Sources */,
 				9186A9B6228122BF0095FB60 /* CameraViewController.swift in Sources */,
-				918EEA972280F67C00920FF8 /* HelpViewController.swift in Sources */,
+				9186A9BE2281E8DE0095FB60 /* AccountViewController.swift in Sources */,
+				9186A9BF2281E8DE0095FB60 /* TermsViewController.swift in Sources */,
+				918EEA972280F67C00920FF8 /* ActionViewController.swift in Sources */,
 				918EEA722280EC8D00920FF8 /* AppDelegate.swift in Sources */,
 				918EEAA02280FB2A00920FF8 /* MFColors.swift in Sources */,
 				918EEAA32280FBA800920FF8 /* DataSetManager.swift in Sources */,

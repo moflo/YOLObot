@@ -1,5 +1,5 @@
 //
-//  HelpViewController.swift
+//  ActionViewController.swift
 //  yologle
 //
 //  Created by d. nye on 5/6/19.
@@ -8,7 +8,7 @@
 
 import UIKit
 
-class HelpViewController: UITableViewController {
+class ActionViewController: UITableViewController {
 
     @IBAction func doDoneButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
