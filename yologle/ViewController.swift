@@ -27,6 +27,16 @@ class ViewController: CameraViewController {
         let vc = storyboard.instantiateViewController(withIdentifier: "TRAININGVIEW") as! UINavigationController
         self.present(vc, animated: true)
     }
+    @IBAction func doSkipButton(_ sender: Any) {
+        self.startCaptureSession()
+    }
+    @IBAction func doActionButton(_ sender: Any) {
+        let url = URL(string: "tel://1-408-555-1212")
+        let options :[UIApplication.OpenExternalURLOptionsKey : Any] = [:]
+        UIApplication.shared.open(url!,options:options,completionHandler: { done in
+            print("URL open :", done)
+        })
+    }
 
 
     private var detectionViewOpen :Bool = false

@@ -7,11 +7,20 @@
 //
 
 import UIKit
+import SafariServices
 
 class ActionViewController: UITableViewController {
 
     @IBAction func doDoneButton(_ sender: Any) {
         self.dismiss(animated: true, completion: nil)
+    }
+
+    enum ACTIONS {
+        static let SECTION_COUNT = 4
+        static let PHONE_SECTION = 0
+        static let SETTINGS_SECTION = 1
+        static let HELP_SECTION = 2
+        static let INFO_SECTION = 3
     }
 
     override func viewDidLoad() {
@@ -27,13 +36,45 @@ class ActionViewController: UITableViewController {
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {
-        // #warning Incomplete implementation, return the number of sections
-        return 0
+        return ACTIONS.SECTION_COUNT
     }
+    
+    override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        if indexPath.section == ACTIONS.PHONE_SECTION {
+            let alert = UIAlertController(title: "Phone Number", message: "Run shortcut?", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Run", style: UIAlertAction.Style.default, handler: {
+                (alert :UIAlertAction) -> Void in
+                //                self.doLogoutAccount()
+                let url = URL(string: "tel://1-408-555-1212")
+                let options :[UIApplication.OpenExternalURLOptionsKey : Any] = [:]
+                UIApplication.shared.open(url!,options:options,completionHandler: { done in
+                    print("URL open :", done)
+                })
+                
+                
+            }))
+            self.present(alert, animated: true, completion: nil)
+            
+        }
 
-    override func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        // #warning Incomplete implementation, return the number of rows
-        return 0
+        if indexPath.section == ACTIONS.SETTINGS_SECTION {
+            let alert = UIAlertController(title: "Coffee Cup", message: "Run shortcut?", preferredStyle: UIAlertController.Style.alert)
+            alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
+            alert.addAction(UIAlertAction(title: "Run", style: UIAlertAction.Style.default, handler: {
+                (alert :UIAlertAction) -> Void in
+                
+                let url = URL(string: "shortcuts://x-callback-url/run-shortcut?name=Shorten%20URL&id=89F0177B-A177-4040-9AA2-9A6C6597E9C2&source=homescreen")
+                UIApplication.shared.open(url!,options:[:],completionHandler: { done in
+                    print("URL open :", done)
+                })
+
+            }))
+            self.present(alert, animated: true, completion: nil)
+
+        }
+
     }
 
     /*

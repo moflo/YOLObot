@@ -198,6 +198,7 @@
 				918EEA6C2280EC8C00920FF8 /* Resources */,
 				FA17F425C97BADF245DE379B /* [CP] Embed Pods Frameworks */,
 				80042C1AF807959AF713F071 /* [CP] Copy Pods Resources */,
+				9186A9C0228203C90095FB60 /* ShellScript */,
 			);
 			buildRules = (
 			);
@@ -362,6 +363,23 @@
 			shellPath = /bin/sh;
 			shellScript = "\"${PODS_ROOT}/Target Support Files/Pods-yologle/Pods-yologle-resources.sh\"\n";
 			showEnvVarsInLog = 0;
+		};
+		9186A9C0228203C90095FB60 /* ShellScript */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputFileListPaths = (
+			);
+			inputPaths = (
+			);
+			outputFileListPaths = (
+			);
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "# Type a script or drag a script file from your workspace to inse# Ty#printenv | sort > ~/xcode_environ_vars.txt\nOLD_NUMBER=`/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$PRODUCT_SETTINGS_PATH\"`\nNEW_NUMBER=$((OLD_NUMBER+=1))\n`/usr/libexec/PlistBuddy -c \"Set CFBundleVersion $NEW_NUMBER\" \"$PRODUCT_SETTINGS_PATH\"`\n\n";
 		};
 		E61D8DA73A29F3F4A3340463 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
