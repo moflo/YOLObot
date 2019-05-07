@@ -18,9 +18,22 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ern-01-KZ0">
+                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ern-01-KZ0">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <subviews>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bot_small_orange" translatesAutoresizingMaskIntoConstraints="NO" id="7w0-k6-df8">
+                                        <rect key="frame" x="167.5" y="44" width="40" height="40"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="40" id="oo7-gm-aYG"/>
+                                            <constraint firstAttribute="width" constant="40" id="yzf-ck-w3o"/>
+                                        </constraints>
+                                    </imageView>
+                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstItem="7w0-k6-df8" firstAttribute="top" secondItem="ern-01-KZ0" secondAttribute="top" constant="44" id="7Py-bc-7Y0"/>
+                                    <constraint firstItem="7w0-k6-df8" firstAttribute="centerX" secondItem="ern-01-KZ0" secondAttribute="centerX" id="R7X-Zl-p1C"/>
+                                </constraints>
                             </view>
                             <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ify-sD-cPz" customClass="MFRectIconButton" customModule="yologle" customModuleProvider="target">
                                 <rect key="frame" x="221" y="535" width="88" height="88"/>
@@ -865,16 +878,28 @@
                                     <action selector="doTrainDoneButton:" destination="Hhk-Ne-UGq" eventType="touchUpInside" id="nS0-x0-m4b"/>
                                 </connections>
                             </button>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help us learn this item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6Z-ov-7SB">
+                                <rect key="frame" x="20" y="42" width="335" height="22"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="22" id="uSX-xk-0La"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="14"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="rgj-7r-5VJ" firstAttribute="bottom" secondItem="TK9-zN-RH6" secondAttribute="bottom" constant="20" id="0UL-nE-X5N"/>
                             <constraint firstItem="q11-yc-g03" firstAttribute="trailing" secondItem="rgj-7r-5VJ" secondAttribute="trailing" id="0k8-07-o1t"/>
+                            <constraint firstItem="rgj-7r-5VJ" firstAttribute="trailing" secondItem="h6Z-ov-7SB" secondAttribute="trailing" constant="20" id="1I5-Zs-OvS"/>
                             <constraint firstItem="O13-fM-hXh" firstAttribute="leading" secondItem="aQx-9j-fbe" secondAttribute="leading" id="36X-6N-PAd"/>
                             <constraint firstItem="rgj-7r-5VJ" firstAttribute="bottom" secondItem="WXj-fy-OJL" secondAttribute="bottom" constant="20" id="83w-Fk-aZ5"/>
                             <constraint firstItem="rgj-7r-5VJ" firstAttribute="bottom" secondItem="aUj-10-4qH" secondAttribute="bottom" constant="20" id="9CJ-SO-Z4a"/>
                             <constraint firstItem="q11-yc-g03" firstAttribute="leading" secondItem="rgj-7r-5VJ" secondAttribute="leading" id="AR2-E8-arZ"/>
                             <constraint firstItem="lkQ-XH-UPd" firstAttribute="trailing" secondItem="rgj-7r-5VJ" secondAttribute="trailing" id="CAb-Zc-uVY"/>
+                            <constraint firstItem="h6Z-ov-7SB" firstAttribute="leading" secondItem="rgj-7r-5VJ" secondAttribute="leading" constant="20" id="EoV-nW-2ts"/>
+                            <constraint firstItem="h6Z-ov-7SB" firstAttribute="top" secondItem="rgj-7r-5VJ" secondAttribute="top" constant="22" id="GZy-eC-n9d"/>
                             <constraint firstItem="TK9-zN-RH6" firstAttribute="leading" secondItem="aUj-10-4qH" secondAttribute="trailing" constant="10" id="HD7-LF-Gzr"/>
                             <constraint firstItem="ERg-os-Ogm" firstAttribute="top" secondItem="aQx-9j-fbe" secondAttribute="top" constant="10" id="Ork-FL-1qp"/>
                             <constraint firstItem="aUj-10-4qH" firstAttribute="leading" secondItem="rgj-7r-5VJ" secondAttribute="leading" constant="10" id="QMC-vI-ePi"/>
@@ -903,7 +928,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="wgz-I5-pfY" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="2417" y="1310"/>
+            <point key="canvasLocation" x="2416.8000000000002" y="1309.2953523238382"/>
         </scene>
         <!--Navigation Controller-->
         <scene sceneID="jTe-ri-hjw">
@@ -1241,6 +1266,7 @@ Terms of Service                         Privacy Policy</string>
         </scene>
     </scenes>
     <resources>
+        <image name="bot_small_orange" width="128" height="128"/>
         <image name="bounding_box" width="680" height="490"/>
         <image name="icon_close" width="64" height="64"/>
         <image name="icon_redo" width="64" height="64"/>

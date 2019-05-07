@@ -27,7 +27,7 @@ class ViewController: CameraViewController {
         let vc = storyboard.instantiateViewController(withIdentifier: "TRAININGVIEW") as! UINavigationController
         if let tc = vc.topViewController as? PolyCatViewController {
             let dataSet = MFDataSet(
-                categoryArray:["Sign","Telephone","URL","UPC","Menu","Other"]
+                categoryArray:["Signage","Telephone","URL","UPC","Menu","Other"]
             )
             
             if let pixelBuffer = previousPixelBuffer {

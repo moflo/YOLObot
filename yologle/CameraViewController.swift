@@ -40,7 +40,8 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     func setupAVCapture() {
         // Select a video device, make an input
         guard let videoDevice = AVCaptureDevice.DiscoverySession(deviceTypes: [.builtInWideAngleCamera], mediaType: .video, position: .back).devices.first else {
-            print("Could not find valid video to the session")
+            print("Could not find valid video for the session")
+            previewView.backgroundColor = .orange
             return
         }
         

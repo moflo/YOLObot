@@ -19,7 +19,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="app_launch" translatesAutoresizingMaskIntoConstraints="NO" id="siV-Xe-3FZ">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <rect key="frame" x="0.0" y="-30" width="375" height="697"/>
                             </imageView>
                             <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bot_small_white" translatesAutoresizingMaskIntoConstraints="NO" id="u9F-Ff-5jE">
                                 <rect key="frame" x="155.5" y="86" width="64" height="64"/>
@@ -47,7 +47,7 @@
                             <constraint firstItem="Nf3-3o-ZsI" firstAttribute="top" secondItem="u9F-Ff-5jE" secondAttribute="bottom" constant="12" id="dSr-my-R5R"/>
                             <constraint firstItem="siV-Xe-3FZ" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eaz-3Y-5YI"/>
                             <constraint firstItem="Nf3-3o-ZsI" firstAttribute="centerX" secondItem="Ze5-6b-2t3" secondAttribute="centerX" id="kY9-6D-1E4"/>
-                            <constraint firstItem="siV-Xe-3FZ" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" constant="-20" id="okt-XO-nI6"/>
+                            <constraint firstItem="siV-Xe-3FZ" firstAttribute="top" secondItem="Ze5-6b-2t3" secondAttribute="topMargin" constant="-50" id="okt-XO-nI6"/>
                             <constraint firstItem="u9F-Ff-5jE" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="66" id="rx3-Jc-x2g"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
