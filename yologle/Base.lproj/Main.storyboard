@@ -105,7 +105,10 @@
                     </view>
                     <navigationItem key="navigationItem" id="LfO-mb-UTJ"/>
                     <connections>
+                        <outlet property="actionButton" destination="TP3-uO-1Ob" id="GdS-uW-hqq"/>
                         <outlet property="previewView" destination="ern-01-KZ0" id="Tv0-Mu-sJm"/>
+                        <outlet property="skipButton" destination="3EG-U9-OJW" id="PXV-09-O2J"/>
+                        <outlet property="trainButton" destination="ify-sD-cPz" id="6FZ-Li-zPP"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>

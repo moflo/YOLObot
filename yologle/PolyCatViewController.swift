@@ -101,7 +101,7 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
     
     override func viewWillAppear(_ animated: Bool) {
         
-//        doPreloadDataSet()
+        doPreloadDataSet()
         
 //        setupStatButtons()
         
@@ -133,7 +133,9 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
     // MARK: Dataset methods
     
     func doPreloadDataSet() {
-        
+    
+        self.imageView.image = self.dataSetObj?.currentImage
+
         setupStatButtons()
     }
     
@@ -153,6 +155,8 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
     
     func doSaveTrainingEvent(_ text:String) {
         guard let data = dataSetObj else { return }
+    
+        
     }
     
     func doEndGame() {
@@ -192,7 +196,7 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         else {
-            let buttonCorner = MFTrainButton(title: "OPTION1", icon: "icon_text", category: .goal)
+            let buttonCorner = MFTrainButton(title: "OPTION1", icon: "icon_text", category: .mark)
             buttonCorner.completionHandler = { (sender) in
                 self.showSelectedCateogory("OPTION1")
             }

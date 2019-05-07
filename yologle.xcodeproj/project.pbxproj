@@ -14,6 +14,7 @@
 		9186A9BB2281E6FB0095FB60 /* About.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9186A9BA2281E4170095FB60 /* About.txt */; };
 		9186A9BE2281E8DE0095FB60 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9BC2281E8DE0095FB60 /* AccountViewController.swift */; };
 		9186A9BF2281E8DE0095FB60 /* TermsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9BD2281E8DE0095FB60 /* TermsViewController.swift */; };
+		9186A9C2228231240095FB60 /* UserManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9C1228231230095FB60 /* UserManager.swift */; };
 		918EEA722280EC8D00920FF8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA712280EC8D00920FF8 /* AppDelegate.swift */; };
 		918EEA742280EC8D00920FF8 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA732280EC8D00920FF8 /* ViewController.swift */; };
 		918EEA772280EC8D00920FF8 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 918EEA752280EC8D00920FF8 /* Main.storyboard */; };
@@ -50,6 +51,7 @@
 		9186A9BA2281E4170095FB60 /* About.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = About.txt; sourceTree = "<group>"; };
 		9186A9BC2281E8DE0095FB60 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
 		9186A9BD2281E8DE0095FB60 /* TermsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TermsViewController.swift; sourceTree = "<group>"; };
+		9186A9C1228231230095FB60 /* UserManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UserManager.swift; sourceTree = "<group>"; };
 		918EEA6E2280EC8D00920FF8 /* yologle.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = yologle.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		918EEA712280EC8D00920FF8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		918EEA732280EC8D00920FF8 /* ViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewController.swift; sourceTree = "<group>"; };
@@ -130,6 +132,7 @@
 				918EEA982280F69000920FF8 /* SettingsViewController.swift */,
 				9186A9BC2281E8DE0095FB60 /* AccountViewController.swift */,
 				9186A9BD2281E8DE0095FB60 /* TermsViewController.swift */,
+				9186A9C1228231230095FB60 /* UserManager.swift */,
 				918EEAA22280FBA800920FF8 /* DataSetManager.swift */,
 				918EEA9A2280F9E600920FF8 /* PolyCatViewController.swift */,
 				918EEA9C2280FB0500920FF8 /* MFPolyEdit.swift */,
@@ -450,6 +453,7 @@
 			files = (
 				918EEA742280EC8D00920FF8 /* ViewController.swift in Sources */,
 				9186A9B6228122BF0095FB60 /* CameraViewController.swift in Sources */,
+				9186A9C2228231240095FB60 /* UserManager.swift in Sources */,
 				9186A9BE2281E8DE0095FB60 /* AccountViewController.swift in Sources */,
 				9186A9BF2281E8DE0095FB60 /* TermsViewController.swift in Sources */,
 				918EEA972280F67C00920FF8 /* ActionViewController.swift in Sources */,

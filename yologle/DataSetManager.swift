@@ -7,8 +7,8 @@
 //
 
 import UIKit
-//import Firebase
-//import FirebaseFirestore
+import Firebase
+import FirebaseFirestore
 
 struct MFResponse  {
     var user_id :String = UUID().uuidString
@@ -116,6 +116,8 @@ class MFDataSet {
     var responseCount :Int = 0
     var updatedAt :Date = Date()
     
+    var currentImage: UIImage? = nil
+    
     var dictionary: [String: Any] {
         return [
             "uuid": self.uuid,
@@ -145,6 +147,10 @@ class MFDataSet {
         self.training_type = MFTrainingType(rawValue: trainingType) ?? .textOCR
     }
     
+    convenience init(categoryArray: [String]) {
+        self.init()
+        self.categoryArray = categoryArray
+    }
 //    convenience init?(snapshot: DocumentSnapshot) {
 //        guard let dict = snapshot.data() else { return nil }
 //        self.init(dictionary: dict)
@@ -192,9 +198,88 @@ class DataSetManager : NSObject {
     
     // MARK: - Server Methods
     
-    func postTraining(_ data:MFDataSet?, duration: Int, categoryArray: [String]?) {
+    func postTraining(_ data:MFDataSet?, categoryArray: [String]?) {
         guard data != nil, categoryArray != nil else { return }
         
+        
+        
     }
+    
+    func uploadUserImage(_ userImageImage:UIImage?, completionHandler: @escaping (String?, Error?) -> (), progressHandler: @escaping (Float, String) -> () ) {
+        // Method to update the current user's information
+        
+        guard
+            let user = Auth.auth().currentUser,
+            userImageImage != nil,
+            let imageData = userImageImage!.pngData()
+            else {
+                
+                completionHandler(nil,NSError(domain: "Update User", code: -110, userInfo: nil))
+                return
+        }
+        
+        let storage = Storage.storage().reference()
+        let userImageRef = storage.child("userImage/\(user.uid)/image.png")
+        
+        progressHandler(15,"Uploading…")
+        
+        // Upload the file to with proper metadata
+        let metadata = StorageMetadata()
+        metadata.contentType = "image/png"
+        
+        let uploadTask = userImageRef.putData(imageData, metadata: metadata) { metadata, error in
+            guard error == nil else {
+                // Uh-oh, an error occurred!
+                progressHandler(1.0, "Error")
+                completionHandler(nil,error)
+                return
+            }
+            
+            // Metadata contains file metadata such as size, content-type, and download URL.
+            userImageRef.downloadURL { (url, error) in
+                guard let userImageURL = url else {
+                    progressHandler(1.0, "Error.")
+                    completionHandler(nil,error)
+                    return
+                }
+                let imageURL_string = userImageURL.absoluteString
+                
+                
+                // Update imageURL
+                progressHandler(1.0, "Done.")
+                completionHandler(imageURL_string,error)
+                
+            }
+            
+        }
+        
+        // Add observer
+        uploadTask.observe(.progress) { snapshot in
+            // A progress event occurred
+            let progress = snapshot.progress!.fractionCompleted
+            let progress_float = Float ( progress )
+            progressHandler( progress_float, "Uploading…")
+            
+        }
+        
+        // Remove observer
+        uploadTask.observe(.success) { snapshot in
+            // Remove observers...
+            uploadTask.removeAllObservers()
+            progressHandler(1.0, "Done.")
+            
+        }
+        
+        // Remove observer
+        uploadTask.observe(.failure) { snapshot in
+            // Remove observers...
+            uploadTask.removeAllObservers()
+            progressHandler(1.0, "Error.")
+            completionHandler(nil,NSError(domain: "Update User", code: -1, userInfo: ["message":"Upload error."]))
+            
+        }
+        
+    }
+
 }
 

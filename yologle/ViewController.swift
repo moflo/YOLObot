@@ -25,6 +25,22 @@ class ViewController: CameraViewController {
     @IBAction func doTrainButton(_ sender: Any) {
         let storyboard = UIStoryboard(name: "Main", bundle: nil)
         let vc = storyboard.instantiateViewController(withIdentifier: "TRAININGVIEW") as! UINavigationController
+        if let tc = vc.topViewController as? PolyCatViewController {
+            let dataSet = MFDataSet(
+                categoryArray:["Sign","Telephone","URL","UPC","Menu","Other"]
+            )
+            
+            if let pixelBuffer = previousPixelBuffer {
+                let exifOrientation = exifOrientationFromDeviceOrientation()
+
+                let ciImage = CIImage(cvImageBuffer: pixelBuffer)
+                ciImage.oriented(exifOrientation)
+                let uiImage = UIImage(ciImage: ciImage)
+                dataSet.currentImage = uiImage
+            }
+
+            tc.dataSetObj = dataSet
+        }
         self.present(vc, animated: true)
     }
     @IBAction func doSkipButton(_ sender: Any) {
@@ -37,6 +53,10 @@ class ViewController: CameraViewController {
             print("URL open :", done)
         })
     }
+
+    @IBOutlet weak var actionButton: UIButton!
+    @IBOutlet weak var skipButton: UIButton!
+    @IBOutlet weak var trainButton: UIButton!
 
 
     private var detectionViewOpen :Bool = false
@@ -108,6 +128,41 @@ class ViewController: CameraViewController {
         // Pause capture session
         self.stopCaptureSession()
     }
+    
+    override func stopCaptureSession() {
+        super.stopCaptureSession()
+        
+        UIView.animate(withDuration: 0.33, delay: 0.1, options: .curveEaseOut, animations: { () -> Void in
+            
+            self.actionButton.isHidden = false
+            self.trainButton.isHidden = false
+            self.skipButton.isHidden = false
+            
+            
+        }, completion: { (done) -> Void in
+            // Set underLine width
+            
+        })
+
+    }
+    
+    override func startCaptureSession() {
+        super.startCaptureSession()
+        
+        UIView.animate(withDuration: 0.33, delay: 0.1, options: .curveEaseOut, animations: { () -> Void in
+            
+            self.actionButton.isHidden = true
+            self.trainButton.isHidden = true
+            self.skipButton.isHidden = true
+            
+            
+        }, completion: { (done) -> Void in
+            // Set underLine width
+            
+        })
+        
+    }
+
     
     override func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
         guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer),
@@ -216,6 +271,17 @@ class ViewController: CameraViewController {
         shapeLayer.backgroundColor = CGColor(colorSpace: CGColorSpaceCreateDeviceRGB(), components: [1.0, 1.0, 0.2, 0.4])
         shapeLayer.cornerRadius = 7
         return shapeLayer
+    }
+
+    // MARK: - Navigation
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        // Get the new view controller using segue.destination.
+        // Pass the selected object to the new view controller.
+//        if segue.identifier == "scoreSegue" {
+//            let controller = segue.destination as! GameViewController
+//            controller.currentTeam = self.scoredTeam
+//        }
     }
 
 }
