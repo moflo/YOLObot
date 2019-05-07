@@ -29,10 +29,21 @@ class ViewController: CameraViewController {
     }
 
 
+    private var detectionViewOpen :Bool = false
     private var detectionOverlay: CALayer! = nil
     
     // Vision parts
     private var requests = [VNRequest]()
+
+    // Stability check
+    private let sequenceRequestHandler = VNSequenceRequestHandler()
+    private let maximumHistoryLength = 15
+    private var transpositionHistoryPoints: [CGPoint] = [ ]
+    private var previousPixelBuffer: CVPixelBuffer?
+    
+    // The current pixel buffer undergoing analysis. Run requests in a serial fashion, one after another.
+    private var currentlyAnalyzedPixelBuffer: CVPixelBuffer?
+
     
     @discardableResult
     func setupVision() -> NSError? {
@@ -61,6 +72,7 @@ class ViewController: CameraViewController {
     }
     
     func drawVisionRequestResults(_ results: [Any]) {
+        detectionViewOpen = true
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
         detectionOverlay.sublayers = nil // remove all the old recognized objects
@@ -82,10 +94,14 @@ class ViewController: CameraViewController {
         }
         self.updateLayerGeometry()
         CATransaction.commit()
+        
+        // Pause capture session
+        self.stopCaptureSession()
     }
     
     override func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer) else {
+        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer),
+                sceneStabilityAchieved(pixelBuffer) == true else {
             return
         }
         
@@ -194,3 +210,64 @@ class ViewController: CameraViewController {
 
 }
 
+extension ViewController {
+    
+    // MARK: - SceneStability Check
+    
+    func sceneStabilityAchieved(_ pixelBuffer: CVImageBuffer) -> Bool {
+        guard previousPixelBuffer != nil else {
+            previousPixelBuffer = pixelBuffer
+            self.resetTranspositionHistory()
+            return false
+        }
+        
+        if detectionViewOpen {
+            return false
+        }
+        
+        let registrationRequest = VNTranslationalImageRegistrationRequest(targetedCVPixelBuffer: pixelBuffer)
+        do {
+            try sequenceRequestHandler.perform([ registrationRequest ], on: previousPixelBuffer!)
+        } catch let error as NSError {
+            print("Failed to process request: \(error.localizedDescription).")
+            return false
+        }
+        
+        previousPixelBuffer = pixelBuffer
+        
+        if let results = registrationRequest.results {
+            if let alignmentObservation = results.first as? VNImageTranslationAlignmentObservation {
+                let alignmentTransform = alignmentObservation.alignmentTransform
+                self.recordTransposition(CGPoint(x: alignmentTransform.tx, y: alignmentTransform.ty))
+            }
+        }
+
+        // Determine if we have enough evidence of stability.
+        if transpositionHistoryPoints.count == maximumHistoryLength {
+            // Calculate the moving average.
+            var movingAverage: CGPoint = CGPoint.zero
+            for currentPoint in transpositionHistoryPoints {
+                movingAverage.x += currentPoint.x
+                movingAverage.y += currentPoint.y
+            }
+            let distance = abs(movingAverage.x) + abs(movingAverage.y)
+            if distance < 20 {
+                return true
+            }
+        }
+        return false
+    }
+
+    fileprivate func resetTranspositionHistory() {
+        transpositionHistoryPoints.removeAll()
+    }
+    
+    fileprivate func recordTransposition(_ point: CGPoint) {
+        transpositionHistoryPoints.append(point)
+        
+        if transpositionHistoryPoints.count > maximumHistoryLength {
+            transpositionHistoryPoints.removeFirst()
+        }
+    }
+
+}

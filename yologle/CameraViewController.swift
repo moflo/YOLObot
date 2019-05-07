@@ -100,6 +100,10 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
         session.startRunning()
     }
     
+    func stopCaptureSession() {
+        session.stopRunning()
+    }
+    
     // Clean up capture setup
     func teardownAVCapture() {
         previewLayer.removeFromSuperlayer()
