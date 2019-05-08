@@ -20,27 +20,29 @@
                         <subviews>
                             <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ern-01-KZ0">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
-                                <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bot_small_orange" translatesAutoresizingMaskIntoConstraints="NO" id="7w0-k6-df8">
-                                        <rect key="frame" x="167.5" y="44" width="40" height="40"/>
-                                        <constraints>
-                                            <constraint firstAttribute="height" constant="40" id="oo7-gm-aYG"/>
-                                            <constraint firstAttribute="width" constant="40" id="yzf-ck-w3o"/>
-                                        </constraints>
-                                    </imageView>
-                                </subviews>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <constraints>
-                                    <constraint firstItem="7w0-k6-df8" firstAttribute="top" secondItem="ern-01-KZ0" secondAttribute="top" constant="44" id="7Py-bc-7Y0"/>
-                                    <constraint firstItem="7w0-k6-df8" firstAttribute="centerX" secondItem="ern-01-KZ0" secondAttribute="centerX" id="R7X-Zl-p1C"/>
-                                </constraints>
                             </view>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="focus_large" translatesAutoresizingMaskIntoConstraints="NO" id="HOW-Uq-3jO">
+                                <rect key="frame" x="22" y="245" width="331" height="177"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="HOW-Uq-3jO" secondAttribute="height" multiplier="15:8" id="oRm-vY-Wqj"/>
+                                </constraints>
+                            </imageView>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bot_small_orange" translatesAutoresizingMaskIntoConstraints="NO" id="7w0-k6-df8">
+                                <rect key="frame" x="167.5" y="60" width="40" height="40"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="40" id="Oc8-nf-pXF"/>
+                                    <constraint firstAttribute="width" constant="40" id="qiT-Yk-piq"/>
+                                </constraints>
+                            </imageView>
                             <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ify-sD-cPz" customClass="MFRectIconButton" customModule="yologle" customModuleProvider="target">
                                 <rect key="frame" x="221" y="535" width="88" height="88"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="AHf-q0-edW"/>
                                     <constraint firstAttribute="width" constant="88" id="Z6K-rS-QjO"/>
                                 </constraints>
+                                <inset key="titleEdgeInsets" minX="-60" minY="52" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="15" minY="-20" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Add" image="icon_right_arrow">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -53,6 +55,8 @@
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="c4y-j5-iNf"/>
                                 </constraints>
+                                <inset key="titleEdgeInsets" minX="-74" minY="34" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="59" minY="-19" maxX="6" maxY="10"/>
                                 <state key="normal" title="Action" image="icon_redo">
                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -88,6 +92,8 @@
                                     <constraint firstAttribute="width" constant="88" id="if5-2l-LyE"/>
                                     <constraint firstAttribute="height" constant="88" id="zAW-hK-H8t"/>
                                 </constraints>
+                                <inset key="titleEdgeInsets" minX="-60" minY="52" maxX="0.0" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="15" minY="-20" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" title="Cancel" image="icon_close">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -99,11 +105,15 @@
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
                             <constraint firstItem="ern-01-KZ0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0zb-nV-ZqU"/>
+                            <constraint firstItem="7w0-k6-df8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5cH-n4-dQE"/>
                             <constraint firstItem="gOz-is-VjK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="44" id="7e0-9x-NuA"/>
+                            <constraint firstItem="HOW-Uq-3jO" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="9dC-cN-EVS"/>
+                            <constraint firstItem="HOW-Uq-3jO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="22" id="EQU-W1-sn2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3EG-U9-OJW" secondAttribute="bottom" constant="44" id="GKH-iW-tMa"/>
                             <constraint firstItem="ify-sD-cPz" firstAttribute="top" secondItem="TP3-uO-1Ob" secondAttribute="bottom" constant="10" id="Gft-Dj-lws"/>
                             <constraint firstItem="3EG-U9-OJW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="66" id="Txi-8b-vcy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ify-sD-cPz" secondAttribute="bottom" constant="44" id="bzM-ga-xuh"/>
+                            <constraint firstItem="7w0-k6-df8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="hYU-2X-zhw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gOz-is-VjK" secondAttribute="trailing" constant="44" id="iCx-mx-uqi"/>
                             <constraint firstItem="TP3-uO-1Ob" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="66" id="iEx-i9-ZKJ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TP3-uO-1Ob" secondAttribute="trailing" constant="66" id="j19-Nb-poj"/>
@@ -113,6 +123,7 @@
                             <constraint firstItem="vIS-N6-9Yx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="44" id="tny-8N-vWb"/>
                             <constraint firstItem="ern-01-KZ0" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="v7f-b8-8EB"/>
                             <constraint firstItem="ern-01-KZ0" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="vml-UG-nuH"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HOW-Uq-3jO" secondAttribute="trailing" constant="22" id="wqr-Et-2MN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -966,7 +977,7 @@
         <!--Terms-->
         <scene sceneID="wBR-b5-pQQ">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="29x-qd-9v2" customClass="TermsViewController" customModule="laxstats" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="29x-qd-9v2" customClass="TermsViewController" customModule="yologle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="m5S-ip-WZa">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -1018,12 +1029,12 @@
         <!--Account-->
         <scene sceneID="t7B-eM-9s4">
             <objects>
-                <viewController hidesBottomBarWhenPushed="YES" id="9QD-o9-2Q0" customClass="AccountViewController" customModule="laxstats" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController hidesBottomBarWhenPushed="YES" id="9QD-o9-2Q0" customClass="AccountViewController" customModule="yologle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7CW-6i-gHY">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_user" translatesAutoresizingMaskIntoConstraints="NO" id="28n-wK-KTa" customClass="MFImageViewUser" customModule="laxstats" customModuleProvider="target">
+                            <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="icon_user" translatesAutoresizingMaskIntoConstraints="NO" id="28n-wK-KTa" customClass="MFImageViewUser" customModule="yologle" customModuleProvider="target">
                                 <rect key="frame" x="155.5" y="86" width="64" height="64"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="64" id="T8E-nF-qT6"/>
@@ -1268,6 +1279,7 @@ Terms of Service                         Privacy Policy</string>
     <resources>
         <image name="bot_small_orange" width="128" height="128"/>
         <image name="bounding_box" width="680" height="490"/>
+        <image name="focus_large" width="300" height="300"/>
         <image name="icon_close" width="64" height="64"/>
         <image name="icon_redo" width="64" height="64"/>
         <image name="icon_right_arrow" width="64" height="64"/>

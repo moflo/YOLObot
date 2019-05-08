@@ -11,7 +11,6 @@ target 'yologle' do
     pod 'Crashlytics'
 
     pod 'SDWebImage'
-    pod 'Swifter'
     
     target 'yologleTests' do
         inherit! :search_paths

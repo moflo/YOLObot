@@ -287,7 +287,7 @@ class MFRectIconButton : UIButton {
             self.setNeedsDisplay()
         }
     }
-    var fontSize : CGFloat! = 22.0 {
+    var fontSize : CGFloat! = 15.0 {
         didSet {
             self.setNeedsDisplay()
         }

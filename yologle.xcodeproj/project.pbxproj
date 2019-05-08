@@ -42,6 +42,19 @@
 		};
 /* End PBXContainerItemProxy section */
 
+/* Begin PBXCopyFilesBuildPhase section */
+		9186A9D5228263650095FB60 /* Embed App Extensions */ = {
+			isa = PBXCopyFilesBuildPhase;
+			buildActionMask = 2147483647;
+			dstPath = "";
+			dstSubfolderSpec = 13;
+			files = (
+			);
+			name = "Embed App Extensions";
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+/* End PBXCopyFilesBuildPhase section */
+
 /* Begin PBXFileReference section */
 		179B143F114C07F7032FE172 /* Pods-yologleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yologleTests.debug.xcconfig"; path = "Target Support Files/Pods-yologleTests/Pods-yologleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		30F40DECC45A330E2F9DC548 /* Pods-yologle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yologle.debug.xcconfig"; path = "Target Support Files/Pods-yologle/Pods-yologle.debug.xcconfig"; sourceTree = "<group>"; };
@@ -202,6 +215,7 @@
 				FA17F425C97BADF245DE379B /* [CP] Embed Pods Frameworks */,
 				80042C1AF807959AF713F071 /* [CP] Copy Pods Resources */,
 				9186A9C0228203C90095FB60 /* ShellScript */,
+				9186A9D5228263650095FB60 /* Embed App Extensions */,
 			);
 			buildRules = (
 			);
