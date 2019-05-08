@@ -9,6 +9,7 @@
 import UIKit
 import Firebase
 
+
 @UIApplicationMain
 class AppDelegate: UIResponder, UIApplicationDelegate {
 
@@ -51,3 +52,30 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 }
 
+func DEBUG_LOG(_ event: String, details: String) {
+    Analytics.logEvent(event, parameters: [
+        "name": event as NSObject,
+        "full_text": details as NSObject
+        ])
+    
+    #if !(TARGET_OS_EMBEDDED)  // This will work for Mac or Simulator but excludes physical iOS devices
+    print("DEBUG_LOG: \(event), details: \(details)")
+    #endif
+}
+
+func DEBUG_CRASH(_ event: String, details: String) {
+    Analytics.logEvent("crash", parameters: [
+        "name": event as NSObject,
+        "full_text": details as NSObject
+        ])
+    
+    #if !(TARGET_OS_EMBEDDED)  // This will work for Mac or Simulator but excludes physical iOS devices
+    print("DEBUG_CRASH: \(event), details: \(details)")
+    #endif
+}
+
+func DEBUG_USER(name: String, email: String) {
+    Analytics.setUserProperty(name, forName: "name")
+    Analytics.setUserProperty(email, forName: "email")
+    
+}

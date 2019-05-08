@@ -8,11 +8,16 @@
 
 import UIKit
 import SafariServices
+import SwipeNavigationController
 
 class ActionViewController: UITableViewController {
 
+    var parentVC :SwipeNavigationController? = nil
+
     @IBAction func doDoneButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        parentVC?.showEmbeddedView(position: .center)
+
     }
 
     enum ACTIONS {
@@ -23,15 +28,9 @@ class ActionViewController: UITableViewController {
         static let INFO_SECTION = 3
     }
 
-    override func viewDidLoad() {
-        super.viewDidLoad()
-
-        // Uncomment the following line to preserve selection between presentations
-        // self.clearsSelectionOnViewWillAppear = false
-
-        // Uncomment the following line to display an Edit button in the navigation bar for this view controller.
-        // self.navigationItem.rightBarButtonItem = self.editButtonItem
-    }
+//    override func viewDidLoad() {
+//        super.viewDidLoad()
+//    }
 
     // MARK: - Table view data source
 
@@ -133,3 +132,54 @@ class ActionViewController: UITableViewController {
     */
 
 }
+
+extension ActionViewController : SwipeNavigationControllerDelegate {
+    
+    @objc public func setParent(_ parentVC:SwipeNavigationController?) {
+        self.parentVC = parentVC
+    }
+    
+    /// Callback when embedded view started moving to new position
+    func swipeNavigationController(_ controller: SwipeNavigationController, willShowEmbeddedViewForPosition position: Position) {
+        parentVC = controller
+    }
+    
+    /// Callback when embedded view had moved to new position
+    func swipeNavigationController(_ controller: SwipeNavigationController, didShowEmbeddedViewForPosition position: Position) {
+        parentVC = controller
+    }
+    
+    @IBAction func doHomeButton(_ sender: Any) {
+        parentVC?.showEmbeddedView(position: .center)
+    }
+    
+    override func viewDidLoad() {
+        super.viewDidLoad()
+        
+        // Do any additional setup after loading the view, typically from a nib.
+        //        view.backgroundColor = MFTableBackground()
+        //
+        //        self.navigationController?.navigationBar.barTintColor = MFNavBackground()
+        //        self.navigationController?.navigationBar.tintColor = MFNavTint()
+        //        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: MFNavText()]
+        
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "nav_home"), for: .normal)
+        button.addTarget(self, action: #selector(self.doHomeButton(_:)), for: .touchUpInside)
+        //set frame
+        button.frame = CGRect(x:0, y:0, width:30, height:30)
+        
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = barButton
+        
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+        DEBUG_LOG("OOM",details: "warning: \(#line) \(#function)")
+    }
+    
+}
+

@@ -9,39 +9,52 @@
 import UIKit
 import AVFoundation
 import Vision
+import SwipeNavigationController
 
 class ViewController: CameraViewController {
 
+    var parentVC :SwipeNavigationController? = nil
+    
+
     @IBAction func doHelpButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "ACCOUNTVIEW") as! UINavigationController
-        self.present(vc, animated: true)
+        // let storyboard = UIStoryboard(name: "Main", bundle: nil)
+        // let vc = storyboard.instantiateViewController(withIdentifier: "ACCOUNTVIEW") as! UINavigationController
+        // self.present(vc, animated: true)
+        parentVC?.showEmbeddedView(position: .top)
     }
     @IBAction func doSettingsButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "ACTIONSVIEW") as! UINavigationController
-        self.present(vc, animated: true)
+//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
+//        let vc = storyboard.instantiateViewController(withIdentifier: "ACTIONSVIEW") as! UINavigationController
+//        self.present(vc, animated: true)
+        parentVC?.showEmbeddedView(position: .left)
     }
-    @IBAction func doTrainButton(_ sender: Any) {
-        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        let vc = storyboard.instantiateViewController(withIdentifier: "TRAININGVIEW") as! UINavigationController
-        if let tc = vc.topViewController as? PolyCatViewController {
-            let dataSet = MFDataSet(
-                categoryArray:["Signage","Telephone","URL","UPC","Menu","Other"]
-            )
+    
+    func doInjectCurrentImage() {
+        guard let nc = parentVC?.rightViewController as? UINavigationController,
+            let tc = nc.viewControllers[0] as? PolyCatViewController else { return }
+        
+        let dataSet = MFDataSet(
+            categoryArray:["Signage","Telephone","URL","UPC","Menu","Other"]
+        )
+        
+        if let pixelBuffer = previousPixelBuffer {
+            let exifOrientation = exifOrientationFromDeviceOrientation()
             
-            if let pixelBuffer = previousPixelBuffer {
-                let exifOrientation = exifOrientationFromDeviceOrientation()
-
-                let ciImage = CIImage(cvImageBuffer: pixelBuffer)
-                ciImage.oriented(exifOrientation)
-                let uiImage = UIImage(ciImage: ciImage)
-                dataSet.currentImage = uiImage
-            }
-
-            tc.dataSetObj = dataSet
+            let ciImage = CIImage(cvImageBuffer: pixelBuffer)
+            ciImage.oriented(exifOrientation)
+            let uiImage = UIImage(ciImage: ciImage)
+            dataSet.currentImage = uiImage
         }
-        self.present(vc, animated: true)
+        
+        tc.dataSetObj = dataSet
+
+    }
+    
+    @IBAction func doTrainButton(_ sender: Any) {
+        doInjectCurrentImage()
+        //        self.present(vc, animated: true)
+        parentVC?.showEmbeddedView(position: .right)
+
     }
     @IBAction func doSkipButton(_ sender: Any) {
         self.startCaptureSession()
@@ -347,3 +360,30 @@ extension ViewController {
     }
 
 }
+
+extension ViewController : SwipeNavigationControllerDelegate {
+    
+    /// Callback when embedded view started moving to new position
+    func swipeNavigationController(_ controller: SwipeNavigationController, willShowEmbeddedViewForPosition position: Position) {
+        parentVC = controller
+        
+        // Check if user wants to Train / Add the current image
+        if position == .right {
+            doInjectCurrentImage()
+        }
+    }
+    
+    /// Callback when embedded view had moved to new position
+    func swipeNavigationController(_ controller: SwipeNavigationController, didShowEmbeddedViewForPosition position: Position) {
+        parentVC = controller
+    }
+    
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+        DEBUG_LOG("OOM",details: "warning: \(#line) \(#function)")
+    }
+    
+}
+

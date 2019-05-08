@@ -10,11 +10,15 @@ import UIKit
 import MessageUI
 //import Intercom
 //import Sherpa
+import SwipeNavigationController
 
 class SettingsViewController: UITableViewController, MFMailComposeViewControllerDelegate {
 
+    var parentVC :SwipeNavigationController? = nil
+    
     @IBAction func doDoneButton(_ sender: Any) {
-        self.dismiss(animated: true, completion: nil)
+//        self.dismiss(animated: true, completion: nil)
+        parentVC?.showEmbeddedView(position: .center)
     }
 
     enum SETTINGS {
@@ -97,6 +101,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         super.viewDidLoad()
         
         //        self.title = "Settings"
+        setupHomeButton()
         
         // Load About text
         let bundle = Bundle.main
@@ -239,4 +244,53 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         self.dismiss(animated: false, completion: nil)
     }
 
+}
+
+extension SettingsViewController : SwipeNavigationControllerDelegate {
+    
+    @objc public func setParent(_ parentVC:SwipeNavigationController?) {
+        self.parentVC = parentVC
+    }
+    
+    /// Callback when embedded view started moving to new position
+    func swipeNavigationController(_ controller: SwipeNavigationController, willShowEmbeddedViewForPosition position: Position) {
+        parentVC = controller
+    }
+    
+    /// Callback when embedded view had moved to new position
+    func swipeNavigationController(_ controller: SwipeNavigationController, didShowEmbeddedViewForPosition position: Position) {
+        parentVC = controller
+    }
+    
+    @IBAction func doHomeButton(_ sender: Any) {
+        parentVC?.showEmbeddedView(position: .center)
+    }
+    
+    func setupHomeButton() {
+        
+        // Do any additional setup after loading the view, typically from a nib.
+        //        view.backgroundColor = MFTableBackground()
+        //
+        //        self.navigationController?.navigationBar.barTintColor = MFNavBackground()
+        //        self.navigationController?.navigationBar.tintColor = MFNavTint()
+        //        self.navigationController?.navigationBar.titleTextAttributes = [NSForegroundColorAttributeName: MFNavText()]
+        
+        let button = UIButton(type: .custom)
+        button.setImage(UIImage(named: "nav_home"), for: .normal)
+        button.addTarget(self, action: #selector(self.doHomeButton(_:)), for: .touchUpInside)
+        //set frame
+        button.frame = CGRect(x:0, y:0, width:30, height:30)
+        
+        let barButton = UIBarButtonItem(customView: button)
+        self.navigationItem.leftBarButtonItem = barButton
+        
+        
+    }
+    
+    override func didReceiveMemoryWarning() {
+        super.didReceiveMemoryWarning()
+        // Dispose of any resources that can be recreated.
+        DEBUG_LOG("OOM",details: "warning: \(#line) \(#function)")
+    }
+    
 }

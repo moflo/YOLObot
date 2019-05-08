@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="mo8-EZ-XgS">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="zaX-5y-r8e">
     <device id="retina4_7" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
@@ -13,7 +13,7 @@
         <!--View Controller-->
         <scene sceneID="tne-QT-ifu">
             <objects>
-                <viewController id="BYZ-38-t0r" customClass="ViewController" customModule="yologle" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="CENTER" id="BYZ-38-t0r" customClass="ViewController" customModule="yologle" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="8bC-Xf-vdC">
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
@@ -70,9 +70,9 @@
                                     <constraint firstAttribute="height" constant="30" id="9sT-Ky-iPd"/>
                                     <constraint firstAttribute="width" constant="30" id="wBY-Ac-17v"/>
                                 </constraints>
-                                <state key="normal" image="icon_redo"/>
+                                <state key="normal" image="icon_settings"/>
                                 <connections>
-                                    <action selector="doSettingsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="5j0-J2-RKs"/>
+                                    <action selector="doHelpButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="MIE-fh-WQ2"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="vIS-N6-9Yx">
@@ -81,9 +81,9 @@
                                     <constraint firstAttribute="width" constant="30" id="37d-s0-zHz"/>
                                     <constraint firstAttribute="height" constant="30" id="HxI-6c-tzs"/>
                                 </constraints>
-                                <state key="normal" image="icon_settings"/>
+                                <state key="normal" image="icon_redo"/>
                                 <connections>
-                                    <action selector="doHelpButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="eqt-Gn-qBB"/>
+                                    <action selector="doSettingsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cAg-Zu-sfu"/>
                                 </connections>
                             </button>
                             <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3EG-U9-OJW" customClass="MFRectIconButton" customModule="yologle" customModuleProvider="target">
@@ -773,23 +773,6 @@
             </objects>
             <point key="canvasLocation" x="1460" y="558"/>
         </scene>
-        <!--Navigation Controller-->
-        <scene sceneID="mRB-dR-lKN">
-            <objects>
-                <navigationController navigationBarHidden="YES" id="mo8-EZ-XgS" sceneMemberID="viewController">
-                    <nil key="simulatedTopBarMetrics"/>
-                    <nil key="simulatedBottomBarMetrics"/>
-                    <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="RUm-Jx-R5f">
-                        <autoresizingMask key="autoresizingMask"/>
-                    </navigationBar>
-                    <connections>
-                        <segue destination="BYZ-38-t0r" kind="relationship" relationship="rootViewController" id="yCZ-YG-Pzj"/>
-                    </connections>
-                </navigationController>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="l0M-1e-bJR" userLabel="First Responder" sceneMemberID="firstResponder"/>
-            </objects>
-            <point key="canvasLocation" x="-273" y="137"/>
-        </scene>
         <!--Poly Cat View Controller-->
         <scene sceneID="msN-lX-7LI">
             <objects>
@@ -1274,6 +1257,40 @@ Terms of Service                         Privacy Policy</string>
                 </tapGestureRecognizer>
             </objects>
             <point key="canvasLocation" x="641" y="-1144"/>
+        </scene>
+        <!--Swipe View Controller-->
+        <scene sceneID="v4W-sp-1vY">
+            <objects>
+                <viewController id="zaX-5y-r8e" customClass="SwipeViewController" customModule="yologle" customModuleProvider="target" sceneMemberID="viewController">
+                    <layoutGuides>
+                        <viewControllerLayoutGuide type="top" id="hoK-Wf-Sx7"/>
+                        <viewControllerLayoutGuide type="bottom" id="usG-L9-ilv"/>
+                    </layoutGuides>
+                    <view key="view" contentMode="scaleToFill" id="Bxg-hZ-okY">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bot_small_orange" translatesAutoresizingMaskIntoConstraints="NO" id="0oM-jo-2LB">
+                                <rect key="frame" x="56" y="60" width="263" height="200"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="200" id="snF-tx-f6G"/>
+                                </constraints>
+                            </imageView>
+                        </subviews>
+                        <color key="backgroundColor" white="0.33333333329999998" alpha="1" colorSpace="calibratedWhite"/>
+                        <constraints>
+                            <constraint firstItem="0oM-jo-2LB" firstAttribute="top" secondItem="hoK-Wf-Sx7" secondAttribute="bottom" constant="40" id="8fw-jq-VmL"/>
+                            <constraint firstItem="0oM-jo-2LB" firstAttribute="leading" secondItem="Bxg-hZ-okY" secondAttribute="leadingMargin" constant="40" id="8we-dc-M5P"/>
+                            <constraint firstItem="0oM-jo-2LB" firstAttribute="centerX" secondItem="Bxg-hZ-okY" secondAttribute="centerX" id="YLI-3C-LWj"/>
+                            <constraint firstAttribute="trailingMargin" secondItem="0oM-jo-2LB" secondAttribute="trailing" constant="40" id="ik9-ee-gYm"/>
+                        </constraints>
+                        <viewLayoutGuide key="safeArea" id="hRI-m9-BtD"/>
+                    </view>
+                    <simulatedStatusBarMetrics key="simulatedStatusBarMetrics" statusBarStyle="lightContent"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="nis-Kr-SxG" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-236" y="135"/>
         </scene>
     </scenes>
     <resources>
