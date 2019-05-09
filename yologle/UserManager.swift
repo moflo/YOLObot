@@ -11,6 +11,53 @@ import Firebase
 import FirebaseFirestore
 import FirebaseUI
 
+enum MFActionType :String {
+    case phone = "phoneCall"
+    case map = "streetAddress"
+    case email = "emailAddress"
+    case food = "foodItem"
+    case upc = "barCode"
+    case qr = "QRCode"
+    case meishi = "businessCard"
+    
+    func defaultAction() -> String {
+        switch self {
+        case .phone : return "Phone Call"
+        case .map : return "Open Maps"
+        case .email : return "Send Email"
+        case .food : return "Lookup Calories"
+        case .upc : return "Lookup Bar Code"
+        case .qr : return "Scan QRCode"
+        case .meishi : return "Import Biz Card"
+        }
+    }
+    
+    func payloadInfo() -> String {
+        switch self {
+        case .phone : return "Phone number to call"
+        case .map : return "Street address infomation"
+        case .email : return "Email address"
+        case .food : return "Food item information"
+        case .upc : return "UPC Code details"
+        case .qr : return "QR Code details"
+        case .meishi : return "Contact information"
+        }
+    }
+}
+
+struct MFActionItem {
+    var activity :MFActionType = .phone
+    var useDefault :Bool = true
+    var scriptName :String = ""
+
+    init() {
+    }
+    
+    init(_ activity :MFActionType) {
+        self.init()
+        self.activity = activity
+    }
+}
 
 struct MFUser {
     // User class object
@@ -23,6 +70,15 @@ struct MFUser {
     var provider :String? = nil
     var avatar_url :String
     var fbid :String? = nil
+    var defaultActions :[MFActionType:MFActionItem] = [
+        .phone      : MFActionItem(.phone),
+        .map        : MFActionItem(.map),
+        .email      : MFActionItem(.email),
+        .food       : MFActionItem(.food),
+        .upc        : MFActionItem(.upc),
+        .qr         : MFActionItem(.qr),
+        .meishi     : MFActionItem(.meishi)
+    ]
     var updatedAt :Timestamp = Timestamp()
     
     var dictionary: [String: Any] {
