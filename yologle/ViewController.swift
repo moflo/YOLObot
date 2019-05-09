@@ -27,21 +27,35 @@ class ViewController: CameraViewController {
         parentVC?.showEmbeddedView(position: .left)
     }
     
-    func MFScaleUIImage(_ image:UIImage, width:Double, height:Double) -> UIImage {
-        guard height != 0.0, width != 0.0 else { return image }
+    func MFScaleCenterUIImage(_ image:UIImage, width:Double, height:Double) -> UIImage {
+        guard height != 0.0, width != 0.0, let cgImage = image.cgImage else { return image }
         
         let hasAlpha = false
         let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
         
-        let scaled_rect = AVMakeRect(aspectRatio: image.size,insideRect: CGRect(x:0, y:0, width:width, height:height))
-
+//        let scaled_rect = AVMakeRect(aspectRatio: image.size,insideRect: CGRect(x:0, y:0, width:width, height:height))
+        
+        
         let size = CGSize(width: CGFloat(width), height: CGFloat(height))
-
+        let sizeRect = CGRect(x:0, y:0, width:width, height:height)
+        
+        let imgW = image.size.width
+        let imgH = image.size.height
+        let minDim = CGFloat.minimum(imgW,imgH)
+        let maxDim = CGFloat.maximum(imgW,imgH)
+        
+        let Yoffset = minDim == imgW ? (maxDim - minDim) * 0.5 : 0.0
+        let Xoffset = minDim == imgW ? 0.0 : (maxDim - minDim) * 0.5
+        
+        let cropRect = CGRect(x: Xoffset, y: Yoffset, width: minDim, height: minDim)
+        guard let crop = cgImage.cropping(to: cropRect) else { return image }
+        let cropImage = UIImage(cgImage: crop)
+        
         UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
-        let context = UIGraphicsGetCurrentContext()
-        context?.clip(to: CGRect(x:0, y:0, width:width, height:height))
-
-        image.draw(in: scaled_rect)
+//        let context = UIGraphicsGetCurrentContext()
+        //        context?.clip(to: sizeRect)
+        
+        cropImage.draw(in: sizeRect)
         
         let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
         UIGraphicsEndImageContext()
@@ -67,7 +81,7 @@ class ViewController: CameraViewController {
             }
             let rotatedImage = UIImage(cgImage: cgImage, scale: 1.0, orientation: .right)
 
-            dataSet.currentImage = MFScaleUIImage(rotatedImage,width: 416.0,height: 416.0)
+            dataSet.currentImage = MFScaleCenterUIImage(rotatedImage,width: 416.0,height: 416.0)
         }
         
         tc.dataSetObj = dataSet
