@@ -17,18 +17,39 @@ class ViewController: CameraViewController {
     
 
     @IBAction func doHelpButton(_ sender: Any) {
-        // let storyboard = UIStoryboard(name: "Main", bundle: nil)
-        // let vc = storyboard.instantiateViewController(withIdentifier: "ACCOUNTVIEW") as! UINavigationController
-        // self.present(vc, animated: true)
+        self.detectionViewOpen = false
+        self.resetTranspositionHistory()
         parentVC?.showEmbeddedView(position: .top)
     }
     @IBAction func doSettingsButton(_ sender: Any) {
-//        let storyboard = UIStoryboard(name: "Main", bundle: nil)
-//        let vc = storyboard.instantiateViewController(withIdentifier: "ACTIONSVIEW") as! UINavigationController
-//        self.present(vc, animated: true)
+        self.detectionViewOpen = false
+        self.resetTranspositionHistory()
         parentVC?.showEmbeddedView(position: .left)
     }
     
+    func MFScaleUIImage(_ image:UIImage, width:Double, height:Double) -> UIImage {
+        guard height != 0.0, width != 0.0 else { return image }
+        
+        let hasAlpha = false
+        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+        
+        let scaled_rect = AVMakeRect(aspectRatio: image.size,insideRect: CGRect(x:0, y:0, width:width, height:height))
+
+        let size = CGSize(width: CGFloat(width), height: CGFloat(height))
+
+        UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
+        let context = UIGraphicsGetCurrentContext()
+        context?.clip(to: CGRect(x:0, y:0, width:width, height:height))
+
+        image.draw(in: scaled_rect)
+        
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return scaledImage!
+        
+    }
+
     func doInjectCurrentImage() {
         guard let nc = parentVC?.rightViewController as? UINavigationController,
             let tc = nc.viewControllers[0] as? PolyCatViewController else { return }
@@ -38,12 +59,15 @@ class ViewController: CameraViewController {
         )
         
         if let pixelBuffer = previousPixelBuffer {
-            let exifOrientation = exifOrientationFromDeviceOrientation()
-            
-            let ciImage = CIImage(cvImageBuffer: pixelBuffer)
-            ciImage.oriented(exifOrientation)
-            let uiImage = UIImage(ciImage: ciImage)
-            dataSet.currentImage = uiImage
+//            let exifOrientation = exifOrientationFromDeviceOrientation()
+            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+            let context = CIContext(options: nil)
+            guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
+                return
+            }
+            let rotatedImage = UIImage(cgImage: cgImage, scale: 1.0, orientation: .right)
+
+            dataSet.currentImage = MFScaleUIImage(rotatedImage,width: 416.0,height: 416.0)
         }
         
         tc.dataSetObj = dataSet
@@ -51,12 +75,16 @@ class ViewController: CameraViewController {
     }
     
     @IBAction func doTrainButton(_ sender: Any) {
+        self.detectionViewOpen = false
+        self.resetTranspositionHistory()
         doInjectCurrentImage()
         //        self.present(vc, animated: true)
         parentVC?.showEmbeddedView(position: .right)
 
     }
     @IBAction func doSkipButton(_ sender: Any) {
+        self.detectionViewOpen = false
+        self.resetTranspositionHistory()
         self.startCaptureSession()
     }
     @IBAction func doActionButton(_ sender: Any) {
@@ -83,6 +111,7 @@ class ViewController: CameraViewController {
     private let maximumHistoryLength = 15
     private var transpositionHistoryPoints: [CGPoint] = [ ]
     private var previousPixelBuffer: CVPixelBuffer?
+    @IBOutlet weak var stabilityImageView: UIImageView!
     
     // The current pixel buffer undergoing analysis. Run requests in a serial fashion, one after another.
     private var currentlyAnalyzedPixelBuffer: CVPixelBuffer?
@@ -115,6 +144,12 @@ class ViewController: CameraViewController {
     }
     
     func drawVisionRequestResults(_ results: [Any]) {
+        guard results.count > 0 else {
+            self.showStabilityImage(false)
+            self.resetTranspositionHistory()
+            return
+        }
+        var obervations = [VNClassificationObservation]()
         detectionViewOpen = true
         CATransaction.begin()
         CATransaction.setValue(kCFBooleanTrue, forKey: kCATransactionDisableActions)
@@ -125,6 +160,8 @@ class ViewController: CameraViewController {
             }
             // Select only the label with the highest confidence.
             let topLabelObservation = objectObservation.labels[0]
+            obervations.append(topLabelObservation)
+            
             let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
             
             let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
@@ -136,12 +173,21 @@ class ViewController: CameraViewController {
             detectionOverlay.addSublayer(shapeLayer)
         }
         self.updateLayerGeometry()
+        self.updateObservationLabel(obervations)
         CATransaction.commit()
         
         // Pause capture session
         self.stopCaptureSession()
     }
     
+    func updateObservationLabel(_ obervations: [VNClassificationObservation]) {
+        guard obervations.count > 0 else { return }
+        
+        let max_label = obervations.sorted(by: { $0.confidence > $1.confidence } )[0].identifier
+        self.actionButton.setTitle(max_label, for: .normal)
+        self.actionButton.setTitle(max_label, for: .highlighted)
+    }
+
     override func stopCaptureSession() {
         super.stopCaptureSession()
         
@@ -302,11 +348,19 @@ class ViewController: CameraViewController {
 extension ViewController {
     
     // MARK: - SceneStability Check
+    func showStabilityImage(_ isStable: Bool) {
+        DispatchQueue.main.async(execute: {
+            let image_name = isStable ? "focus_large_active" : "focus_large"
+            self.stabilityImageView.image = UIImage(named: image_name)
+            
+        })
+    }
     
     func sceneStabilityAchieved(_ pixelBuffer: CVImageBuffer) -> Bool {        
         guard previousPixelBuffer != nil else {
             previousPixelBuffer = pixelBuffer
             self.resetTranspositionHistory()
+            self.showStabilityImage(false)
             return false
         }
         
@@ -341,9 +395,11 @@ extension ViewController {
             }
             let distance = abs(movingAverage.x) + abs(movingAverage.y)
             if distance < 20 {
+                self.showStabilityImage(true)
                 return true
             }
         }
+        self.showStabilityImage(false)
         return false
     }
 

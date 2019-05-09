@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ern-01-KZ0">
+                            <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ern-01-KZ0">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
@@ -132,6 +132,7 @@
                         <outlet property="actionButton" destination="TP3-uO-1Ob" id="GdS-uW-hqq"/>
                         <outlet property="previewView" destination="ern-01-KZ0" id="Tv0-Mu-sJm"/>
                         <outlet property="skipButton" destination="3EG-U9-OJW" id="PXV-09-O2J"/>
+                        <outlet property="stabilityImageView" destination="HOW-Uq-3jO" id="p0r-Py-tky"/>
                         <outlet property="trainButton" destination="ify-sD-cPz" id="6FZ-Li-zPP"/>
                     </connections>
                 </viewController>
@@ -773,7 +774,7 @@
             </objects>
             <point key="canvasLocation" x="1460" y="558"/>
         </scene>
-        <!--Poly Cat View Controller-->
+        <!--Add Item-->
         <scene sceneID="msN-lX-7LI">
             <objects>
                 <viewController id="Hhk-Ne-UGq" customClass="PolyCatViewController" customModule="yologle" customModuleProvider="target" sceneMemberID="viewController">
@@ -782,7 +783,7 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ERg-os-Ogm">
-                                <rect key="frame" x="321" y="10" width="32" height="32"/>
+                                <rect key="frame" x="321" y="66" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="JPu-Hf-reP"/>
                                     <constraint firstAttribute="width" constant="32" id="oUA-VO-NF9"/>
@@ -795,7 +796,7 @@
                                 </connections>
                             </button>
                             <button hidden="YES" opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="u9z-9n-3XE">
-                                <rect key="frame" x="22" y="10" width="32" height="32"/>
+                                <rect key="frame" x="22" y="66" width="32" height="32"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="32" id="1W3-kO-Epk"/>
                                     <constraint firstAttribute="width" constant="32" id="OOP-Yh-3HH"/>
@@ -808,7 +809,7 @@
                                 </connections>
                             </button>
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q11-yc-g03">
-                                <rect key="frame" x="0.0" y="99" width="375" height="375"/>
+                                <rect key="frame" x="0.0" y="143" width="375" height="375"/>
                                 <subviews>
                                     <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bounding_box" translatesAutoresizingMaskIntoConstraints="NO" id="ZJp-oy-WOR" customClass="BoundingBoxView" customModule="yologle" customModuleProvider="target">
                                         <rect key="frame" x="0.0" y="0.0" width="680" height="490"/>
@@ -826,14 +827,14 @@
                                 </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lkQ-XH-UPd">
-                                <rect key="frame" x="0.0" y="91" width="375" height="8"/>
+                                <rect key="frame" x="0.0" y="135" width="375" height="8"/>
                                 <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="8" id="NP4-33-gab"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O13-fM-hXh" customClass="MFTrainingButtonView" customModule="yologle" customModuleProvider="target">
-                                <rect key="frame" x="0.0" y="484" width="375" height="133"/>
+                                <rect key="frame" x="0.0" y="528" width="375" height="89"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="aUj-10-4qH">
@@ -873,7 +874,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Help us learn this item" textAlignment="center" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="h6Z-ov-7SB">
-                                <rect key="frame" x="20" y="42" width="335" height="22"/>
+                                <rect key="frame" x="20" y="86" width="335" height="22"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="22" id="uSX-xk-0La"/>
                                 </constraints>
@@ -895,14 +896,14 @@
                             <constraint firstItem="h6Z-ov-7SB" firstAttribute="leading" secondItem="rgj-7r-5VJ" secondAttribute="leading" constant="20" id="EoV-nW-2ts"/>
                             <constraint firstItem="h6Z-ov-7SB" firstAttribute="top" secondItem="rgj-7r-5VJ" secondAttribute="top" constant="22" id="GZy-eC-n9d"/>
                             <constraint firstItem="TK9-zN-RH6" firstAttribute="leading" secondItem="aUj-10-4qH" secondAttribute="trailing" constant="10" id="HD7-LF-Gzr"/>
-                            <constraint firstItem="ERg-os-Ogm" firstAttribute="top" secondItem="aQx-9j-fbe" secondAttribute="top" constant="10" id="Ork-FL-1qp"/>
+                            <constraint firstItem="ERg-os-Ogm" firstAttribute="top" secondItem="aQx-9j-fbe" secondAttribute="top" constant="66" id="Ork-FL-1qp"/>
                             <constraint firstItem="aUj-10-4qH" firstAttribute="leading" secondItem="rgj-7r-5VJ" secondAttribute="leading" constant="10" id="QMC-vI-ePi"/>
                             <constraint firstItem="lkQ-XH-UPd" firstAttribute="leading" secondItem="rgj-7r-5VJ" secondAttribute="leading" id="Ssh-el-DKV"/>
                             <constraint firstItem="q11-yc-g03" firstAttribute="top" secondItem="rgj-7r-5VJ" secondAttribute="top" constant="79" id="TY5-GJ-Lro"/>
                             <constraint firstItem="O13-fM-hXh" firstAttribute="bottom" secondItem="rgj-7r-5VJ" secondAttribute="bottom" constant="-50" id="YTk-66-wlV"/>
                             <constraint firstItem="q11-yc-g03" firstAttribute="top" secondItem="lkQ-XH-UPd" secondAttribute="bottom" id="Z2U-ea-FiY"/>
                             <constraint firstItem="O13-fM-hXh" firstAttribute="top" secondItem="q11-yc-g03" secondAttribute="bottom" constant="10" id="czI-kS-DOr"/>
-                            <constraint firstItem="u9z-9n-3XE" firstAttribute="top" secondItem="aQx-9j-fbe" secondAttribute="top" constant="10" id="j3b-YO-gqF"/>
+                            <constraint firstItem="u9z-9n-3XE" firstAttribute="top" secondItem="aQx-9j-fbe" secondAttribute="top" constant="66" id="j3b-YO-gqF"/>
                             <constraint firstItem="rgj-7r-5VJ" firstAttribute="trailing" secondItem="WXj-fy-OJL" secondAttribute="trailing" constant="10" id="jOd-Cr-Fhr"/>
                             <constraint firstItem="rgj-7r-5VJ" firstAttribute="trailing" secondItem="ERg-os-Ogm" secondAttribute="trailing" constant="22" id="rTc-6D-FnG"/>
                             <constraint firstItem="u9z-9n-3XE" firstAttribute="leading" secondItem="rgj-7r-5VJ" secondAttribute="leading" constant="22" id="sAb-G8-caS"/>
@@ -910,8 +911,7 @@
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="rgj-7r-5VJ"/>
                     </view>
-                    <navigationItem key="navigationItem" id="TdY-hA-0dU"/>
-                    <nil key="simulatedTopBarMetrics"/>
+                    <navigationItem key="navigationItem" title="Add Item" id="TdY-hA-0dU"/>
                     <nil key="simulatedBottomBarMetrics"/>
                     <connections>
                         <outlet property="imageView" destination="ZJp-oy-WOR" id="lgm-An-Mlc"/>
@@ -927,10 +927,10 @@
         <!--Navigation Controller-->
         <scene sceneID="jTe-ri-hjw">
             <objects>
-                <navigationController storyboardIdentifier="TRAININGVIEW" extendedLayoutIncludesOpaqueBars="YES" navigationBarHidden="YES" id="ImY-iQ-CmC" sceneMemberID="viewController">
-                    <nil key="simulatedTopBarMetrics"/>
+                <navigationController storyboardIdentifier="TRAININGVIEW" extendedLayoutIncludesOpaqueBars="YES" id="ImY-iQ-CmC" sceneMemberID="viewController">
                     <nil key="simulatedBottomBarMetrics"/>
                     <navigationBar key="navigationBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="ZNF-8r-cpP">
+                        <rect key="frame" x="0.0" y="20" width="375" height="44"/>
                         <autoresizingMask key="autoresizingMask"/>
                     </navigationBar>
                     <connections>
