@@ -228,6 +228,10 @@ class UserManager : NSObject {
         return (uuid,points,Double(exchangeRate),name,email,url)
     }
 
+    func getUserDefaultActions() -> [MFActionType:MFActionItem] {
+        return self.userObj.defaultActions
+    }
+    
     func getUserTotalPoints() -> Int {
         return self.userObj.points
     }

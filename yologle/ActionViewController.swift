@@ -20,15 +20,29 @@ class ActionViewController: UITableViewController {
 
     }
 
+    let ACTION_ORDER :[MFActionType] = [.phone,.map,.email,.upc,.qr,.meishi,.food]
     enum ACTIONS {
-        static let SECTION_COUNT = 4
+        static let SECTION_COUNT = 7
         static let PHONE_SECTION = 0
-        static let SETTINGS_SECTION = 1
-        static let HELP_SECTION = 2
-        static let INFO_SECTION = 3
+        static let MAP_SECTION = 1
+        static let EMAIL_SECTION = 2
+        static let UPC_SECTION = 3
+        static let QR_SECTION = 4
+        static let CARD_SECTION = 5
+        static let FOOD_SECTION = 6
     }
 
-//    override func viewDidLoad() {
+    @IBOutlet weak var dialAction: UILabel!
+    @IBOutlet weak var mapAction: UILabel!
+    @IBOutlet weak var emailAction: UILabel!
+    @IBOutlet weak var upcAction: UILabel!
+    @IBOutlet weak var qrAction: UILabel!
+    @IBOutlet weak var cardAction: UILabel!
+    @IBOutlet weak var foodAction: UILabel!
+    
+    var selectedSection = -1
+    
+    //    override func viewDidLoad() {
 //        super.viewDidLoad()
 //    }
 
@@ -40,6 +54,12 @@ class ActionViewController: UITableViewController {
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
+        // Save section selection for segue
+        selectedSection = indexPath.section
+    
+        self.performSegue(withIdentifier: "setActionSegue", sender: self)
+        
+        /*
         if indexPath.section == ACTIONS.PHONE_SECTION {
             let alert = UIAlertController(title: "Phone Number", message: "Run shortcut?", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
@@ -58,7 +78,7 @@ class ActionViewController: UITableViewController {
             
         }
 
-        if indexPath.section == ACTIONS.SETTINGS_SECTION {
+        if indexPath.section == ACTIONS.MAP_SECTION {
             let alert = UIAlertController(title: "Coffee Cup", message: "Run shortcut?", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Run", style: UIAlertAction.Style.default, handler: {
@@ -73,63 +93,24 @@ class ActionViewController: UITableViewController {
             self.present(alert, animated: true, completion: nil)
 
         }
-
+        */
     }
 
-    /*
-    override func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "reuseIdentifier", for: indexPath)
-
-        // Configure the cell...
-
-        return cell
-    }
-    */
-
-    /*
-    // Override to support conditional editing of the table view.
-    override func tableView(_ tableView: UITableView, canEditRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the specified item to be editable.
-        return true
-    }
-    */
-
-    /*
-    // Override to support editing the table view.
-    override func tableView(_ tableView: UITableView, commit editingStyle: UITableViewCellEditingStyle, forRowAt indexPath: IndexPath) {
-        if editingStyle == .delete {
-            // Delete the row from the data source
-            tableView.deleteRows(at: [indexPath], with: .fade)
-        } else if editingStyle == .insert {
-            // Create a new instance of the appropriate class, insert it into the array, and add a new row to the table view
-        }    
-    }
-    */
-
-    /*
-    // Override to support rearranging the table view.
-    override func tableView(_ tableView: UITableView, moveRowAt fromIndexPath: IndexPath, to: IndexPath) {
-
-    }
-    */
-
-    /*
-    // Override to support conditional rearranging of the table view.
-    override func tableView(_ tableView: UITableView, canMoveRowAt indexPath: IndexPath) -> Bool {
-        // Return false if you do not want the item to be re-orderable.
-        return true
-    }
-    */
-
-    /*
     // MARK: - Navigation
 
     // In a storyboard-based application, you will often want to do a little preparation before navigation
+    
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         // Get the new view controller using segue.destination.
-        // Pass the selected object to the new view controller.
+        if segue.identifier == "setActionSegue" {
+            guard let nc = segue.destination as? UINavigationController,
+                let vc = nc.viewControllers[0] as? SetActionViewController else { return }
+            
+            vc.selectedAction = ACTION_ORDER[selectedSection]
+            
+        }
+
     }
-    */
 
 }
 
