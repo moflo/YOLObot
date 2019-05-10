@@ -42,10 +42,25 @@ class ActionViewController: UITableViewController {
     
     var selectedSection = -1
     
-    //    override func viewDidLoad() {
+//    override func viewDidLoad() {
 //        super.viewDidLoad()
 //    }
 
+    override func viewWillAppear(_ animated: Bool) {
+        super.viewWillAppear(animated)
+        
+        let actions = UserManager.sharedInstance.getUserDefaultActions()
+        
+        dialAction.text = actions[.phone]?.actionTitle()
+        mapAction.text = actions[.map]?.actionTitle()
+        emailAction.text = actions[.email]?.actionTitle()
+        upcAction.text = actions[.upc]?.actionTitle()
+        qrAction.text = actions[.qr]?.actionTitle()
+        cardAction.text = actions[.meishi]?.actionTitle()
+        foodAction.text = actions[.food]?.actionTitle()
+
+    }
+    
     // MARK: - Table view data source
 
     override func numberOfSections(in tableView: UITableView) -> Int {

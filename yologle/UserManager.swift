@@ -20,6 +20,18 @@ enum MFActionType :String {
     case qr = "QRCode"
     case meishi = "businessCard"
     
+    func title() -> String {
+        switch self {
+        case .phone : return "Phone Number"
+        case .map : return "Street Address"
+        case .email : return "Email Address"
+        case .food : return "Food or Meal"
+        case .upc : return "Bar Code"
+        case .qr : return "QR Code"
+        case .meishi : return "Business Card"
+        }
+    }
+
     func defaultAction() -> String {
         switch self {
         case .phone : return "Phone Call"
@@ -31,7 +43,7 @@ enum MFActionType :String {
         case .meishi : return "Import Biz Card"
         }
     }
-    
+
     func payloadInfo() -> String {
         switch self {
         case .phone : return "Phone number to call"
@@ -48,7 +60,7 @@ enum MFActionType :String {
 struct MFActionItem {
     var activity :MFActionType = .phone
     var useDefault :Bool = true
-    var scriptName :String = ""
+    var scriptName :String? = nil
 
     init() {
     }
@@ -56,6 +68,11 @@ struct MFActionItem {
     init(_ activity :MFActionType) {
         self.init()
         self.activity = activity
+    }
+    
+    func actionTitle() -> String {
+        return self.useDefault ? activity.defaultAction() : "Shortcut '\(self.scriptName ?? "")'"
+        
     }
 }
 
