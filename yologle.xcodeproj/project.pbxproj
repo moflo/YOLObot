@@ -740,7 +740,7 @@
 				918EEA8A2280EC8F00920FF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		918EEA8B2280EC8F00920FF8 /* Build configuration list for PBXNativeTarget "yologle" */ = {
 			isa = XCConfigurationList;
@@ -749,7 +749,7 @@
 				918EEA8D2280EC8F00920FF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 		918EEA8E2280EC8F00920FF8 /* Build configuration list for PBXNativeTarget "yologleTests" */ = {
 			isa = XCConfigurationList;
@@ -758,7 +758,7 @@
 				918EEA902280EC8F00920FF8 /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
-			defaultConfigurationName = Release;
+			defaultConfigurationName = Debug;
 		};
 /* End XCConfigurationList section */
 	};

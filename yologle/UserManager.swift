@@ -11,7 +11,7 @@ import Firebase
 import FirebaseFirestore
 import FirebaseUI
 
-enum MFActionType :String {
+enum MFActionType :String, Codable {
     case phone = "phoneCall"
     case map = "streetAddress"
     case email = "emailAddress"
@@ -57,7 +57,7 @@ enum MFActionType :String {
     }
 }
 
-struct MFActionItem {
+struct MFActionItem : Codable {
     var activity :MFActionType = .phone
     var useDefault :Bool = true
     var scriptName :String? = nil
@@ -76,7 +76,8 @@ struct MFActionItem {
     }
 }
 
-struct MFUser {
+class MFUser : NSObject, NSCoding {
+    
     // User class object
     var uuid :String = UUID().uuidString
     var points :Int = 0
@@ -99,6 +100,14 @@ struct MFUser {
     var updatedAt :Timestamp = Timestamp()
     
     var dictionary: [String: Any] {
+        var action_json_str = "{}"
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(defaultActions) {
+            if let str = String(data: data, encoding: .utf8) {
+                action_json_str = str
+            }
+        }
+
         return [
             "uuid": self.uuid,
             "points": self.points,
@@ -109,21 +118,22 @@ struct MFUser {
             "provider": self.provider ?? "",
             "avatar_url": self.avatar_url,
             "fbid": self.fbid ?? "",
+            "action_json": action_json_str,
             "updatedAt": Timestamp()
         ]
     }
     
-    init() {
+    override init() {
         self.name = ""; self.email = ""; self.avatar_url = "";
     }
     
-    init(uuid: String, points: Int) {
+    convenience init(uuid: String, points: Int) {
         self.init()
         self.uuid = uuid
         self.points = points
     }
     
-    init(uuid: String, email: String, name: String, avatar: String) {
+    convenience init(uuid: String, email: String, name: String, avatar: String) {
         self.init()
         self.uuid = uuid
         self.email = email
@@ -131,7 +141,7 @@ struct MFUser {
         self.avatar_url = avatar
     }
 
-    init?(dictionary: [String: Any] ) {
+    convenience init?(dictionary: [String: Any] ) {
         guard let dict = dictionary as [String: Any]? else { return nil }
         guard let uuid = dict["uuid"] as? String else { return nil }
         guard let points = dict["points"] as? Int else { return nil }
@@ -146,12 +156,60 @@ struct MFUser {
         if let avatar_url = dict["avatar_url"] as? String { self.avatar_url = avatar_url }
         if let fbid = dict["fbid"] as? String { self.fbid = fbid }
         
+        if let action_json_str = dict["action_json"] as? String {
+            let decoder = JSONDecoder()
+            if let data = action_json_str.data(using: .utf8),
+                let array = try? decoder.decode([MFActionType:MFActionItem].self, from: data) {
+                self.defaultActions = array
+            }
+        }
         
         if let timestamp = dict["updatedAt"] as? Timestamp {
             self.updatedAt = timestamp
         }
         
     }
+    
+    required public init(coder aDecoder: NSCoder) {
+        self.uuid = aDecoder.decodeObject(forKey: "uuid") as! String
+        self.points = aDecoder.decodeInteger(forKey: "points")
+        self.lifetimePoints = aDecoder.decodeInteger(forKey: "lifetime_points")
+        self.exchangeRate = aDecoder.decodeFloat(forKey: "exchange_rate")
+        self.name = aDecoder.decodeObject(forKey: "name") as! String
+        self.email = aDecoder.decodeObject(forKey: "email") as! String
+        self.provider = aDecoder.decodeObject(forKey: "provider") as? String
+        self.avatar_url = aDecoder.decodeObject(forKey: "avatar_url") as! String
+        self.fbid = aDecoder.decodeObject(forKey: "fbid") as? String
+        
+        if let action_json_str = aDecoder.decodeObject(forKey: "action_json") as? String {
+            let decoder = JSONDecoder()
+            if let data = action_json_str.data(using: .utf8),
+                let array = try? decoder.decode([MFActionType:MFActionItem].self, from: data) {
+                    self.defaultActions = array
+            }
+        }
+    }
+    
+    func encode(with aCoder: NSCoder) {
+        aCoder.encode(uuid, forKey: "uuid")
+        aCoder.encode(points, forKey: "points")
+        aCoder.encode(lifetimePoints, forKey: "lifetime_points")
+        aCoder.encode(exchangeRate, forKey: "exchange_rate")
+        aCoder.encode(name, forKey: "name")
+        aCoder.encode(email, forKey: "email")
+        aCoder.encode(provider, forKey: "provider")
+        aCoder.encode(avatar_url, forKey: "avatar_url")
+        aCoder.encode(fbid, forKey: "fbid")
+        
+        let encoder = JSONEncoder()
+        if let data = try? encoder.encode(defaultActions) {
+            if let str = String(data: data, encoding: .utf8) {
+                aCoder.encode(str, forKey: "action_json")
+            }
+        }
+
+    }
+
 }
 
 
@@ -215,6 +273,11 @@ class MFActivity {
     }
 }
 
+// TODO: REMOVE for Testing only!
+extension UserManager {
+    func testing(testUser: MFUser) { self.userObj = testUser }
+    func testingGetUser() -> MFUser { return self.userObj }
+}
 
 class UserManager : NSObject {
     static let sharedInstance = UserManager()
@@ -222,6 +285,31 @@ class UserManager : NSObject {
     fileprivate var userUUID :String = ""
 
     fileprivate var userObj = MFUser()
+
+    fileprivate let defaultsFile = "\(NSHomeDirectory())/Documents/DefaultsData.plist"
+    
+    func loadDefaults() {
+        do {
+            let data = try Data(contentsOf: URL(fileURLWithPath: defaultsFile))
+            if let userObj = try NSKeyedUnarchiver.unarchiveTopLevelObjectWithData(data) as? MFUser {
+                self.userObj = userObj
+            }
+        } catch {
+            print("Couldn't read MFUser file.")
+        }
+
+    }
+
+    func synchronize() {
+        // Update the archived values
+        do {
+            let data = try NSKeyedArchiver.archivedData(withRootObject: self.userObj, requiringSecureCoding: false)
+            try data.write(to: URL(fileURLWithPath: defaultsFile), options:[])
+        } catch {
+            print("Couldn't write MFUser file")
+        }
+
+    }
 
     func getUUID() -> String {
         let auth = FUIAuth.defaultAuthUI()!
@@ -249,6 +337,16 @@ class UserManager : NSObject {
         return self.userObj.defaultActions
     }
     
+    func updateUserAction(_ actionType:MFActionType, useDefault:Bool, scriptName:String?) {
+        self.userObj.defaultActions[actionType]?.useDefault = useDefault
+        
+        if scriptName != nil {
+            self.userObj.defaultActions[actionType]?.scriptName = scriptName
+        }
+        
+        self.synchronize()
+    }
+
     func getUserTotalPoints() -> Int {
         return self.userObj.points
     }

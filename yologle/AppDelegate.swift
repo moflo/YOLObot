@@ -24,6 +24,8 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
             print("Anonymous signin: ",error?.localizedDescription)
         }
         
+        UserManager.sharedInstance.loadDefaults()
+        
         return true
     }
 

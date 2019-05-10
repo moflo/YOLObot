@@ -19,6 +19,13 @@ class SetActionViewController: UITableViewController {
     @IBOutlet weak var actionTitle: UILabel!
     @IBOutlet weak var defaultAction: UILabel!
     @IBAction func doActionSwitch(_ sender: Any) {
+        guard let action = self.selectedAction else { return }
+        
+        let isDefault = defaultActionSwitch.isOn
+        
+        UserManager.sharedInstance.updateUserAction(action, useDefault: isDefault, scriptName: nil)
+        
+        updateDisplay()
     }
     @IBOutlet weak var defaultActionSwitch: UISwitch!
     @IBOutlet weak var scriptTitle: UILabel!
@@ -27,31 +34,41 @@ class SetActionViewController: UITableViewController {
         super.viewDidLoad()
 
         // Do any additional setup after loading the view.
-        guard let action = selectedAction else { return }
-        
-        actionTitle.text = action.title()
-        defaultAction.text = action.defaultAction()
-
-        let actions = UserManager.sharedInstance.getUserDefaultActions()
-        if let userDefault = actions[action] as MFActionItem? {
-
-            scriptTitle.text = userDefault.scriptName != nil
-                ? "Run '\(userDefault.scriptName!)'"
-                : "Run Shortcut"
-            
-            defaultActionSwitch.isOn = userDefault.useDefault
-            
-        }
+        updateDisplay()
     }
-    
-    func saveNewScriptName(_ scriptName:String) {
+
+    func updateDisplay() {
+        guard let action = self.selectedAction else { return }
+
         DispatchQueue.main.async(execute: {
-            self.scriptTitle.text = "Run '\(scriptName)'"
-            self.defaultActionSwitch.isOn = false
             
-            // TODO: Need to update the user values
+            self.actionTitle.text = action.title()
+            self.defaultAction.text = action.defaultAction()
+            
+            let actions = UserManager.sharedInstance.getUserDefaultActions()
+            if let userDefault = actions[action] as MFActionItem? {
+                
+                self.scriptTitle.text = userDefault.scriptName != nil
+                    ? "Run '\(userDefault.scriptName!)'"
+                    : "Add Shortcut"
+                
+                self.defaultActionSwitch.isOn = userDefault.useDefault
+                
+                // Disable default button if shortcut is empty
+                self.defaultActionSwitch.isEnabled = userDefault.scriptName != nil && userDefault.scriptName!.count > 0
+                
+            }
 
         })
+    }
+
+    func saveNewScriptName(_ scriptName:String) {
+        guard let action = self.selectedAction else { return }
+
+        UserManager.sharedInstance.updateUserAction(action, useDefault: false, scriptName: scriptName)
+        
+        updateDisplay()
+        
     }
     
     func promptScriptChange() {
@@ -59,6 +76,13 @@ class SetActionViewController: UITableViewController {
         alert.addTextField(configurationHandler: {(textField: UITextField) in
             textField.placeholder = "Shortcut name..."
             textField.isSecureTextEntry = false
+            // Add previous script name
+            let actions = UserManager.sharedInstance.getUserDefaultActions()
+            if let action = self.selectedAction,
+                 let userDefault = actions[action] as MFActionItem? {
+                
+                textField.text = userDefault.scriptName
+            }
             textField.addTarget(self, action: #selector(self.shortcutTextChanged), for: .editingChanged)
         })
         alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
