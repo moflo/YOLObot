@@ -274,10 +274,10 @@ class MFActivity {
 }
 
 // TODO: REMOVE for Testing only!
-extension UserManager {
-    func testing(testUser: MFUser) { self.userObj = testUser }
-    func testingGetUser() -> MFUser { return self.userObj }
-}
+//extension UserManager {
+//    func testing(testUser: MFUser) { self.userObj = testUser }
+//    func testingGetUser() -> MFUser { return self.userObj }
+//}
 
 class UserManager : NSObject {
     static let sharedInstance = UserManager()

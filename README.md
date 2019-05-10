@@ -16,10 +16,10 @@ Keywords
 
 v1.0
 ---
-- Add vision library for YOLO object identification
-- Add stabalization check and ui
-- Move to Snap chat UI
-- Add training screen, need to include upload image & "other" item entry
-- Add action table, include settings to select default behavior + Shortcut name
-- Add text OCR features
+- ✅☑️ Add vision library for YOLO object identification
+- ✅ Add stabalization check and ui
+- ✅ Move to Snap chat UI
+- ☑️ Add training screen, need to include upload image & "other" item entry
+- ☑️ Add action table, include settings to select default behavior + Shortcut name
+- ☑️ Add text OCR features
 

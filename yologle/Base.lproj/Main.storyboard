@@ -18,8 +18,9 @@
                         <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <view contentMode="scaleToFill" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ern-01-KZ0">
-                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                            <view clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ern-01-KZ0">
+                                <rect key="frame" x="0.0" y="-20" width="375" height="827"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </view>
                             <imageView userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="focus_large" translatesAutoresizingMaskIntoConstraints="NO" id="HOW-Uq-3jO">
@@ -104,7 +105,6 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="ern-01-KZ0" firstAttribute="leading" secondItem="8bC-Xf-vdC" secondAttribute="leading" id="0zb-nV-ZqU"/>
                             <constraint firstItem="7w0-k6-df8" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="5cH-n4-dQE"/>
                             <constraint firstItem="gOz-is-VjK" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="44" id="7e0-9x-NuA"/>
                             <constraint firstItem="HOW-Uq-3jO" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="9dC-cN-EVS"/>
@@ -119,10 +119,7 @@
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="TP3-uO-1Ob" secondAttribute="trailing" constant="66" id="j19-Nb-poj"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="ify-sD-cPz" secondAttribute="trailing" constant="66" id="mdh-QH-351"/>
                             <constraint firstItem="vIS-N6-9Yx" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="44" id="n0V-8L-59d"/>
-                            <constraint firstItem="ern-01-KZ0" firstAttribute="trailing" secondItem="8bC-Xf-vdC" secondAttribute="trailing" id="snN-hm-9it"/>
                             <constraint firstItem="vIS-N6-9Yx" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="44" id="tny-8N-vWb"/>
-                            <constraint firstItem="ern-01-KZ0" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="v7f-b8-8EB"/>
-                            <constraint firstItem="ern-01-KZ0" firstAttribute="bottom" secondItem="8bC-Xf-vdC" secondAttribute="bottom" id="vml-UG-nuH"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="HOW-Uq-3jO" secondAttribute="trailing" constant="22" id="wqr-Et-2MN"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>

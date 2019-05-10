@@ -28,6 +28,7 @@ class CameraViewController: UIViewController, AVCaptureVideoDataOutputSampleBuff
     
     override func viewDidLoad() {
         super.viewDidLoad()
+        self.previewView.frame = self.view.frame
         setupAVCapture()
     }
     
