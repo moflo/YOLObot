@@ -149,6 +149,8 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
         alert.addAction(UIAlertAction(title: "Done", style: .default, handler: {
             (alertAction :UIAlertAction) -> Void in
             // Ready to score...
+            self.doDoneButton(self)
+
             print("Default")
         }))
 
@@ -163,15 +165,12 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
             
             if err == nil {
 //                alert.dismiss(animated: true, completion: nil)
-                self.doDoneButton(self)
+                ( alert.actions[1] ).isEnabled = true // Assume text is invalid (empty)
             }
             
         }) { (progress, msg) in
             let prog = String(format: "%2.0f", progress*100.0)
             alert.message = progress > 0 ? "\(msg)…\(prog)%" : msg
-            if progress == 1.0 { // Done
-                ( alert.actions[1] ).isEnabled = true // Assume text is invalid (empty)
-            }
         }
 
     }
