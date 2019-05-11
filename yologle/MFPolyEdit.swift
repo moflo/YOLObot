@@ -119,11 +119,36 @@ enum BoundingBoxState {
     case quescient, first_tap, add_tap, finalize, update, delete
 }
 
-struct BoundingBoxPoly {
+struct BoundingBoxPoly : Codable {
     var category : BoundingBoxShotType = .none
     var points : [CGPoint]? = nil
     var anchorLayers : [CALayer?]? = nil
     var polyLayer : CALayer? = nil
+    
+    enum CodingKeys: String, CodingKey {
+        case category = "category"
+        case points = "points_array"
+    }
+    
+    init() {
+        // placeholder
+    }
+    
+    init(from decoder: Decoder) throws {
+        let values = try decoder.container(keyedBy: CodingKeys.self)
+        let cat_int = try values.decode(Int.self, forKey: .category)
+        category = BoundingBoxShotType(rawValue: cat_int) ?? .none
+        points = try values.decode([CGPoint].self, forKey: .points)
+
+    }
+    
+    func encode(to encoder: Encoder) throws {
+        var container = encoder.container(keyedBy: CodingKeys.self)
+        try container.encode(category.rawValue, forKey: .category)
+        try container.encode(points, forKey: .points)
+
+    }
+    
 }
 
 class BoundingBoxView : UIImageView {

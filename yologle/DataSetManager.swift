@@ -223,11 +223,17 @@ class DataSetManager : NSObject {
             }
             
             // Save feedback dataset
+            var poly_array = "[]"
+            let encoder = JSONEncoder()
+            if let data = try? encoder.encode(data!.polyArray) {
+                poly_array = String(data: data, encoding: .utf8)!
+            }
+
             let feedback = [
                 "image_url": image_url!,
                 "user_id": UserManager.sharedInstance.getUUID(),
                 "category": category_string,
-                "poly": "poly_array",
+                "poly": poly_array,
                 "createdAt": Timestamp()
                 ] as [String : Any]
             

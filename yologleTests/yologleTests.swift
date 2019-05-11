@@ -157,6 +157,42 @@ class yologleTests: XCTestCase {
         print("Decode: ",result)
     }
     
+    func testBoundBoxPoly() {
+        
+        var boxPoly = BoundingBoxPoly()
+        boxPoly.category = .block
+        boxPoly.points = [CGPoint(x: 1, y: 2)]
+        
+        let encoder = JSONEncoder()
+        let data = try! encoder.encode(boxPoly)
+        let str = String(data: data, encoding: .utf8)!
+        
+        print("Encode: ",str)
+
+        let decoder = JSONDecoder()
+        let data2 = str.data(using: .utf8)
+        let result = try! decoder.decode(BoundingBoxPoly.self, from: data2!)
+        
+        print("Decode: ",result)
+        
+        expect(result.category) == .block
+        expect(result.points).notTo(beNil())
+        expect(result.points!.count) == 1
+        expect(result.points![0].x) == 1.0
+        expect(result.points![0].y) == 2.0
+
+        var boxPoly2 = BoundingBoxPoly()
+        boxPoly2.category = .goal
+        boxPoly2.points = [CGPoint(x: 3, y: 4)]
+
+        let polyArray = [boxPoly,boxPoly2]
+        let data3 = try! encoder.encode(polyArray)
+        let str3 = String(data: data3, encoding: .utf8)!
+
+        print("Encode: ",str3)
+
+    }
+    
     func testMFActivity2() {
         
         let activity = MFActionItem()
@@ -184,6 +220,10 @@ class yologleTests: XCTestCase {
         
         let dataSet = MFDataSet()
         dataSet.currentImage = UIImage(named: "bot_small_white")
+        var boxPoly = BoundingBoxPoly()
+        boxPoly.category = .block
+        boxPoly.points = [CGPoint(x: 1, y: 2)]
+        dataSet.polyArray.append(boxPoly)
         
         DataSetManager.sharedInstance.postTraining(dataSet, completionHandler: { (url, error) in
 
