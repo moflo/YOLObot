@@ -207,7 +207,7 @@ class DataSetManager : NSObject {
             return
         }
         
-        progressHandler(5,"Starting…")
+        progressHandler(0.5,"Starting…")
         
         let image = data?.currentImage
         var category_string = "Other"
@@ -242,12 +242,12 @@ class DataSetManager : NSObject {
             db.collection("feedback").document().setData(feedback, merge: true) { err in
                 guard err == nil  else {
                     print("Error writing feedback: \(err!)")
-                    progressHandler(100,"Problem saving the data.")
+                    progressHandler(1.0,"Problem saving the data.")
                     completionHandler(nil,err)
                     return
                 }
                 
-                progressHandler(100,"Thank you. We have saved your feedback.")
+                progressHandler(1.0,"Thank you. We have saved your feedback.")
                 completionHandler(image_url,err)
 
             }
@@ -262,18 +262,23 @@ class DataSetManager : NSObject {
         guard
             let user = Auth.auth().currentUser,
             userImageImage != nil,
-            let imageData = userImageImage!.pngData()
+            let imageData = userImageImage!.jpegData(compressionQuality: 0.75)
             else {
                 
                 completionHandler(nil,NSError(domain: "Upload user image", code: -110, userInfo: nil))
                 return
         }
         
+        // Image debug
+        // TODO: log image size information
+        print("size of jpeg image in KB:", Double(imageData.count) / 1024.0)
+        
+
         let storage = Storage.storage().reference()
         let uuid = UUID().uuidString
         let userImageRef = storage.child("userImage/\(user.uid)/\(uuid)/image.png")
         
-        progressHandler(15,"Uploading…")
+        progressHandler(0.15,"Uploading…")
         
         // Upload the file to with proper metadata
         let metadata = StorageMetadata()
