@@ -113,6 +113,7 @@ class MFDataSet {
     var dataURLArray :[String] = [String]()
     var categoryArray :[String] = [String]()
     var responseArray :[MFResponse] = [MFResponse]()
+    var polyArray :[BoundingBoxPoly] = [BoundingBoxPoly]()
     var responseCount :Int = 0
     var updatedAt :Date = Date()
     
@@ -198,10 +199,54 @@ class DataSetManager : NSObject {
     
     // MARK: - Server Methods
     
-    func postTraining(_ data:MFDataSet?, categoryArray: [String]?) {
-        guard data != nil, categoryArray != nil else { return }
+    func postTraining(_ data:MFDataSet?, completionHandler: @escaping (String?, Error?) -> (), progressHandler: @escaping (Float, String) -> ()) {
+        guard data != nil, data?.currentImage != nil else {
+            progressHandler(0,"No image found!")
+            let err = NSError.init(domain: "PostData", code: 0, userInfo: nil)
+            completionHandler(nil,err)
+            return
+        }
         
+        progressHandler(5,"Starting…")
         
+        let image = data?.currentImage
+        var category_string = "Other"
+        if let catArray = data?.categoryArray, catArray.count > 0  {
+            category_string = catArray[0]
+        }
+        
+        self.uploadUserImage(image, completionHandler: { (image_url, error) in
+            guard image_url != nil, error == nil  else {
+                progressHandler(0,"Problem saving the image.")
+                completionHandler(image_url,error)
+                return
+            }
+            
+            // Save feedback dataset
+            let feedback = [
+                "image_url": image_url!,
+                "user_id": UserManager.sharedInstance.getUUID(),
+                "category": category_string,
+                "poly": "poly_array",
+                "createdAt": Timestamp()
+                ] as [String : Any]
+            
+            // Update Firebase user details
+            let db = Firestore.firestore()
+            db.collection("feedback").document().setData(feedback, merge: true) { err in
+                guard err == nil  else {
+                    print("Error writing feedback: \(err!)")
+                    progressHandler(100,"Problem saving the data.")
+                    completionHandler(nil,err)
+                    return
+                }
+                
+                progressHandler(100,"Thank you. We have saved your feedback.")
+                completionHandler(image_url,err)
+
+            }
+
+        }, progressHandler: progressHandler)
         
     }
     
@@ -214,12 +259,13 @@ class DataSetManager : NSObject {
             let imageData = userImageImage!.pngData()
             else {
                 
-                completionHandler(nil,NSError(domain: "Update User", code: -110, userInfo: nil))
+                completionHandler(nil,NSError(domain: "Upload user image", code: -110, userInfo: nil))
                 return
         }
         
         let storage = Storage.storage().reference()
-        let userImageRef = storage.child("userImage/\(user.uid)/image.png")
+        let uuid = UUID().uuidString
+        let userImageRef = storage.child("userImage/\(user.uid)/\(uuid)/image.png")
         
         progressHandler(15,"Uploading…")
         
@@ -275,7 +321,7 @@ class DataSetManager : NSObject {
             // Remove observers...
             uploadTask.removeAllObservers()
             progressHandler(1.0, "Error.")
-            completionHandler(nil,NSError(domain: "Update User", code: -1, userInfo: ["message":"Upload error."]))
+            completionHandler(nil,NSError(domain: "Update image task error", code: -1, userInfo: ["message":"Upload error."]))
             
         }
         

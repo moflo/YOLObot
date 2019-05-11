@@ -111,6 +111,9 @@ class yologleTests: XCTestCase {
         data1?.defaultActions[.food]?.scriptName = "FOOD"
         data1?.defaultActions[.meishi]?.scriptName = "MEISHI"
 
+        /*
+         // NOTE: conditional testing function on UserManager needs to be uncommented
+         
         UserManager.sharedInstance.testing(testUser: data1!)
         
         UserManager.sharedInstance.synchronize()
@@ -133,7 +136,7 @@ class yologleTests: XCTestCase {
         expect(user.defaultActions[.food]?.scriptName) == "FOOD"
         expect(user.defaultActions[.meishi]?.scriptName) == "MEISHI"
 
-        
+        */
     }
     
 
@@ -173,6 +176,31 @@ class yologleTests: XCTestCase {
         let result = try! decoder.decode([MFActionType:MFActionItem].self, from: data2!)
         
         print("Decode: ",result)
+    }
+
+    func testServerDataSetLoad() {
+        
+        let expectation1 = XCTestExpectation(description: "Load Datasets, error")
+        
+        let dataSet = MFDataSet()
+        dataSet.currentImage = UIImage(named: "bot_small_white")
+        
+        DataSetManager.sharedInstance.postTraining(dataSet, completionHandler: { (url, error) in
+
+            expect(url).notTo(beNil())
+            expect(error).to(beNil())
+            
+            expectation1.fulfill()
+
+        }, progressHandler: { (progress, msg) in
+            print(progress,msg)
+            
+        })
+        
+        wait(for: [expectation1], timeout: 10.0)
+        
+        
+        
     }
 
 }

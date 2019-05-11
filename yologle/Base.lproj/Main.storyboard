@@ -1309,6 +1309,28 @@
             </objects>
             <point key="canvasLocation" x="1617" y="-1144"/>
         </scene>
+        <!--View Controller-->
+        <scene sceneID="MJl-yA-NO7">
+            <objects>
+                <viewController storyboardIdentifier="TEST" id="cq3-PK-gBw" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="eGx-HG-6at">
+                        <rect key="frame" x="0.0" y="0.0" width="200" height="40"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" fixedFrame="YES" style="gray" translatesAutoresizingMaskIntoConstraints="NO" id="nHs-76-17F">
+                                <rect key="frame" x="90" y="6" width="20" height="20"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            </activityIndicatorView>
+                        </subviews>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="j65-9v-3Hp"/>
+                    </view>
+                    <size key="freeformSize" width="200" height="40"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="Fro-Xd-Jkn" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="2802" y="-1178"/>
+        </scene>
         <!--Account-->
         <scene sceneID="t7B-eM-9s4">
             <objects>

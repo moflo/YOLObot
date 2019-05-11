@@ -25,7 +25,6 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
         doTrainAddButton(sender)
     }
     @IBAction func doSkipButton(_ sender: Any) {
-        doSaveTrainingEvent("")
     }
     
     @IBAction func doTrainAddButton(_ sender: Any) {
@@ -44,23 +43,10 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
         imageView.reset()
     }
     @IBAction func doTrainDoneButton(_ sender: Any) {
-        let polyArray = imageView.resetAndGetPolyArray()
-        if polyArray.count > 0 {
-            print("PolyArray ", polyArray)
-            doSaveTrainingEvent("")
-        }
-
-        doSaveTrainingEvent("")
+        responsePolyArray = imageView.resetAndGetPolyArray()
         
-        UIView.animate(withDuration: 0.33, delay: 0.1, options: .curveEaseOut, animations: { () -> Void in
-            
-            self.trainDoneButton.isEnabled = false
-            self.trainingButtonView.reset()
-            
-        }, completion: { (done) -> Void in
-            // Set underLine width
-            
-        })
+        doSaveTrainingEvent(responseString,polyArray: responsePolyArray)
+        
         
     }
     
@@ -75,12 +61,10 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var trainDoneButton: UIButton!
     
     var dataSetObj :MFDataSet? = nil
-    var trainingCount :Int = 0
-    var gameTimer : Timer? = nil
-    var gameTimeSeconds : Int = 0
     
-    var responseStrings: [String]? = nil
-    
+    var responseString: String = "Other"
+    var responsePolyArray = [BoundingBoxPoly]()
+
     override func viewDidLoad() {
         super.viewDidLoad()
         
@@ -94,20 +78,6 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
 
         trainDoneButton.isEnabled = false
         
-        // Load the latest Dataset
-//        DataSetManager.sharedInstance.loadPage(type: .imageBBoxCategory, page: 1) { (datasets, error) in
-//            if error == nil && datasets != nil && datasets!.count > 0 {
-//                self.dataSetObj = datasets!.first
-//            }
-//            else {
-//                self.dataSetObj = DataSetManager.sharedInstance.demoDataSet(.imageBBoxCategory)
-//            }
-//
-//            DispatchQueue.main.async {
-//                self.doPreloadDataSet()
-//                self.doLoadDataSet()
-//            }
-//        }
     }
     
     override func viewWillAppear(_ animated: Bool) {
@@ -164,10 +134,38 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
         
     }
     
-    func doSaveTrainingEvent(_ text:String) {
-        guard let data = dataSetObj else { return }
+    func doSaveTrainingEvent(_ text:String, polyArray:[BoundingBoxPoly]) {
+//        guard let data = dataSetObj else { return }
     
+        let alert = UIAlertController(title: "Adding Training Data", message: "Uploading to server…", preferredStyle: .alert)
         
+        
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alertAction :UIAlertAction) -> Void in
+            // Ready to score...
+            print("Cancel")
+        }))
+        alert.addAction(UIAlertAction(title: "Done", style: .default, handler: {
+            (alertAction :UIAlertAction) -> Void in
+            // Ready to score...
+            print("Default")
+        }))
+
+        ( alert.actions[1] ).isEnabled = false // Assume text is invalid (empty)
+        self.present(alert, animated: true, completion:nil)
+
+        self.dataSetObj?.polyArray = polyArray
+        self.dataSetObj?.categoryArray = [text]
+        
+        DataSetManager.sharedInstance.postTraining(self.dataSetObj, completionHandler: { (url, err) in
+            print("DONE: ",url,err)
+            
+        }) { (progress, msg) in
+            alert.message = msg
+            ( alert.actions[1] ).isEnabled = true // Assume text is invalid (empty)
+
+        }
+
     }
     
     func doEndGame() {
@@ -175,12 +173,57 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
     }
     
     // MARK: Category button methods
+    
+    func promptOtherCategory() {
+        let alert = UIAlertController(title: "Another Category", message: "How would you describe this image?", preferredStyle: .alert)
+        alert.addTextField(configurationHandler: {(textField: UITextField) in
+            textField.placeholder = "Image category..."
+            textField.isSecureTextEntry = false
+            textField.addTarget(self, action: #selector(self.categoryTextChanged), for: .editingChanged)
+        })
+        alert.addAction(UIAlertAction(title: "Cancel", style: .cancel, handler: {
+            (alertAction :UIAlertAction) -> Void in
+            // Ready to score...
+            print("Cancel")
+        }))
+        alert.addAction(UIAlertAction(title: "Save", style: .default, handler: {
+            (alertAction :UIAlertAction) -> Void in
+            let identifier = alert.textFields![0]
+            self.trainDoneButton.isEnabled = true
+            self.responseString = identifier.text ?? "OTHER"
+
+        }))
+        
+        (alert.actions[1] ).isEnabled = false // Assume text is invalid (empty)
+        self.present(alert, animated: true, completion: { () -> Void in
+            
+        })
+    }
+
+    @objc func categoryTextChanged(sender :AnyObject) {
+        // Check for valid opponent name
+        let textField = sender as! UITextField
+        var resp : UIResponder = textField
+        while !(resp is UIAlertController) { resp = resp.next! }
+        let alert = resp as! UIAlertController
+        (alert.actions[1] ).isEnabled = (textField.text != "")
+        
+    }
+
     func showSelectedCateogory(_ identifier: String) {
         DispatchQueue.main.async {
             UIView.animate(withDuration: 0.33, delay: 0.1, options: .curveEaseOut, animations: { () -> Void in
                 
-                self.trainDoneButton.isEnabled = true
-                
+                if identifier.uppercased() == "OTHER" {
+                    
+                    self.promptOtherCategory()
+                }
+                else {
+                    
+                    self.trainDoneButton.isEnabled = true
+                    self.responseString = identifier
+                    
+                }
                 
             }, completion: { (done) -> Void in
                 // Set underLine width
@@ -207,7 +250,7 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
             }
         }
         else {
-            let buttonCorner = MFTrainButton(title: "OPTION1", icon: "icon_text", category: .mark)
+            let buttonCorner = MFTrainButton(title: "OTHER", icon: "icon_text", category: .mark)
             buttonCorner.completionHandler = { (sender) in
                 self.showSelectedCateogory("OPTION1")
             }
