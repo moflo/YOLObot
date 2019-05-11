@@ -20,16 +20,16 @@ class ActionViewController: UITableViewController {
 
     }
 
-    let ACTION_ORDER :[MFActionType] = [.phone,.map,.email,.upc,.qr,.meishi,.food]
+    let ACTION_ORDER :[MFActionType] = [.phone,.email,.map,.upc,.qr,.meishi,.food]
     enum ACTIONS {
-        static let SECTION_COUNT = 7
-        static let PHONE_SECTION = 0
-        static let MAP_SECTION = 1
-        static let EMAIL_SECTION = 2
-        static let UPC_SECTION = 3
-        static let QR_SECTION = 4
-        static let CARD_SECTION = 5
-        static let FOOD_SECTION = 6
+        static let ROW_COUNT = 7
+        static let PHONE_ROW = 0
+        static let EMAIL_ROW = 1
+        static let MAP_ROW = 2
+        static let CARD_ROW = 3
+        static let UPC_ROW = 4
+        static let QR_ROW = 5
+        static let FOOD_ROW = 6
     }
 
     @IBOutlet weak var dialAction: UILabel!
@@ -40,7 +40,7 @@ class ActionViewController: UITableViewController {
     @IBOutlet weak var cardAction: UILabel!
     @IBOutlet weak var foodAction: UILabel!
     
-    var selectedSection = -1
+    var selectedRow = -1
     
 //    override func viewDidLoad() {
 //        super.viewDidLoad()
@@ -62,20 +62,16 @@ class ActionViewController: UITableViewController {
     }
     
     // MARK: - Table view data source
-
-    override func numberOfSections(in tableView: UITableView) -> Int {
-        return ACTIONS.SECTION_COUNT
-    }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         
         // Save section selection for segue
-        selectedSection = indexPath.section
+        selectedRow = indexPath.row
     
         self.performSegue(withIdentifier: "setActionSegue", sender: self)
         
         /*
-        if indexPath.section == ACTIONS.PHONE_SECTION {
+        if indexPath.section == ACTIONS.PHONE_ROW {
             let alert = UIAlertController(title: "Phone Number", message: "Run shortcut?", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Run", style: UIAlertAction.Style.default, handler: {
@@ -93,7 +89,7 @@ class ActionViewController: UITableViewController {
             
         }
 
-        if indexPath.section == ACTIONS.MAP_SECTION {
+        if indexPath.section == ACTIONS.MAP_ROW {
             let alert = UIAlertController(title: "Coffee Cup", message: "Run shortcut?", preferredStyle: UIAlertController.Style.alert)
             alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
             alert.addAction(UIAlertAction(title: "Run", style: UIAlertAction.Style.default, handler: {
@@ -121,7 +117,7 @@ class ActionViewController: UITableViewController {
             guard let nc = segue.destination as? UINavigationController,
                 let vc = nc.viewControllers[0] as? SetActionViewController else { return }
             
-            vc.selectedAction = ACTION_ORDER[selectedSection]
+            vc.selectedAction = ACTION_ORDER[selectedRow]
             
         }
 
