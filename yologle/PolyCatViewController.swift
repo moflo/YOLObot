@@ -29,14 +29,15 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
     
     @IBAction func doTrainAddButton(_ sender: Any) {
         
-//        let alert = MFAlertTrainView(title: "Bounding Category",
-//                                     icon: "",
-//                                     info: "Tap on the image to add the first point in a rectangle. Tap a second location to draw a box. You can change the box size by dragging the anchor points around.",
-//                                     prompt: "Add some boxes") { (category, buttonIndex) in
-//
-//
-//        }
-//        alert.show()
+        let alert = UIAlertController(title: "Add Training Data",
+                                      message: "Select the category of this image. Optionally, outline the object of interest.\n\nTap on the image to add the first point in a rectangle. Tap a second location to draw a box. You can change the box size by dragging the anchor points around.",
+                                      preferredStyle: .alert)
+        alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {
+            (alertAction :UIAlertAction) -> Void in
+            // Ready to score...
+            print("Cancel")
+        }))
+        self.present(alert, animated: true, completion:nil)
         
     }
     @IBAction func doTrainRemoveButton(_ sender: Any) {
@@ -158,12 +159,17 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
         self.dataSetObj?.categoryArray = [text]
         
         DataSetManager.sharedInstance.postTraining(self.dataSetObj, completionHandler: { (url, err) in
-            print("DONE: ",url,err)
+//            print("DONE: ",url,err)
+            
+            if err == nil {
+                self.doDoneButton(self)
+            }
             
         }) { (progress, msg) in
-            alert.message = msg
-            ( alert.actions[1] ).isEnabled = true // Assume text is invalid (empty)
-
+            alert.message = progress > 0 ? "\(msg)…\(progress)" : msg
+            if progress == 100 { // Done
+                ( alert.actions[1] ).isEnabled = true // Assume text is invalid (empty)
+            }
         }
 
     }
