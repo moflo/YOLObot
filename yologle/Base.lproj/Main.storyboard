@@ -36,14 +36,13 @@
                                     <constraint firstAttribute="width" constant="40" id="qiT-Yk-piq"/>
                                 </constraints>
                             </imageView>
-                            <button opaque="NO" tag="102" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ify-sD-cPz" customClass="MFRectIconButton" customModule="yologle" customModuleProvider="target">
-                                <rect key="frame" x="221" y="535" width="88" height="88"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="ify-sD-cPz" customClass="MFRectIconButton" customModule="yologle" customModuleProvider="target">
+                                <rect key="frame" x="265" y="579" width="44" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="88" id="AHf-q0-edW"/>
-                                    <constraint firstAttribute="width" constant="88" id="Z6K-rS-QjO"/>
+                                    <constraint firstAttribute="height" constant="44" id="AHf-q0-edW"/>
+                                    <constraint firstAttribute="width" constant="44" id="Z6K-rS-QjO"/>
                                 </constraints>
                                 <inset key="titleEdgeInsets" minX="-60" minY="52" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="15" minY="-20" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" image="nav_add">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -52,12 +51,12 @@
                                 </connections>
                             </button>
                             <button opaque="NO" tag="100" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="TP3-uO-1Ob" customClass="MFRectIconButton" customModule="yologle" customModuleProvider="target">
-                                <rect key="frame" x="66" y="437" width="243" height="88"/>
+                                <rect key="frame" x="66" y="481" width="243" height="88"/>
                                 <constraints>
                                     <constraint firstAttribute="height" constant="88" id="c4y-j5-iNf"/>
                                 </constraints>
                                 <inset key="titleEdgeInsets" minX="-74" minY="0.0" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="-81" minY="0.0" maxX="6" maxY="0.0"/>
+                                <inset key="imageEdgeInsets" minX="-81" minY="0.0" maxX="10" maxY="0.0"/>
                                 <state key="normal" title="Action" image="nav_action">
                                     <color key="titleColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -87,14 +86,13 @@
                                     <action selector="doSettingsButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="cAg-Zu-sfu"/>
                                 </connections>
                             </button>
-                            <button opaque="NO" tag="101" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3EG-U9-OJW" customClass="MFRectIconButton" customModule="yologle" customModuleProvider="target">
-                                <rect key="frame" x="66" y="535" width="88" height="88"/>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="3EG-U9-OJW" customClass="MFRectIconButton" customModule="yologle" customModuleProvider="target">
+                                <rect key="frame" x="66" y="579" width="44" height="44"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="88" id="if5-2l-LyE"/>
-                                    <constraint firstAttribute="height" constant="88" id="zAW-hK-H8t"/>
+                                    <constraint firstAttribute="width" constant="44" id="if5-2l-LyE"/>
+                                    <constraint firstAttribute="height" constant="44" id="zAW-hK-H8t"/>
                                 </constraints>
                                 <inset key="titleEdgeInsets" minX="-60" minY="52" maxX="0.0" maxY="0.0"/>
-                                <inset key="imageEdgeInsets" minX="15" minY="-20" maxX="0.0" maxY="0.0"/>
                                 <state key="normal" image="nav_close">
                                     <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 </state>
@@ -1127,7 +1125,7 @@
                                     <constraint firstAttribute="height" constant="44" id="Rdy-a5-qXm"/>
                                     <constraint firstAttribute="width" constant="44" id="oml-7R-lHO"/>
                                 </constraints>
-                                <state key="normal" image="tool_question"/>
+                                <state key="normal" image="nav_help"/>
                                 <connections>
                                     <action selector="doTrainAddButton:" destination="Hhk-Ne-UGq" eventType="touchUpInside" id="gJS-lZ-Lj7"/>
                                 </connections>
@@ -1139,19 +1137,27 @@
                                     <constraint firstAttribute="width" constant="44" id="B97-Qs-T6a"/>
                                     <constraint firstAttribute="height" constant="44" id="Ce8-Tv-zbR"/>
                                 </constraints>
-                                <state key="normal" image="tool_clear"/>
+                                <state key="normal" image="nav_close"/>
                                 <connections>
                                     <action selector="doTrainRemoveButton:" destination="Hhk-Ne-UGq" eventType="touchUpInside" id="pXI-Zm-VPM"/>
                                 </connections>
                             </button>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="WXj-fy-OJL">
-                                <rect key="frame" x="321" y="613" width="44" height="44"/>
+                                <rect key="frame" x="245" y="613" width="120" height="44"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" constant="44" id="HJw-wv-KrK"/>
+                                    <constraint firstAttribute="width" constant="120" id="HJw-wv-KrK"/>
                                     <constraint firstAttribute="height" constant="44" id="hQb-Ob-Ogw"/>
                                 </constraints>
-                                <state key="normal" image="tool_check"/>
+                                <state key="normal" title="Save">
+                                    <color key="titleColor" cocoaTouchSystemColor="darkTextColor"/>
+                                </state>
+                                <state key="disabled">
+                                    <color key="titleColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
+                                <state key="highlighted">
+                                    <color key="titleColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                </state>
                                 <connections>
                                     <action selector="doTrainDoneButton:" destination="Hhk-Ne-UGq" eventType="touchUpInside" id="nS0-x0-m4b"/>
                                 </connections>
@@ -1586,10 +1592,8 @@ Terms of Service                         Privacy Policy</string>
         <image name="nav_action" width="64" height="64"/>
         <image name="nav_add" width="64" height="64"/>
         <image name="nav_close" width="64" height="64"/>
+        <image name="nav_help" width="64" height="64"/>
         <image name="nav_settings" width="64" height="64"/>
         <image name="right-arrow" width="20" height="20"/>
-        <image name="tool_check" width="64" height="64"/>
-        <image name="tool_clear" width="64" height="64"/>
-        <image name="tool_question" width="64" height="64"/>
     </resources>
 </document>
