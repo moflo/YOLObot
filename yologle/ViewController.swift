@@ -200,8 +200,8 @@ class ViewController: CameraViewController {
         guard obervations.count > 0 else { return }
         
         let max_label = obervations.sorted(by: { $0.confidence > $1.confidence } )[0].identifier
-        self.actionButton.setTitle(max_label, for: .normal)
-        self.actionButton.setTitle(max_label, for: .highlighted)
+
+        self.actionLabel.text = max_label
     }
 
     override func stopCaptureSession() {
@@ -364,9 +364,9 @@ class ViewController: CameraViewController {
 
 }
 
+// MARK: - SceneStability Check
 extension ViewController {
     
-    // MARK: - SceneStability Check
     func showStabilityImage(_ isStable: Bool) {
         DispatchQueue.main.async(execute: {
             let image_name = isStable ? "focus_large_active" : "focus_large"
@@ -436,6 +436,7 @@ extension ViewController {
 
 }
 
+// MARK: - Swipe Navigation Controller
 extension ViewController : SwipeNavigationControllerDelegate {
     
     /// Callback when embedded view started moving to new position
