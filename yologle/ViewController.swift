@@ -112,7 +112,9 @@ class ViewController: CameraViewController {
     @IBOutlet weak var actionButton: UIButton!
     @IBOutlet weak var skipButton: UIButton!
     @IBOutlet weak var trainButton: UIButton!
-
+    @IBOutlet weak var actionIcon: UIImageView!
+    @IBOutlet weak var actionLabel: UILabel!
+    
 
     private var detectionViewOpen :Bool = false
     private var detectionOverlay: CALayer! = nil
@@ -210,7 +212,8 @@ class ViewController: CameraViewController {
             self.actionButton.isHidden = false
             self.trainButton.isHidden = false
             self.skipButton.isHidden = false
-            
+            self.actionIcon.isHidden = false
+            self.actionLabel.isHidden = false
             
         }, completion: { (done) -> Void in
             // Set underLine width
@@ -227,7 +230,9 @@ class ViewController: CameraViewController {
             self.actionButton.isHidden = true
             self.trainButton.isHidden = true
             self.skipButton.isHidden = true
-            
+            self.actionIcon.isHidden = true
+            self.actionLabel.isHidden = true
+
             
         }, completion: { (done) -> Void in
             // Set underLine width
