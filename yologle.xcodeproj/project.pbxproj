@@ -9,6 +9,7 @@
 /* Begin PBXBuildFile section */
 		0F841EDB23045508704471A1 /* Pods_yologleTests.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = CCF8DC528E96BA500C66E432 /* Pods_yologleTests.framework */; };
 		86DB7F34BF7EB56D504F5965 /* Pods_yologle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3EE2427D761ABA798FC95D4 /* Pods_yologle.framework */; };
+		9100EEB72288FAD4008DD267 /* ActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9100EEB62288FAD4008DD267 /* ActionManager.swift */; };
 		917C873422833F18002BF37F /* SwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917C873322833F18002BF37F /* SwipeViewController.swift */; };
 		9186A9B6228122BF0095FB60 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9B5228122BF0095FB60 /* CameraViewController.swift */; };
 		9186A9B922812B660095FB60 /* ObjectDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9B72281242C0095FB60 /* ObjectDetector.mlmodel */; };
@@ -61,6 +62,7 @@
 		179B143F114C07F7032FE172 /* Pods-yologleTests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yologleTests.debug.xcconfig"; path = "Target Support Files/Pods-yologleTests/Pods-yologleTests.debug.xcconfig"; sourceTree = "<group>"; };
 		30F40DECC45A330E2F9DC548 /* Pods-yologle.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yologle.debug.xcconfig"; path = "Target Support Files/Pods-yologle/Pods-yologle.debug.xcconfig"; sourceTree = "<group>"; };
 		361CDBD25A0B9683BA7E3568 /* Pods-yologleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yologleTests.release.xcconfig"; path = "Target Support Files/Pods-yologleTests/Pods-yologleTests.release.xcconfig"; sourceTree = "<group>"; };
+		9100EEB62288FAD4008DD267 /* ActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionManager.swift; sourceTree = "<group>"; };
 		917C873322833F18002BF37F /* SwipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeViewController.swift; sourceTree = "<group>"; };
 		9186A9B5228122BF0095FB60 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
 		9186A9B72281242C0095FB60 /* ObjectDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ObjectDetector.mlmodel; sourceTree = "<group>"; };
@@ -153,6 +155,7 @@
 				9186A9BD2281E8DE0095FB60 /* TermsViewController.swift */,
 				9186A9C1228231230095FB60 /* UserManager.swift */,
 				918EEAA22280FBA800920FF8 /* DataSetManager.swift */,
+				9100EEB62288FAD4008DD267 /* ActionManager.swift */,
 				918EEA9A2280F9E600920FF8 /* PolyCatViewController.swift */,
 				918EEA9C2280FB0500920FF8 /* MFPolyEdit.swift */,
 				918EEA9F2280FB2A00920FF8 /* MFButtons.swift */,
@@ -474,6 +477,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				918EEA742280EC8D00920FF8 /* ViewController.swift in Sources */,
+				9100EEB72288FAD4008DD267 /* ActionManager.swift in Sources */,
 				91A655C22284DF1A00DEFCEB /* SetActionViewController.swift in Sources */,
 				9186A9B6228122BF0095FB60 /* CameraViewController.swift in Sources */,
 				9186A9C2228231240095FB60 /* UserManager.swift in Sources */,
