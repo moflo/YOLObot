@@ -170,7 +170,7 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
             
         }) { (progress, msg) in
             let prog = String(format: "%2.0f", progress*100.0)
-            alert.message = progress > 0 ? "\(msg)…\(prog)%" : msg
+            alert.message = (progress != 0 && progress != 1.0) ? "\(msg)…\(prog)%" : msg
         }
 
     }
