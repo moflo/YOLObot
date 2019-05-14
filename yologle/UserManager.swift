@@ -221,6 +221,8 @@ class UserManager : NSObject {
     fileprivate var userUUID :String = ""
 
     fileprivate var userObj = MFUser()
+    
+    fileprivate var showFPS = true
 
     fileprivate let defaultsFile = "\(NSHomeDirectory())/Documents/DefaultsData.plist"
     
@@ -269,6 +271,14 @@ class UserManager : NSObject {
         return (uuid,points,Double(exchangeRate),name,email,url)
     }
 
+    func getShowFPS() -> Bool {
+        return showFPS
+    }
+    
+    func setShowFPS(_ show:Bool) {
+        showFPS = show
+    }
+    
     func getUserDefaultActions() -> [MFActionType:MFActionItem] {
         return self.userObj.defaultActions
     }

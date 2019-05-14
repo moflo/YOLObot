@@ -23,3 +23,27 @@ v1.0
 - ✅ Add action table, include settings to select default behavior + Shortcut name
 - ☑️ Add text OCR features
 
+Stucture
+----------
+
+UI : Direct feedback of vision processing, predicted action shown at rest (ie,. action buttons)
+
+- User quickly starts up app, should see real-time feedback on visual scanning (ie, both text rectangles and YOLO boxes).
+- Stability indicators should show the focus and trigger second-level of recognition (ie., OCR within field of view, object specific action)
+- Multi-level HUD includes a complex stack :
+    1. Navigation buttons, Snapchat navigation methods
+    2. Action buttons with detailed text / object recognition prompt (ie, "Launch Map App?")
+    3. Text rectangle feeback, realtime (15fps?) 
+    4. YOLO object detection feedback, realtime (10 fps?)
+    5. UPC/QR code feedback, only upon stability? (1 fps?)
+    6. Camera preview, realtime (30 fps?)
+
+Vision : 
+- Built in CoreML TextRectangle recognition is the highest priority
+- Built in CoreVision ObjectTranslation (stability) is the second highest priority
+- Google ML Kit based TextRecognition is medium priority
+- CoreML based ObjectDection YOLO is lower priority
+
+Recommendation : 
+- Could be CoreML based (table based prediction), but use heuristics for now
+- Recommendation / recognition priority can be set by users in ActionViewController

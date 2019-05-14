@@ -11,11 +11,32 @@ import AVFoundation
 import Vision
 import SwipeNavigationController
 
-class ViewController: CameraViewController {
 
+class ViewController: UIViewController {
+
+    // MARK: - UI
+    
+    @IBOutlet weak var actionButton: UIButton!
+    @IBOutlet weak var skipButton: UIButton!
+    @IBOutlet weak var trainButton: UIButton!
+    @IBOutlet weak var actionIcon: UIImageView!
+    @IBOutlet weak var actionLabel: UILabel!
+    
+    @IBOutlet weak private var previewView: UIView!
+
+    @IBOutlet weak var drawingView: OverlayTextView!
+    
+    @IBOutlet weak var stabilityImageView: UIImageView!
+
+    // MARK : CameraControl
+    var videoCapture: CameraController!
+
+    private var detectionViewOpen :Bool = false
+    private var detectionOverlay: CALayer! = nil
+
+    // MARK: - Navigation
     var parentVC :SwipeNavigationController? = nil
     
-
     @IBAction func doHelpButton(_ sender: Any) {
         self.detectionViewOpen = false
         self.resetTranspositionHistory()
@@ -25,67 +46,6 @@ class ViewController: CameraViewController {
         self.detectionViewOpen = false
         self.resetTranspositionHistory()
         parentVC?.showEmbeddedView(position: .left)
-    }
-    
-    func MFScaleCenterUIImage(_ image:UIImage, width:Double, height:Double) -> UIImage {
-        guard height != 0.0, width != 0.0, let cgImage = image.cgImage else { return image }
-        
-        let hasAlpha = false
-        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
-        
-//        let scaled_rect = AVMakeRect(aspectRatio: image.size,insideRect: CGRect(x:0, y:0, width:width, height:height))
-        
-        
-        let size = CGSize(width: CGFloat(width), height: CGFloat(height))
-        let sizeRect = CGRect(x:0, y:0, width:width, height:height)
-        
-        let imgW = image.size.width
-        let imgH = image.size.height
-        let minDim = CGFloat.minimum(imgW,imgH)
-        let maxDim = CGFloat.maximum(imgW,imgH)
-        
-        let Yoffset = minDim == imgW ? (maxDim - minDim) * 0.5 : 0.0
-        let Xoffset = minDim == imgW ? 0.0 : (maxDim - minDim) * 0.5
-        
-        let cropRect = CGRect(x: Xoffset, y: Yoffset, width: minDim, height: minDim)
-        guard let crop = cgImage.cropping(to: cropRect) else { return image }
-        let cropImage = UIImage(cgImage: crop)
-        
-        UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
-//        let context = UIGraphicsGetCurrentContext()
-        //        context?.clip(to: sizeRect)
-        
-        cropImage.draw(in: sizeRect)
-        
-        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
-        UIGraphicsEndImageContext()
-        
-        return scaledImage!
-        
-    }
-
-    func doInjectCurrentImage() {
-        guard let nc = parentVC?.rightViewController as? UINavigationController,
-            let tc = nc.viewControllers[0] as? PolyCatViewController else { return }
-        
-        let dataSet = MFDataSet(
-            categoryArray:["Signage","Telephone","URL","UPC","Menu","Other"]
-        )
-        
-        if let pixelBuffer = previousPixelBuffer {
-//            let exifOrientation = exifOrientationFromDeviceOrientation()
-            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
-            let context = CIContext(options: nil)
-            guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
-                return
-            }
-            let rotatedImage = UIImage(cgImage: cgImage, scale: 1.0, orientation: .right)
-
-            dataSet.currentImage = MFScaleCenterUIImage(rotatedImage,width: 416.0,height: 416.0)
-        }
-        
-        tc.dataSetObj = dataSet
-
     }
     
     @IBAction func doTrainButton(_ sender: Any) {
@@ -109,17 +69,71 @@ class ViewController: CameraViewController {
         })
     }
 
-    @IBOutlet weak var actionButton: UIButton!
-    @IBOutlet weak var skipButton: UIButton!
-    @IBOutlet weak var trainButton: UIButton!
-    @IBOutlet weak var actionIcon: UIImageView!
-    @IBOutlet weak var actionLabel: UILabel!
+    // MARK: - Image Recognition
+    
+    func MFScaleCenterUIImage(_ image:UIImage, width:Double, height:Double) -> UIImage {
+        guard height != 0.0, width != 0.0, let cgImage = image.cgImage else { return image }
+        
+        let hasAlpha = false
+        let scale: CGFloat = 0.0 // Automatically use scale factor of main screen
+        
+        //        let scaled_rect = AVMakeRect(aspectRatio: image.size,insideRect: CGRect(x:0, y:0, width:width, height:height))
+        
+        
+        let size = CGSize(width: CGFloat(width), height: CGFloat(height))
+        let sizeRect = CGRect(x:0, y:0, width:width, height:height)
+        
+        let imgW = image.size.width
+        let imgH = image.size.height
+        let minDim = CGFloat.minimum(imgW,imgH)
+        let maxDim = CGFloat.maximum(imgW,imgH)
+        
+        let Yoffset = minDim == imgW ? (maxDim - minDim) * 0.5 : 0.0
+        let Xoffset = minDim == imgW ? 0.0 : (maxDim - minDim) * 0.5
+        
+        let cropRect = CGRect(x: Xoffset, y: Yoffset, width: minDim, height: minDim)
+        guard let crop = cgImage.cropping(to: cropRect) else { return image }
+        let cropImage = UIImage(cgImage: crop)
+        
+        UIGraphicsBeginImageContextWithOptions(size, !hasAlpha, scale)
+        //        let context = UIGraphicsGetCurrentContext()
+        //        context?.clip(to: sizeRect)
+        
+        cropImage.draw(in: sizeRect)
+        
+        let scaledImage = UIGraphicsGetImageFromCurrentImageContext()
+        UIGraphicsEndImageContext()
+        
+        return scaledImage!
+        
+    }
+    
+    func doInjectCurrentImage() {
+        guard let nc = parentVC?.rightViewController as? UINavigationController,
+            let tc = nc.viewControllers[0] as? PolyCatViewController else { return }
+        
+        let dataSet = MFDataSet(
+            categoryArray:["Signage","Telephone","URL","UPC","Menu","Other"]
+        )
+        
+        if let pixelBuffer = previousPixelBuffer {
+            //            let exifOrientation = exifOrientationFromDeviceOrientation()
+            let ciImage = CIImage(cvPixelBuffer: pixelBuffer)
+            let context = CIContext(options: nil)
+            guard let cgImage = context.createCGImage(ciImage, from: ciImage.extent) else {
+                return
+            }
+            let rotatedImage = UIImage(cgImage: cgImage, scale: 1.0, orientation: .right)
+            
+            dataSet.currentImage = MFScaleCenterUIImage(rotatedImage,width: 416.0,height: 416.0)
+        }
+        
+        tc.dataSetObj = dataSet
+        
+    }
     
 
-    private var detectionViewOpen :Bool = false
-    private var detectionOverlay: CALayer! = nil
-    
-    // Vision parts
+    // MARK: - Vision
     private var requests = [VNRequest]()
 
     // Stability check
@@ -127,7 +141,6 @@ class ViewController: CameraViewController {
     private let maximumHistoryLength = 15
     private var transpositionHistoryPoints: [CGPoint] = [ ]
     private var previousPixelBuffer: CVPixelBuffer?
-    @IBOutlet weak var stabilityImageView: UIImageView!
     
     // The current pixel buffer undergoing analysis. Run requests in a serial fashion, one after another.
     private var currentlyAnalyzedPixelBuffer: CVPixelBuffer?
@@ -151,7 +164,21 @@ class ViewController: CameraViewController {
                     }
                 })
             })
-            self.requests = [objectRecognition]
+            
+            let textRegcognition = VNDetectTextRectanglesRequest { (request, error) in
+                DispatchQueue.main.async(execute: {
+                    // perform all the UI updates on the main queue
+                    if let results = request.results {
+                        self.drawTextRequestResults(results)
+                    }
+                })
+
+            }
+            textRegcognition.reportCharacterBoxes = true
+            
+//            self.requests = [objectRecognition, textRegcognition]
+            self.requests = [ textRegcognition]
+
         } catch let error as NSError {
             print("Model loading went wrong: \(error)")
         }
@@ -178,6 +205,8 @@ class ViewController: CameraViewController {
             let topLabelObservation = objectObservation.labels[0]
             obervations.append(topLabelObservation)
             
+            let bufferSize = self.videoCapture.bufferSize
+            
             let objectBounds = VNImageRectForNormalizedRect(objectObservation.boundingBox, Int(bufferSize.width), Int(bufferSize.height))
             
             let shapeLayer = self.createRoundedRectLayerWithBounds(objectBounds)
@@ -196,6 +225,21 @@ class ViewController: CameraViewController {
         self.stopCaptureSession()
     }
     
+    func drawTextRequestResults(_ results: [Any]) {
+        guard results.count > 0 else {
+            self.showStabilityImage(false)
+            self.resetTranspositionHistory()
+            return
+        }
+
+        let regions: [VNTextObservation?] = results.map({$0 as? VNTextObservation})
+
+        self.drawingView.regions = regions
+
+    }
+    
+
+    
     func updateObservationLabel(_ obervations: [VNClassificationObservation]) {
         guard obervations.count > 0 else { return }
         
@@ -204,8 +248,8 @@ class ViewController: CameraViewController {
         self.actionLabel.text = max_label
     }
 
-    override func stopCaptureSession() {
-        super.stopCaptureSession()
+    func stopCaptureSession() {
+        self.videoCapture.stopCaptureSession()
         
         UIView.animate(withDuration: 0.33, delay: 0.1, options: .curveEaseOut, animations: { () -> Void in
             
@@ -222,8 +266,8 @@ class ViewController: CameraViewController {
 
     }
     
-    override func startCaptureSession() {
-        super.startCaptureSession()
+    func startCaptureSession() {
+        self.videoCapture.startCaptureSession()
         
         UIView.animate(withDuration: 0.33, delay: 0.1, options: .curveEaseOut, animations: { () -> Void in
             
@@ -242,54 +286,72 @@ class ViewController: CameraViewController {
     }
 
     
-    override func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
-        guard let pixelBuffer = CMSampleBufferGetImageBuffer(sampleBuffer),
-                sceneStabilityAchieved(pixelBuffer) == true else {
-            return
-        }
-        
-        let exifOrientation = exifOrientationFromDeviceOrientation()
-        
-        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: exifOrientation, options: [:])
-        do {
-            try imageRequestHandler.perform(self.requests)
-        } catch {
-            print(error)
-        }
-    }
-    
     override var prefersStatusBarHidden : Bool {
         return true
     }
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        // Do any additional setup after loading the view, typically from a nib.
+        
+        // Set up CoreML vision
+        setupVision()
+        
+        // Set up CameraController
+        setupAVCapture()
+        
+//        self.drawingView.frame = self.view.frame
+        self.drawingView.bounds = self.view.frame
+        // TODO: Why???
+        self.drawingView.transform = CGAffineTransform.init(scaleX: 1.7, y: 1.0)
     }
     
 
-    override func setupAVCapture() {
-        super.setupAVCapture()
-        
-        guard didSetupAVCapture == true else {
-            print("Error setting up AV Capture")
-            return
+    func setupAVCapture() {
+        videoCapture = CameraController()
+        videoCapture.delegate = self
+        videoCapture.setupAVCapture(sessionPreset: .vga640x480) { success in
+            
+            if success {
+                // add preview view on the layer
+                if let previewLayer = self.videoCapture.previewLayer {
+                    self.previewView.layer.addSublayer(previewLayer)
+                    self.resizePreviewLayer()
+                }
+                
+                // setup Vision parts
+                self.setupLayers()
+                self.updateLayerGeometry()
+                
+                if let err = self.setupVision() {
+                    print("Error setting up vision", err.localizedDescription)
+                    return
+                }
+                
+                // start the capture
+                self.startCaptureSession()
+            }
+            else {
+                print("Error setting up AV Capture")
+                return
+            }
+
         }
-        
-        // setup Vision parts
-        setupLayers()
-        updateLayerGeometry()
-        
-        if let err = setupVision() {
-            print("Error setting up vision", err.localizedDescription)
-            return
-        }
-        
-        // start the capture
-        startCaptureSession()
+
     }
     
+    override func viewDidLayoutSubviews() {
+        super.viewDidLayoutSubviews()
+        resizePreviewLayer()
+    }
+    
+    func resizePreviewLayer() {
+        videoCapture.previewLayer?.frame = previewView.bounds
+    }
+
     func setupLayers() {
+        let bufferSize = videoCapture.bufferSize
+        let rootLayer = self.previewView.layer
+        
         detectionOverlay = CALayer() // container layer that has all the renderings of the observations
         detectionOverlay.name = "DetectionOverlay"
         detectionOverlay.bounds = CGRect(x: 0.0,
@@ -301,9 +363,13 @@ class ViewController: CameraViewController {
     }
     
     func updateLayerGeometry() {
+        let rootLayer = self.previewView.layer
+
         let bounds = rootLayer.bounds
         var scale: CGFloat
         
+        let bufferSize = videoCapture.bufferSize
+
         let xScale: CGFloat = bounds.size.width / bufferSize.height
         let yScale: CGFloat = bounds.size.height / bufferSize.width
         
@@ -463,3 +529,45 @@ extension ViewController : SwipeNavigationControllerDelegate {
     
 }
 
+extension ViewController : CameraControllerDelegate {
+    
+    func videoCapture(_ capture: CameraController, sampleBuffer: CVPixelBuffer?, timestamp: CMTime) {
+        
+        guard let pixelBuffer = sampleBuffer else {  // CMSampleBufferGetImageBuffer(sampleBuffer)
+            //            ,
+            //                sceneStabilityAchieved(pixelBuffer) == true
+                return
+        }
+        
+        let exifOrientation = exifOrientationFromDeviceOrientation()
+        
+        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: exifOrientation, options: [:])
+        do {
+            try imageRequestHandler.perform(self.requests)
+        } catch {
+            print(error)
+        }
+
+    }
+    
+    
+    public func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
+        let curDeviceOrientation = UIDevice.current.orientation
+        let exifOrientation: CGImagePropertyOrientation
+        
+        switch curDeviceOrientation {
+        case UIDeviceOrientation.portraitUpsideDown:  // Device oriented vertically, home button on the top
+            exifOrientation = .left
+        case UIDeviceOrientation.landscapeLeft:       // Device oriented horizontally, home button on the right
+            exifOrientation = .upMirrored
+        case UIDeviceOrientation.landscapeRight:      // Device oriented horizontally, home button on the left
+            exifOrientation = .down
+        case UIDeviceOrientation.portrait:            // Device oriented vertically, home button on the bottom
+            exifOrientation = .up
+        default:
+            exifOrientation = .up
+        }
+        return exifOrientation
+    }
+
+}

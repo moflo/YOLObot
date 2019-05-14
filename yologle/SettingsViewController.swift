@@ -32,27 +32,11 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     
     @IBOutlet weak var accountUser: UILabel!
     
-    @IBOutlet weak var sprayChartSwitch: UISegmentedControl!
-    @IBAction func doSprayChartSwitch(_ sender: UISegmentedControl) {
-        let index = self.sprayChartSwitch.selectedSegmentIndex
-        let is_double = (index == 1)
-//        UserManager.sharedInstance.updateDoubleClickShot(is_double)
+    @IBOutlet weak var showFPSSwitch: UISwitch!
+    @IBAction func doShowFPSSwitch(_ sender: AnyObject) {
+        let show_fps = self.showFPSSwitch.isOn
+        UserManager.sharedInstance.setShowFPS(show_fps)
         
-    }
-    
-    @IBOutlet weak var sortJerseySwitch: UISwitch!
-    @IBAction func doSortJerseySwitch(_ sender: AnyObject) {
-        let sort_jersey = self.sortJerseySwitch.isOn
-//        UserManager.sharedInstance.setSortJerseyNumber(sort_jersey)
-        
-    }
-    
-    @IBOutlet weak var periodLabel: UILabel!
-    @IBOutlet weak var periodStepper: UIStepper!
-    @IBAction func doUpdatePeriod(_ sender: Any) {
-        let min = Int(self.periodStepper.value)
-//        UserManager.sharedInstance.setDefaultPeriodMinutes(min)
-        self.periodLabel.text = "Period: \(min) minutes"
     }
     
     
@@ -120,6 +104,8 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         // Set initial send text
 //        self.sendButton.isEnabled = true
         
+        self.showFPSSwitch.isOn = UserManager.sharedInstance.getShowFPS()
+        
     }
     
     override func numberOfSections(in tableView: UITableView) -> Int {
@@ -151,7 +137,7 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
         if (indexPath as NSIndexPath).section == SETTINGS.INFO_SECTION {
             // Hidden trigger to load demo date, Sort Jersey switch needs to be on & tap thrid section
             NSLog("Done")
-            if self.sortJerseySwitch.isOn {
+            if self.showFPSSwitch.isOn {
                 let alert = UIAlertController(title: "Add Demo Data", message: "Add demo league and team data for testing?", preferredStyle: UIAlertController.Style.alert)
                 alert.addAction(UIAlertAction(title: "Cancel", style: UIAlertAction.Style.cancel, handler: nil))
                 alert.addAction(UIAlertAction(title: "Add Data", style: UIAlertAction.Style.default, handler: {
@@ -171,7 +157,8 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
                 self.doHelpFAQButton(self)
             }
             if (indexPath as NSIndexPath).row == 1 {
-                self.doHelpConversationButton(self)
+//                self.doHelpConversationButton(self)
+                self.doSendEmail()
             }
         }
     }
@@ -186,11 +173,12 @@ class SettingsViewController: UITableViewController, MFMailComposeViewController
     }
     
     func doSendEmail() {
-        let messageBody = self.feedbackText.text
+        let messageBody = buildVersion      // self.feedbackText.text
         
         if (messageBody?.count)!>0 {
             
-            var emailTitle = self.feedbackSwitch.selectedSegmentIndex == 0 ? "[Suggestion]" : "[Bug Report]"
+//            var emailTitle = self.feedbackSwitch.selectedSegmentIndex == 0 ? "[Suggestion]" : "[Bug Report]"
+            var emailTitle = "[Suggestion]"
             emailTitle += " YOLObot Feedback"
             let message_text :String! = "\(String(describing: messageBody))\n\n\(String(describing: self.buildVersion))"
             let email = "YOLObot@moflo.me"

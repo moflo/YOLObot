@@ -11,7 +11,7 @@
 		86DB7F34BF7EB56D504F5965 /* Pods_yologle.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = C3EE2427D761ABA798FC95D4 /* Pods_yologle.framework */; };
 		9100EEB72288FAD4008DD267 /* ActionManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9100EEB62288FAD4008DD267 /* ActionManager.swift */; };
 		917C873422833F18002BF37F /* SwipeViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 917C873322833F18002BF37F /* SwipeViewController.swift */; };
-		9186A9B6228122BF0095FB60 /* CameraViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9B5228122BF0095FB60 /* CameraViewController.swift */; };
+		9186A9B6228122BF0095FB60 /* CameraController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9B5228122BF0095FB60 /* CameraController.swift */; };
 		9186A9B922812B660095FB60 /* ObjectDetector.mlmodel in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9B72281242C0095FB60 /* ObjectDetector.mlmodel */; };
 		9186A9BB2281E6FB0095FB60 /* About.txt in Resources */ = {isa = PBXBuildFile; fileRef = 9186A9BA2281E4170095FB60 /* About.txt */; };
 		9186A9BE2281E8DE0095FB60 /* AccountViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9186A9BC2281E8DE0095FB60 /* AccountViewController.swift */; };
@@ -33,6 +33,7 @@
 		918EEAA32280FBA800920FF8 /* DataSetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEAA22280FBA800920FF8 /* DataSetManager.swift */; };
 		918EEAA52281005C00920FF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 918EEAA42281005C00920FF8 /* GoogleService-Info.plist */; };
 		91A655C22284DF1A00DEFCEB /* SetActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A655C12284DF1A00DEFCEB /* SetActionViewController.swift */; };
+		91F4087E228B3FC300ACCE92 /* OverlayTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F4087D228B3FC300ACCE92 /* OverlayTextView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -64,7 +65,7 @@
 		361CDBD25A0B9683BA7E3568 /* Pods-yologleTests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yologleTests.release.xcconfig"; path = "Target Support Files/Pods-yologleTests/Pods-yologleTests.release.xcconfig"; sourceTree = "<group>"; };
 		9100EEB62288FAD4008DD267 /* ActionManager.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActionManager.swift; sourceTree = "<group>"; };
 		917C873322833F18002BF37F /* SwipeViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SwipeViewController.swift; sourceTree = "<group>"; };
-		9186A9B5228122BF0095FB60 /* CameraViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraViewController.swift; sourceTree = "<group>"; };
+		9186A9B5228122BF0095FB60 /* CameraController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CameraController.swift; sourceTree = "<group>"; };
 		9186A9B72281242C0095FB60 /* ObjectDetector.mlmodel */ = {isa = PBXFileReference; lastKnownFileType = file.mlmodel; path = ObjectDetector.mlmodel; sourceTree = "<group>"; };
 		9186A9BA2281E4170095FB60 /* About.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = About.txt; sourceTree = "<group>"; };
 		9186A9BC2281E8DE0095FB60 /* AccountViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AccountViewController.swift; sourceTree = "<group>"; };
@@ -93,6 +94,7 @@
 		918EEAA62281006800920FF8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		918EEAA72281006800920FF8 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		91A655C12284DF1A00DEFCEB /* SetActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetActionViewController.swift; sourceTree = "<group>"; };
+		91F4087D228B3FC300ACCE92 /* OverlayTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayTextView.swift; sourceTree = "<group>"; };
 		9542E64E2F0D2EB969D5D4CA /* Pods-yologle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yologle.release.xcconfig"; path = "Target Support Files/Pods-yologle/Pods-yologle.release.xcconfig"; sourceTree = "<group>"; };
 		C3EE2427D761ABA798FC95D4 /* Pods_yologle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yologle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCF8DC528E96BA500C66E432 /* Pods_yologleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yologleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -147,7 +149,8 @@
 				918EEA712280EC8D00920FF8 /* AppDelegate.swift */,
 				917C873322833F18002BF37F /* SwipeViewController.swift */,
 				918EEA732280EC8D00920FF8 /* ViewController.swift */,
-				9186A9B5228122BF0095FB60 /* CameraViewController.swift */,
+				91F4087D228B3FC300ACCE92 /* OverlayTextView.swift */,
+				9186A9B5228122BF0095FB60 /* CameraController.swift */,
 				918EEA962280F67C00920FF8 /* ActionViewController.swift */,
 				91A655C12284DF1A00DEFCEB /* SetActionViewController.swift */,
 				918EEA982280F69000920FF8 /* SettingsViewController.swift */,
@@ -479,7 +482,7 @@
 				918EEA742280EC8D00920FF8 /* ViewController.swift in Sources */,
 				9100EEB72288FAD4008DD267 /* ActionManager.swift in Sources */,
 				91A655C22284DF1A00DEFCEB /* SetActionViewController.swift in Sources */,
-				9186A9B6228122BF0095FB60 /* CameraViewController.swift in Sources */,
+				9186A9B6228122BF0095FB60 /* CameraController.swift in Sources */,
 				9186A9C2228231240095FB60 /* UserManager.swift in Sources */,
 				9186A9BE2281E8DE0095FB60 /* AccountViewController.swift in Sources */,
 				9186A9BF2281E8DE0095FB60 /* TermsViewController.swift in Sources */,
@@ -491,6 +494,7 @@
 				918EEAA12280FB2A00920FF8 /* MFButtons.swift in Sources */,
 				918EEA992280F69000920FF8 /* SettingsViewController.swift in Sources */,
 				918EEA9D2280FB0500920FF8 /* MFPolyEdit.swift in Sources */,
+				91F4087E228B3FC300ACCE92 /* OverlayTextView.swift in Sources */,
 				918EEA9B2280F9E600920FF8 /* PolyCatViewController.swift in Sources */,
 				9186A9B922812B660095FB60 /* ObjectDetector.mlmodel in Sources */,
 			);
