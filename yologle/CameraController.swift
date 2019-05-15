@@ -197,6 +197,14 @@ public class CameraController: NSObject  {
 extension CameraController : AVCaptureVideoDataOutputSampleBufferDelegate {
     
     public func captureOutput(_ output: AVCaptureOutput, didOutput sampleBuffer: CMSampleBuffer, from connection: AVCaptureConnection) {
+        
+        let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
+        
+        // Check for stability
+        if imageBuffer != nil {
+            _ = self.sceneStabilityAchieved(imageBuffer!)
+        }
+        
         // Because lowering the capture device's FPS looks ugly in the preview,
         // we capture at full speed but only call the delegate at its desired
         // framerate.
@@ -204,7 +212,6 @@ extension CameraController : AVCaptureVideoDataOutputSampleBufferDelegate {
         let deltaTime = timestamp - lastTimestamp
         if deltaTime >= CMTimeMake(value: 1, timescale: Int32(fps)) {
             lastTimestamp = timestamp
-            let imageBuffer = CMSampleBufferGetImageBuffer(sampleBuffer)
             delegate?.videoCapture(self, sampleBuffer: imageBuffer, timestamp: timestamp)
         }
     }
