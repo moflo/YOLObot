@@ -231,7 +231,7 @@ class ViewController: UIViewController {
     }
     
     func stopCaptureSession() {
-        self.videoCapture.stopCaptureSession()
+//        self.videoCapture.stopCaptureSession()
         
         UIView.animate(withDuration: 0.33, delay: 0.1, options: .curveEaseOut, animations: { () -> Void in
             
@@ -423,7 +423,7 @@ extension ViewController : SwipeNavigationControllerDelegate {
     override func didReceiveMemoryWarning() {
         super.didReceiveMemoryWarning()
         // Dispose of any resources that can be recreated.
-        DEBUG_LOG("OOM",details: "warning: \(#line) \(#function)")
+        DEBUG_LOG("OOM",details: "warning: \(#line) \(#file)\n\(Thread.callStackSymbols.forEach{print($0)})")
     }
     
 }
@@ -453,7 +453,10 @@ extension ViewController {
 
             // this closure is called on main thread
             if error == nil, let features: VisionText = result {
-                print("Feature text: ",features.text)
+//                print("Feature text: ",features.text)
+                self.stopCaptureSession()
+                self.actionLabel.text = features.text
+                
             } else {
 //                print("No features, error: ", error?.localizedDescription)
             }
