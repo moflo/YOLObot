@@ -7,6 +7,8 @@ target 'yologle' do
     pod 'Firebase/Firestore'    #, '5.0.0'
     pod 'FirebaseUI/Auth'
     pod 'Firebase/Storage'
+    pod 'Firebase/MLVision'
+    pod 'Firebase/MLVisionTextModel'
     pod 'Fabric'
     pod 'Crashlytics'
 

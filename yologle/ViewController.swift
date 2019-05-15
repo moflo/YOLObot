@@ -10,7 +10,7 @@ import UIKit
 import AVFoundation
 import Vision
 import SwipeNavigationController
-
+import Firebase
 
 class ViewController: UIViewController {
 
@@ -35,6 +35,10 @@ class ViewController: UIViewController {
     // MARK : CameraControl
     var videoCapture: CameraController!
 
+    // MARK: ML Kit Vision
+    lazy var vision = Vision.vision()
+    lazy var textRecognizer = vision.onDeviceTextRecognizer()
+    
     private var detectionViewOpen :Bool = false
     private var detectionOverlay: CALayer! = nil
 
@@ -423,6 +427,46 @@ extension ViewController : SwipeNavigationControllerDelegate {
     }
     
 }
+// MARK: - ML Kit Processing
+
+extension ViewController {
+    
+    func predictUsingVision(pixelBuffer: CVPixelBuffer?) {
+        guard pixelBuffer != nil else { return }
+        
+        let ciimage: CIImage = CIImage(cvImageBuffer: pixelBuffer!)
+
+        let ciContext = CIContext()
+        guard let cgImage: CGImage = ciContext.createCGImage(ciimage, from: ciimage.extent) else {
+//            self.isInference = false
+            // end of measure
+            self.performanceHUD.start()
+            return
+        }
+        
+        let uiImage: UIImage = UIImage(cgImage: cgImage)
+        let croppedImage = MFScaleCenterUIImage(uiImage,width: 416.0,height: 416.0)
+        let visionImage = VisionImage(image: uiImage)
+        textRecognizer.process(visionImage) { (result, error) in
+
+            self.performanceHUD.label(with: "endInference")
+
+            // this closure is called on main thread
+            if error == nil, let features: VisionText = result {
+                print("Feature text: ",features.text)
+            } else {
+//                print("No features, error: ", error?.localizedDescription)
+            }
+            
+            
+//            self.isInference = false
+            
+            // end of measure
+            self.performanceHUD.stop()
+        }
+    }
+
+}
 
 extension ViewController : CameraControllerDelegate {
     
@@ -431,6 +475,8 @@ extension ViewController : CameraControllerDelegate {
         DispatchQueue.main.async(execute: {
             let image_name = isStable ? "focus_large_active" : "focus_large"
             self.stabilityImageView.image = UIImage(named: image_name)
+            self.currentlyAnalyzedPixelBuffer = self.videoCapture.getCurrentPixelBuffer()
+            self.predictUsingVision(pixelBuffer: self.currentlyAnalyzedPixelBuffer)
             
         })
     }
