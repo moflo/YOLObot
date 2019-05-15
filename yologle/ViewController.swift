@@ -38,7 +38,8 @@ class ViewController: UIViewController {
     // MARK: ML Kit Vision
     lazy var vision = Vision.vision()
     lazy var textRecognizer = vision.onDeviceTextRecognizer()
-    
+    var processing :Bool = false    // Should use Semaphore
+
     private var detectionViewOpen :Bool = false
     private var detectionOverlay: CALayer! = nil
 
@@ -69,7 +70,7 @@ class ViewController: UIViewController {
     @IBAction func doSkipButton(_ sender: Any) {
         self.detectionViewOpen = false
 //        self.resetTranspositionHistory()
-        self.startCaptureSession()
+        self.doAnimateActionUI(false)
     }
     
     @IBAction func doActionButton(_ sender: Any) {
@@ -114,6 +115,8 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
+        self.doAnimateActionUI(true)
+
         let show = UserManager.sharedInstance.getShowFPS()
         self.performanceHUD.isHidden = !show
     }
@@ -140,7 +143,8 @@ class ViewController: UIViewController {
                 }
                 
                 // start the capture
-                self.startCaptureSession()
+                self.videoCapture.startCaptureSession()
+
             }
             else {
                 print("Error setting up AV Capture")
@@ -230,35 +234,16 @@ class ViewController: UIViewController {
         self.actionLabel.text = max_label
     }
     
-    func stopCaptureSession() {
+    func doAnimateActionUI(_ hide: Bool) {
 //        self.videoCapture.stopCaptureSession()
         
         UIView.animate(withDuration: 0.33, delay: 0.1, options: .curveEaseOut, animations: { () -> Void in
             
-            self.actionButton.isHidden = false
-            self.trainButton.isHidden = false
-            self.skipButton.isHidden = false
-            self.actionIcon.isHidden = false
-            self.actionLabel.isHidden = false
-            
-        }, completion: { (done) -> Void in
-            // Set underLine width
-            
-        })
-        
-    }
-    
-    func startCaptureSession() {
-        self.videoCapture.startCaptureSession()
-        
-        UIView.animate(withDuration: 0.33, delay: 0.1, options: .curveEaseOut, animations: { () -> Void in
-            
-            self.actionButton.isHidden = true
-            self.trainButton.isHidden = true
-            self.skipButton.isHidden = true
-            self.actionIcon.isHidden = true
-            self.actionLabel.isHidden = true
-            
+            self.actionButton.isHidden = hide
+            self.trainButton.isHidden = hide
+            self.skipButton.isHidden = hide
+            self.actionIcon.isHidden = hide
+            self.actionLabel.isHidden = hide
             
         }, completion: { (done) -> Void in
             // Set underLine width
@@ -347,7 +332,7 @@ extension ViewController : SwipeNavigationControllerDelegate {
         }
     }
     
-    func MFScaleCenterUIImage(_ image:UIImage, width:Double, height:Double) -> UIImage {
+    func MFScaleCenterUIImage(_ image:UIImage, width:Double, height:Double, zoom:Bool = false) -> UIImage {
         guard height != 0.0, width != 0.0, let cgImage = image.cgImage else { return image }
         
         let hasAlpha = false
@@ -367,7 +352,11 @@ extension ViewController : SwipeNavigationControllerDelegate {
         let Yoffset = minDim == imgW ? (maxDim - minDim) * 0.5 : 0.0
         let Xoffset = minDim == imgW ? 0.0 : (maxDim - minDim) * 0.5
         
-        let cropRect = CGRect(x: Xoffset, y: Yoffset, width: minDim, height: minDim)
+        var cropRect = CGRect(x: Xoffset, y: Yoffset, width: minDim, height: minDim)
+        // Optionally zoom into the center of the image (fixed at 20% of width)
+        if zoom {
+            cropRect = cropRect.insetBy(dx: CGFloat(width*0.2), dy: CGFloat(width*0.2))
+        }
         guard let crop = cgImage.cropping(to: cropRect) else { return image }
         let cropImage = UIImage(cgImage: crop)
         
@@ -431,9 +420,10 @@ extension ViewController : SwipeNavigationControllerDelegate {
 
 extension ViewController {
     
-    func predictUsingVision(pixelBuffer: CVPixelBuffer?) {
-        guard pixelBuffer != nil else { return }
-        
+    func predictUsingVision(pixelBuffer: CVPixelBuffer?, completionHandler: @escaping (Bool) -> () ) {
+        guard pixelBuffer != nil else { completionHandler(false); return }
+
+
         let ciimage: CIImage = CIImage(cvImageBuffer: pixelBuffer!)
 
         let ciContext = CIContext()
@@ -441,12 +431,17 @@ extension ViewController {
 //            self.isInference = false
             // end of measure
             self.performanceHUD.start()
+            completionHandler(false)
             return
         }
         
         let uiImage: UIImage = UIImage(cgImage: cgImage)
-        let croppedImage = MFScaleCenterUIImage(uiImage,width: 416.0,height: 416.0)
-        let visionImage = VisionImage(image: uiImage)
+//        let croppedImage = MFScaleCenterUIImage(uiImage,width: 416.0,height: 416.0)
+        let croppedImage = MFScaleCenterUIImage(uiImage,width: 416.0,height: 416.0, zoom:true)
+        let visionImage = VisionImage(image: croppedImage)
+        
+//        self.semaphore.wait()
+
         textRecognizer.process(visionImage) { (result, error) in
 
             self.performanceHUD.label(with: "endInference")
@@ -454,9 +449,9 @@ extension ViewController {
             // this closure is called on main thread
             if error == nil, let features: VisionText = result {
 //                print("Feature text: ",features.text)
-                self.stopCaptureSession()
+                self.doAnimateActionUI(false)
                 self.actionLabel.text = features.text
-                
+
             } else {
 //                print("No features, error: ", error?.localizedDescription)
             }
@@ -466,6 +461,12 @@ extension ViewController {
             
             // end of measure
             self.performanceHUD.stop()
+            
+//            self.semaphore.signal()
+            
+
+            completionHandler(true)
+
         }
     }
 
@@ -478,8 +479,16 @@ extension ViewController : CameraControllerDelegate {
         DispatchQueue.main.async(execute: {
             let image_name = isStable ? "focus_large_active" : "focus_large"
             self.stabilityImageView.image = UIImage(named: image_name)
-            self.currentlyAnalyzedPixelBuffer = self.videoCapture.getCurrentPixelBuffer()
-            self.predictUsingVision(pixelBuffer: self.currentlyAnalyzedPixelBuffer)
+            
+            if isStable && !self.processing {
+                self.processing = true
+                
+                self.currentlyAnalyzedPixelBuffer = self.videoCapture.getCurrentPixelBuffer()
+                self.predictUsingVision(pixelBuffer: self.currentlyAnalyzedPixelBuffer,completionHandler: { done in
+                    self.processing = false
+                })
+                
+            }
             
         })
     }
