@@ -114,12 +114,75 @@
                                     <constraint firstAttribute="height" constant="40" id="rI0-y1-uB2"/>
                                 </constraints>
                             </imageView>
-                            <view userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jnp-LU-X8s" customClass="OverlayTextView" customModule="yologle" customModuleProvider="target">
+                            <view clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Jnp-LU-X8s" customClass="OverlayYOLOView" customModule="yologle" customModuleProvider="target">
                                 <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <accessibility key="accessibilityConfiguration">
                                     <accessibilityTraits key="traits" notEnabled="YES"/>
                                 </accessibility>
+                            </view>
+                            <view clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="zyT-B8-SPs" customClass="OverlayTextView" customModule="yologle" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <accessibility key="accessibilityConfiguration">
+                                    <accessibilityTraits key="traits" notEnabled="YES"/>
+                                </accessibility>
+                            </view>
+                            <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Umf-dH-Kb9" customClass="PerformanceHUDView" customModule="yologle" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="621" width="375" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" verticalHuggingPriority="251" text="fps: xx" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="k97-QS-f3o">
+                                        <rect key="frame" x="251.5" y="13" width="107.5" height="18"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="Cql-vE-PRg"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="9"/>
+                                        <color key="textColor" red="0.0" green="0.98106676339999999" blue="0.57369142770000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Inference: xxx mm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="HLn-Pc-FWf">
+                                        <rect key="frame" x="16" y="13" width="107.5" height="18"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="g7X-tp-baX"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="9"/>
+                                        <color key="textColor" red="0.0" green="0.98106676339999999" blue="0.57369142770000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Execution: xxx mm" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" minimumScaleFactor="0.5" translatesAutoresizingMaskIntoConstraints="NO" id="hPa-KW-vGa">
+                                        <rect key="frame" x="133.5" y="13" width="108" height="18"/>
+                                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="18" id="hxZ-by-76m"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" name="Courier-Bold" family="Courier" pointSize="9"/>
+                                        <color key="textColor" red="0.0" green="0.98106676339999999" blue="0.57369142770000003" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                </subviews>
+                                <color key="backgroundColor" white="0.0" alpha="0.80182470029999997" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <constraints>
+                                    <constraint firstAttribute="trailing" secondItem="k97-QS-f3o" secondAttribute="trailing" constant="16" id="JSQ-Zg-prm"/>
+                                    <constraint firstItem="k97-QS-f3o" firstAttribute="centerY" secondItem="Umf-dH-Kb9" secondAttribute="centerY" id="RTd-5K-av9"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="44" id="YnS-u4-zYk"/>
+                                    <constraint firstItem="HLn-Pc-FWf" firstAttribute="leading" secondItem="Umf-dH-Kb9" secondAttribute="leading" constant="16" id="ZAq-UF-Df9"/>
+                                    <constraint firstItem="k97-QS-f3o" firstAttribute="width" secondItem="HLn-Pc-FWf" secondAttribute="width" id="ZmT-TO-muO"/>
+                                    <constraint firstItem="hPa-KW-vGa" firstAttribute="width" secondItem="HLn-Pc-FWf" secondAttribute="width" id="bMy-Za-kM2"/>
+                                    <constraint firstAttribute="width" constant="375" id="cNK-wF-lJk"/>
+                                    <constraint firstItem="hPa-KW-vGa" firstAttribute="baseline" secondItem="HLn-Pc-FWf" secondAttribute="baseline" id="d7X-e1-aZ0"/>
+                                    <constraint firstAttribute="height" constant="44" id="fOF-aN-6M3"/>
+                                    <constraint firstItem="HLn-Pc-FWf" firstAttribute="centerY" secondItem="Umf-dH-Kb9" secondAttribute="centerY" id="mqa-uY-Xiq"/>
+                                    <constraint firstItem="k97-QS-f3o" firstAttribute="leading" secondItem="hPa-KW-vGa" secondAttribute="trailing" constant="10" id="o1i-f4-3sG"/>
+                                    <constraint firstItem="hPa-KW-vGa" firstAttribute="leading" secondItem="HLn-Pc-FWf" secondAttribute="trailing" constant="10" id="sU7-P0-oiz"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="etimeLabel" destination="hPa-KW-vGa" id="obS-sl-PH6"/>
+                                    <outlet property="fpsLabel" destination="k97-QS-f3o" id="mIN-Ry-R3m"/>
+                                    <outlet property="inferenceLabel" destination="HLn-Pc-FWf" id="goU-W5-ewr"/>
+                                </connections>
                             </view>
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
@@ -130,12 +193,15 @@
                             <constraint firstItem="HOW-Uq-3jO" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="22" id="EQU-W1-sn2"/>
                             <constraint firstItem="Jnp-LU-X8s" firstAttribute="top" secondItem="8bC-Xf-vdC" secondAttribute="top" id="FNa-tf-lO1"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="3EG-U9-OJW" secondAttribute="bottom" constant="22" id="GKH-iW-tMa"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Umf-dH-Kb9" secondAttribute="bottom" constant="2" id="JGp-ry-YOm"/>
+                            <constraint firstItem="Umf-dH-Kb9" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="JiE-1N-Z4b"/>
                             <constraint firstItem="Jnp-LU-X8s" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="K1l-aJ-Rly"/>
                             <constraint firstItem="3EG-U9-OJW" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="44" id="Txi-8b-vcy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="8ge-ez-83K" secondAttribute="bottom" constant="84" id="WQG-Fg-WQV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="ify-sD-cPz" secondAttribute="bottom" constant="22" id="bzM-ga-xuh"/>
                             <constraint firstItem="Jnp-LU-X8s" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="dPo-kC-63Y"/>
                             <constraint firstItem="APJ-3N-tgU" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="66" id="eCF-LK-L95"/>
+                            <constraint firstItem="Umf-dH-Kb9" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="eDw-Co-3GB"/>
                             <constraint firstItem="7w0-k6-df8" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" constant="40" id="hYU-2X-zhw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="gOz-is-VjK" secondAttribute="trailing" constant="44" id="iCx-mx-uqi"/>
                             <constraint firstItem="TP3-uO-1Ob" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="44" id="iEx-i9-ZKJ"/>
@@ -157,7 +223,9 @@
                         <outlet property="actionButton" destination="TP3-uO-1Ob" id="GdS-uW-hqq"/>
                         <outlet property="actionIcon" destination="APJ-3N-tgU" id="HPo-Mg-EVz"/>
                         <outlet property="actionLabel" destination="8ge-ez-83K" id="YoG-kt-DRc"/>
-                        <outlet property="drawingView" destination="Jnp-LU-X8s" id="Vn0-bD-eJh"/>
+                        <outlet property="overlayTextView" destination="zyT-B8-SPs" id="D11-qS-ktW"/>
+                        <outlet property="overlayYOLOView" destination="Jnp-LU-X8s" id="gNE-6h-b8r"/>
+                        <outlet property="performanceHUD" destination="Umf-dH-Kb9" id="vEU-aV-cjH"/>
                         <outlet property="previewView" destination="ern-01-KZ0" id="Tv0-Mu-sJm"/>
                         <outlet property="skipButton" destination="3EG-U9-OJW" id="PXV-09-O2J"/>
                         <outlet property="stabilityImageView" destination="HOW-Uq-3jO" id="p0r-Py-tky"/>

@@ -34,6 +34,8 @@
 		918EEAA52281005C00920FF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 918EEAA42281005C00920FF8 /* GoogleService-Info.plist */; };
 		91A655C22284DF1A00DEFCEB /* SetActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A655C12284DF1A00DEFCEB /* SetActionViewController.swift */; };
 		91F4087E228B3FC300ACCE92 /* OverlayTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F4087D228B3FC300ACCE92 /* OverlayTextView.swift */; };
+		91F40880228B96AB00ACCE92 /* OverlayYOLOView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F4087F228B96AB00ACCE92 /* OverlayYOLOView.swift */; };
+		91F40882228BA7C300ACCE92 /* PerformanceHUDView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F40881228BA7C300ACCE92 /* PerformanceHUDView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -95,6 +97,8 @@
 		918EEAA72281006800920FF8 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
 		91A655C12284DF1A00DEFCEB /* SetActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetActionViewController.swift; sourceTree = "<group>"; };
 		91F4087D228B3FC300ACCE92 /* OverlayTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayTextView.swift; sourceTree = "<group>"; };
+		91F4087F228B96AB00ACCE92 /* OverlayYOLOView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayYOLOView.swift; sourceTree = "<group>"; };
+		91F40881228BA7C300ACCE92 /* PerformanceHUDView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PerformanceHUDView.swift; sourceTree = "<group>"; };
 		9542E64E2F0D2EB969D5D4CA /* Pods-yologle.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-yologle.release.xcconfig"; path = "Target Support Files/Pods-yologle/Pods-yologle.release.xcconfig"; sourceTree = "<group>"; };
 		C3EE2427D761ABA798FC95D4 /* Pods_yologle.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yologle.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		CCF8DC528E96BA500C66E432 /* Pods_yologleTests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_yologleTests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -150,7 +154,9 @@
 				917C873322833F18002BF37F /* SwipeViewController.swift */,
 				918EEA732280EC8D00920FF8 /* ViewController.swift */,
 				91F4087D228B3FC300ACCE92 /* OverlayTextView.swift */,
+				91F4087F228B96AB00ACCE92 /* OverlayYOLOView.swift */,
 				9186A9B5228122BF0095FB60 /* CameraController.swift */,
+				91F40881228BA7C300ACCE92 /* PerformanceHUDView.swift */,
 				918EEA962280F67C00920FF8 /* ActionViewController.swift */,
 				91A655C12284DF1A00DEFCEB /* SetActionViewController.swift */,
 				918EEA982280F69000920FF8 /* SettingsViewController.swift */,
@@ -484,7 +490,9 @@
 				91A655C22284DF1A00DEFCEB /* SetActionViewController.swift in Sources */,
 				9186A9B6228122BF0095FB60 /* CameraController.swift in Sources */,
 				9186A9C2228231240095FB60 /* UserManager.swift in Sources */,
+				91F40882228BA7C300ACCE92 /* PerformanceHUDView.swift in Sources */,
 				9186A9BE2281E8DE0095FB60 /* AccountViewController.swift in Sources */,
+				91F40880228B96AB00ACCE92 /* OverlayYOLOView.swift in Sources */,
 				9186A9BF2281E8DE0095FB60 /* TermsViewController.swift in Sources */,
 				917C873422833F18002BF37F /* SwipeViewController.swift in Sources */,
 				918EEA972280F67C00920FF8 /* ActionViewController.swift in Sources */,

@@ -13,6 +13,8 @@ import CoreVideo
 
 public protocol CameraControllerDelegate: class {
     func videoCapture(_ capture: CameraController, sampleBuffer: CVPixelBuffer?, timestamp: CMTime)
+    
+    func videoDidStablize(_ isStable:Bool)
 }
 
 public class CameraController: NSObject  {
@@ -123,6 +125,73 @@ public class CameraController: NSObject  {
     }
     
     
+    // MARK: - SceneStability Check
+    
+    // Stability check
+    private let sequenceRequestHandler = VNSequenceRequestHandler()
+    private let maximumHistoryLength = 15
+    private var transpositionHistoryPoints: [CGPoint] = [ ]
+    private var previousPixelBuffer: CVPixelBuffer?
+    
+    public func resetTranspositionHistory() {
+        transpositionHistoryPoints.removeAll()
+    }
+
+    public func getCurrentPixelBuffer() -> CVPixelBuffer? {
+        return previousPixelBuffer
+    }
+
+    func sceneStabilityAchieved(_ pixelBuffer: CVImageBuffer) -> Bool {
+        guard previousPixelBuffer != nil else {
+            previousPixelBuffer = pixelBuffer
+            self.resetTranspositionHistory()
+            self.delegate?.videoDidStablize(false)
+            return false
+        }
+        
+        let registrationRequest = VNTranslationalImageRegistrationRequest(targetedCVPixelBuffer: pixelBuffer)
+        do {
+            try sequenceRequestHandler.perform([ registrationRequest ], on: previousPixelBuffer!)
+        } catch let error as NSError {
+            print("Failed to process request: \(error.localizedDescription).")
+            return false
+        }
+        
+        previousPixelBuffer = pixelBuffer
+        
+        if let results = registrationRequest.results {
+            if let alignmentObservation = results.first as? VNImageTranslationAlignmentObservation {
+                let alignmentTransform = alignmentObservation.alignmentTransform
+                self.recordTransposition(CGPoint(x: alignmentTransform.tx, y: alignmentTransform.ty))
+            }
+        }
+        
+        // Determine if we have enough evidence of stability.
+        if transpositionHistoryPoints.count == maximumHistoryLength {
+            // Calculate the moving average.
+            var movingAverage: CGPoint = CGPoint.zero
+            for currentPoint in transpositionHistoryPoints {
+                movingAverage.x += currentPoint.x
+                movingAverage.y += currentPoint.y
+            }
+            let distance = abs(movingAverage.x) + abs(movingAverage.y)
+            if distance < 20 {
+                self.delegate?.videoDidStablize(true)
+                return true
+            }
+        }
+        self.delegate?.videoDidStablize(false)
+        return false
+    }
+    
+    fileprivate func recordTransposition(_ point: CGPoint) {
+        transpositionHistoryPoints.append(point)
+        
+        if transpositionHistoryPoints.count > maximumHistoryLength {
+            transpositionHistoryPoints.removeFirst()
+        }
+    }
+    
 }
 
 extension CameraController : AVCaptureVideoDataOutputSampleBufferDelegate {
@@ -145,3 +214,4 @@ extension CameraController : AVCaptureVideoDataOutputSampleBufferDelegate {
         //print("dropped frame")
     }
 }
+
