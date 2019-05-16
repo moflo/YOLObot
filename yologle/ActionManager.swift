@@ -76,12 +76,16 @@ struct MFActionItem : Codable {
     }
 }
 
+// MARK: - Action Manager
+
 class ActionManager : NSObject {
     static let sharedInstance = ActionManager()
 
     var recentAction :MFActionType? = nil
     var recentActionText :String? = nil
 
+    // MARK: Estimate Action
+    
     func estimateAction(text: String?, objectLabel: String?) -> (type:MFActionType, prompt:String) {
         
 
@@ -276,6 +280,8 @@ class ActionManager : NSObject {
 
     }
     
+    // MARK: Perform Action
+    
     func URLEncodedString(_ string: String) -> String? {
         let customAllowedSet =  CharacterSet.urlQueryAllowed
         let escapedString = string.addingPercentEncoding(withAllowedCharacters: customAllowedSet)
@@ -284,10 +290,35 @@ class ActionManager : NSObject {
 
     var senderViewController :UIViewController? = nil
 
+    func doScriptAction(_ shortCutName: String) {
+        // shortcuts://x-callback-url/run-shortcut?name=Take%20Picture&id=FC92D7EC-D9C5-490A-949B-3119568EBC75&source=homescreen
+
+        // Save actionText to clipboard
+        let pasteboard = UIPasteboard.general
+        pasteboard.string = self.recentActionText
+
+        let script = URLEncodedString(shortCutName) ?? "Shorten%20URL"
+        UIApplication.shared.open(URL(string:"shortcuts://x-callback-url/run-shortcut?name=\(script)")!)
+
+    }
+    
     public func performAction(_ vc: UIViewController) {
         guard let action = recentAction, let actionText = recentActionText else { return }
         
         self.senderViewController = vc
+
+        // Run shortcut for item
+
+        let actions = UserManager.sharedInstance.getUserDefaultActions()
+        if let userDefault = actions[action] as MFActionItem? {
+            
+            if let shortCutName = userDefault.scriptName {
+                doScriptAction(shortCutName)
+                return
+            }
+            
+        }
+
         
         if action == .phone {
             let url = URL(string: "tel://\(actionText)")
