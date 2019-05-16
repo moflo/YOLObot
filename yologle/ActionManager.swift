@@ -8,6 +8,8 @@
 
 import UIKit
 import MessageUI
+import ContactsUI
+
 
 enum MFActionType :String, Codable {
     case phone = "phoneCall"
@@ -74,7 +76,7 @@ struct MFActionItem : Codable {
     }
 }
 
-class ActionManager : NSObject, MFMailComposeViewControllerDelegate {
+class ActionManager : NSObject {
     static let sharedInstance = ActionManager()
 
     var recentAction :MFActionType? = nil
@@ -105,8 +107,8 @@ class ActionManager : NSObject, MFMailComposeViewControllerDelegate {
         }
 
         // Default value
-        recentAction = nil
-        recentActionText = nil
+        recentAction = .meishi
+        recentActionText = text
         return (.meishi, text ?? "Unknown")
         
     }
@@ -274,6 +276,14 @@ class ActionManager : NSObject, MFMailComposeViewControllerDelegate {
 
     }
     
+    func URLEncodedString(_ string: String) -> String? {
+        let customAllowedSet =  CharacterSet.urlQueryAllowed
+        let escapedString = string.addingPercentEncoding(withAllowedCharacters: customAllowedSet)
+        return escapedString
+    }
+
+    var senderViewController :UIViewController? = nil
+
     public func performAction(_ vc: UIViewController) {
         guard let action = recentAction, let actionText = recentActionText else { return }
         
@@ -285,6 +295,13 @@ class ActionManager : NSObject, MFMailComposeViewControllerDelegate {
             UIApplication.shared.open(url!,options:options,completionHandler: { done in
                 print("URL open :", done)
             })
+        }
+        
+        if action == .map {
+        
+            let address = URLEncodedString(actionText) ?? "cupertino,ca"
+            UIApplication.shared.open(URL(string:"http://maps.apple.com/?address=\(address)")!)
+
         }
         
         if action == .email {
@@ -306,9 +323,20 @@ class ActionManager : NSObject, MFMailComposeViewControllerDelegate {
 
         }
         
+        if action == .meishi {
+            let contact = CNMutableContact()
+            contact.note = actionText
+            let cvc = CNContactViewController(forNewContact: contact)
+            cvc.delegate = self
+            let nav = UINavigationController(rootViewController: cvc)
+            vc.present(nav, animated: true, completion: nil)
+
+        }
     }
     
-    var senderViewController :UIViewController? = nil
+}
+
+extension ActionManager : MFMailComposeViewControllerDelegate {
     
     func mailComposeController(_ controller: MFMailComposeViewController, didFinishWith result: MFMailComposeResult, error: Error?) {
         switch result.rawValue {
@@ -328,3 +356,11 @@ class ActionManager : NSObject, MFMailComposeViewControllerDelegate {
 
 }
 
+extension ActionManager : CNContactViewControllerDelegate {
+    
+    func contactViewController(_ viewController: CNContactViewController, didCompleteWith contact: CNContact?) {
+//        print("ContactViewController done")
+        viewController.dismiss(animated: false, completion: nil)
+
+    }
+}
