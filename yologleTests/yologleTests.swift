@@ -243,4 +243,83 @@ class yologleTests: XCTestCase {
         
     }
 
+    func testActionManager() {
+        
+        // Phone number testing
+        
+        let a1 = ActionManager.sharedInstance.estimateAction(text: "100 202 1234", objectLabel: nil)
+        
+        expect(a1.type) == .phone
+        expect(a1.prompt) == "1-100-202-1234"
+        
+        let a2 = ActionManager.sharedInstance.estimateAction(text: "(100 202 1234", objectLabel: nil)
+        
+        expect(a2.type) == .phone
+        expect(a2.prompt) == "1-100-202-1234"
+
+        let a3 = ActionManager.sharedInstance.estimateAction(text: "(100) 202 1234", objectLabel: nil)
+        
+        expect(a3.type) == .phone
+        expect(a3.prompt) == "1-100-202-1234"
+
+        let a4 = ActionManager.sharedInstance.estimateAction(text: "100-202-1234", objectLabel: nil)
+        
+        expect(a4.type) == .phone
+        expect(a4.prompt) == "1-100-202-1234"
+
+        let a5 = ActionManager.sharedInstance.estimateAction(text: "100.202.1234", objectLabel: nil)
+        
+        expect(a5.type) == .phone
+        expect(a5.prompt) == "1-100-202-1234"
+        
+        let a6 = ActionManager.sharedInstance.estimateAction(text: "100  202  1234", objectLabel: nil)
+        
+        expect(a6.type) == .phone
+        expect(a6.prompt) == "1-100-202-1234"
+
+        let a7 = ActionManager.sharedInstance.estimateAction(text: "  100  202  1234", objectLabel: nil)
+        
+        expect(a7.type) == .phone
+        expect(a7.prompt) == "1-100-202-1234"
+
+        
+        // Address testing
+        
+        let text1 = """
+        123 Main St.\n \
+        P.O. Box 101 \n \
+        Anytown Again ca 90010
+        """
+
+        let a8 = ActionManager.sharedInstance.estimateAction(text: text1, objectLabel: nil)
+        
+        expect(a8.type) == .map
+        expect(a8.prompt) == "123 Main St.  P.O. Box 101   Anytown Again ca 90010"
+
+        
+        // Email testing
+        
+        let e1 = ActionManager.sharedInstance.estimateAction(text: "test@testing.com", objectLabel: nil)
+        
+        expect(e1.type) == .email
+        expect(e1.prompt) == "test@testing.com"
+        
+        
+        let emails = ["test@testing.com","test2@testing2.co","test@testing.co",
+                      "TEST@test.org","test.one@testing.com","test.two@test-one.com"]
+        
+        for email in emails {
+            let e = ActionManager.sharedInstance.estimateAction(text: email, objectLabel: nil)
+            
+            if e.type != .email {
+                print("Error: ",email)
+                abort()
+            }
+            
+            expect(e.type) == .email
+            expect(e.prompt) == email
+
+        }
+
+    }
 }

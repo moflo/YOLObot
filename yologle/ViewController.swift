@@ -74,11 +74,7 @@ class ViewController: UIViewController {
     }
     
     @IBAction func doActionButton(_ sender: Any) {
-        let url = URL(string: "tel://1-408-555-1212")
-        let options :[UIApplication.OpenExternalURLOptionsKey : Any] = [:]
-        UIApplication.shared.open(url!,options:options,completionHandler: { done in
-            print("URL open :", done)
-        })
+        ActionManager.sharedInstance.performAction(self)
     }
 
 
@@ -319,6 +315,162 @@ class ViewController: UIViewController {
 }
 
 
+// MARK: - ML Kit Processing
+
+extension ViewController {
+    
+    
+    // Method to update UI based on either text or object detection
+    func estimateActionResponse(text: String?, objectLabel: String?) {
+        guard text != nil || objectLabel != nil else { return }
+        
+        
+        self.doAnimateActionUI(false)
+
+        let action = ActionManager.sharedInstance.estimateAction(text: text, objectLabel: objectLabel)
+        
+        switch action.type {
+        case .map :
+            self.actionLabel.text = "MAP\n\(action.prompt)"
+            
+        case .phone:
+            self.actionLabel.text = "PHONE\n\(action.prompt)"
+
+        case .email:
+            self.actionLabel.text = "EMAIL\n\(action.prompt)"
+
+        case .food:
+            self.actionLabel.text = "FOOD\n\(action.prompt)"
+
+        case .upc:
+            self.actionLabel.text = "UPC\n\(action.prompt)"
+
+        case .qr:
+            self.actionLabel.text = "QR\n\(action.prompt)"
+
+        case .meishi:
+            self.actionLabel.text = "CARD\n\(action.prompt)"
+
+        }
+    }
+    
+    func predictUsingVision(pixelBuffer: CVPixelBuffer?, completionHandler: @escaping (Bool) -> () ) {
+        guard pixelBuffer != nil else { completionHandler(false); return }
+
+
+        let ciimage: CIImage = CIImage(cvImageBuffer: pixelBuffer!)
+
+        let ciContext = CIContext()
+        guard let cgImage: CGImage = ciContext.createCGImage(ciimage, from: ciimage.extent) else {
+//            self.isInference = false
+            // end of measure
+            self.performanceHUD.start()
+            completionHandler(false)
+            return
+        }
+        
+        let uiImage: UIImage = UIImage(cgImage: cgImage)
+//        let croppedImage = MFScaleCenterUIImage(uiImage,width: 416.0,height: 416.0)
+        let croppedImage = MFScaleCenterUIImage(uiImage,width: 416.0,height: 416.0, zoom:true)
+        let visionImage = VisionImage(image: croppedImage)
+        
+//        self.semaphore.wait()
+
+        textRecognizer.process(visionImage) { (result, error) in
+
+            self.performanceHUD.label(with: "endInference")
+
+            // this closure is called on main thread
+            if error == nil, let features: VisionText = result {
+//                print("Feature text: ",features.text)
+                self.estimateActionResponse(text: features.text, objectLabel: nil)
+
+            } else {
+//                print("No features, error: ", error?.localizedDescription)
+            }
+            
+            
+//            self.isInference = false
+            
+            // end of measure
+            self.performanceHUD.stop()
+            
+//            self.semaphore.signal()
+            
+
+            completionHandler(true)
+
+        }
+    }
+
+}
+
+extension ViewController : CameraControllerDelegate {
+    
+
+    func videoDidStablize(_ isStable: Bool) {
+        DispatchQueue.main.async(execute: {
+            let image_name = isStable ? "focus_large_active" : "focus_large"
+            self.stabilityImageView.image = UIImage(named: image_name)
+
+            self.currentlyAnalyzedPixelBuffer = self.videoCapture.getCurrentPixelBuffer()
+
+            if isStable && !self.processing {
+                self.processing = true
+                
+                self.predictUsingVision(pixelBuffer: self.currentlyAnalyzedPixelBuffer,completionHandler: { done in
+                    self.processing = false
+                })
+                
+            }
+            
+        })
+    }
+    
+    
+    func videoCapture(_ capture: CameraController, sampleBuffer: CVPixelBuffer?, timestamp: CMTime) {
+        
+        guard let pixelBuffer = sampleBuffer else {  // CMSampleBufferGetImageBuffer(sampleBuffer)
+            //            ,
+            //                sceneStabilityAchieved(pixelBuffer) == true
+                return
+        }
+        
+        self.performanceHUD.start()
+        
+        let exifOrientation = exifOrientationFromDeviceOrientation()
+        
+        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: exifOrientation, options: [:])
+        do {
+            try imageRequestHandler.perform(self.requests)
+        } catch {
+            print(error)
+        }
+
+    }
+    
+    
+    public func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
+        let curDeviceOrientation = UIDevice.current.orientation
+        let exifOrientation: CGImagePropertyOrientation
+        
+        switch curDeviceOrientation {
+        case UIDeviceOrientation.portraitUpsideDown:  // Device oriented vertically, home button on the top
+            exifOrientation = .left
+        case UIDeviceOrientation.landscapeLeft:       // Device oriented horizontally, home button on the right
+            exifOrientation = .upMirrored
+        case UIDeviceOrientation.landscapeRight:      // Device oriented horizontally, home button on the left
+            exifOrientation = .down
+        case UIDeviceOrientation.portrait:            // Device oriented vertically, home button on the bottom
+            exifOrientation = .up
+        default:
+            exifOrientation = .up
+        }
+        return exifOrientation
+    }
+
+}
+
 // MARK: - Swipe Navigation Controller
 extension ViewController : SwipeNavigationControllerDelegate {
     
@@ -378,7 +530,7 @@ extension ViewController : SwipeNavigationControllerDelegate {
             let tc = nc.viewControllers[0] as? PolyCatViewController else { return }
         
         let dataSet = MFDataSet(
-            categoryArray:["Signage","Telephone","URL","UPC","Menu","Other"]
+            categoryArray:["Phone","Email","Address","Contact","Code","Other"]
         )
         
         if let pixelBuffer = self.videoCapture.getCurrentPixelBuffer() {
@@ -390,22 +542,22 @@ extension ViewController : SwipeNavigationControllerDelegate {
             }
             let rotatedImage = UIImage(cgImage: cgImage, scale: 1.0, orientation: .right)
             
-            dataSet.currentImage = MFScaleCenterUIImage(rotatedImage,width: 416.0,height: 416.0)
+            dataSet.currentImage = MFScaleCenterUIImage(rotatedImage,width: 416.0,height: 416.0, zoom:true)
         }
         
         tc.dataSetObj = dataSet
         
     }
-
+    
     
     /// Callback when embedded view had moved to new position
     func swipeNavigationController(_ controller: SwipeNavigationController, didShowEmbeddedViewForPosition position: Position) {
         parentVC = controller
-
+        
         // Update UI based on settings
         let show = UserManager.sharedInstance.getShowFPS()
         self.performanceHUD.isHidden = !show
-
+        
     }
     
     
@@ -415,124 +567,4 @@ extension ViewController : SwipeNavigationControllerDelegate {
         DEBUG_LOG("OOM",details: "warning: \(#line) \(#file)\n\(Thread.callStackSymbols.forEach{print($0)})")
     }
     
-}
-// MARK: - ML Kit Processing
-
-extension ViewController {
-    
-    func predictUsingVision(pixelBuffer: CVPixelBuffer?, completionHandler: @escaping (Bool) -> () ) {
-        guard pixelBuffer != nil else { completionHandler(false); return }
-
-
-        let ciimage: CIImage = CIImage(cvImageBuffer: pixelBuffer!)
-
-        let ciContext = CIContext()
-        guard let cgImage: CGImage = ciContext.createCGImage(ciimage, from: ciimage.extent) else {
-//            self.isInference = false
-            // end of measure
-            self.performanceHUD.start()
-            completionHandler(false)
-            return
-        }
-        
-        let uiImage: UIImage = UIImage(cgImage: cgImage)
-//        let croppedImage = MFScaleCenterUIImage(uiImage,width: 416.0,height: 416.0)
-        let croppedImage = MFScaleCenterUIImage(uiImage,width: 416.0,height: 416.0, zoom:true)
-        let visionImage = VisionImage(image: croppedImage)
-        
-//        self.semaphore.wait()
-
-        textRecognizer.process(visionImage) { (result, error) in
-
-            self.performanceHUD.label(with: "endInference")
-
-            // this closure is called on main thread
-            if error == nil, let features: VisionText = result {
-//                print("Feature text: ",features.text)
-                self.doAnimateActionUI(false)
-                self.actionLabel.text = features.text
-
-            } else {
-//                print("No features, error: ", error?.localizedDescription)
-            }
-            
-            
-//            self.isInference = false
-            
-            // end of measure
-            self.performanceHUD.stop()
-            
-//            self.semaphore.signal()
-            
-
-            completionHandler(true)
-
-        }
-    }
-
-}
-
-extension ViewController : CameraControllerDelegate {
-    
-
-    func videoDidStablize(_ isStable: Bool) {
-        DispatchQueue.main.async(execute: {
-            let image_name = isStable ? "focus_large_active" : "focus_large"
-            self.stabilityImageView.image = UIImage(named: image_name)
-            
-            if isStable && !self.processing {
-                self.processing = true
-                
-                self.currentlyAnalyzedPixelBuffer = self.videoCapture.getCurrentPixelBuffer()
-                self.predictUsingVision(pixelBuffer: self.currentlyAnalyzedPixelBuffer,completionHandler: { done in
-                    self.processing = false
-                })
-                
-            }
-            
-        })
-    }
-    
-    
-    func videoCapture(_ capture: CameraController, sampleBuffer: CVPixelBuffer?, timestamp: CMTime) {
-        
-        guard let pixelBuffer = sampleBuffer else {  // CMSampleBufferGetImageBuffer(sampleBuffer)
-            //            ,
-            //                sceneStabilityAchieved(pixelBuffer) == true
-                return
-        }
-        
-        self.performanceHUD.start()
-        
-        let exifOrientation = exifOrientationFromDeviceOrientation()
-        
-        let imageRequestHandler = VNImageRequestHandler(cvPixelBuffer: pixelBuffer, orientation: exifOrientation, options: [:])
-        do {
-            try imageRequestHandler.perform(self.requests)
-        } catch {
-            print(error)
-        }
-
-    }
-    
-    
-    public func exifOrientationFromDeviceOrientation() -> CGImagePropertyOrientation {
-        let curDeviceOrientation = UIDevice.current.orientation
-        let exifOrientation: CGImagePropertyOrientation
-        
-        switch curDeviceOrientation {
-        case UIDeviceOrientation.portraitUpsideDown:  // Device oriented vertically, home button on the top
-            exifOrientation = .left
-        case UIDeviceOrientation.landscapeLeft:       // Device oriented horizontally, home button on the right
-            exifOrientation = .upMirrored
-        case UIDeviceOrientation.landscapeRight:      // Device oriented horizontally, home button on the left
-            exifOrientation = .down
-        case UIDeviceOrientation.portrait:            // Device oriented vertically, home button on the bottom
-            exifOrientation = .up
-        default:
-            exifOrientation = .up
-        }
-        return exifOrientation
-    }
-
 }
