@@ -1118,8 +1118,8 @@
                             <scrollView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="q11-yc-g03">
                                 <rect key="frame" x="0.0" y="108" width="375" height="375"/>
                                 <subviews>
-                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="bounding_box" translatesAutoresizingMaskIntoConstraints="NO" id="ZJp-oy-WOR" customClass="BoundingBoxView" customModule="yologle" customModuleProvider="target">
-                                        <rect key="frame" x="0.0" y="0.0" width="680" height="490"/>
+                                    <imageView userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="placeholder_image" translatesAutoresizingMaskIntoConstraints="NO" id="ZJp-oy-WOR" customClass="BoundingBoxView" customModule="yologle" customModuleProvider="target">
+                                        <rect key="frame" x="0.0" y="0.0" width="375" height="375"/>
                                     </imageView>
                                 </subviews>
                                 <constraints>
@@ -1134,10 +1134,10 @@
                                 </connections>
                             </scrollView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="lkQ-XH-UPd">
-                                <rect key="frame" x="0.0" y="100" width="375" height="8"/>
-                                <color key="backgroundColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                                <rect key="frame" x="0.0" y="107" width="375" height="1"/>
+                                <color key="backgroundColor" white="0.66666666666666663" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="8" id="NP4-33-gab"/>
+                                    <constraint firstAttribute="height" constant="1" id="NP4-33-gab"/>
                                 </constraints>
                             </view>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="O13-fM-hXh" customClass="MFTrainingButtonView" customModule="yologle" customModuleProvider="target">
@@ -1610,7 +1610,6 @@ Terms of Service                         Privacy Policy</string>
     </scenes>
     <resources>
         <image name="bot_small_orange" width="128" height="128"/>
-        <image name="bounding_box" width="680" height="490"/>
         <image name="focus_large" width="300" height="300"/>
         <image name="icon_close" width="64" height="64"/>
         <image name="icon_settings" width="64" height="64"/>
@@ -1620,6 +1619,7 @@ Terms of Service                         Privacy Policy</string>
         <image name="nav_close" width="64" height="64"/>
         <image name="nav_help" width="64" height="64"/>
         <image name="nav_settings" width="64" height="64"/>
+        <image name="placeholder_image" width="375" height="375"/>
         <image name="right-arrow" width="20" height="20"/>
     </resources>
 </document>

@@ -70,7 +70,8 @@ class ViewController: UIViewController {
     @IBAction func doSkipButton(_ sender: Any) {
         self.detectionViewOpen = false
 //        self.resetTranspositionHistory()
-        self.doAnimateActionUI(false)
+        self.videoCapture.resetTranspositionHistory()
+        self.doAnimateActionUI(hide:true)
     }
     
     @IBAction func doActionButton(_ sender: Any) {
@@ -111,10 +112,11 @@ class ViewController: UIViewController {
     override func viewWillAppear(_ animated: Bool) {
         super.viewWillAppear(animated)
         
-        self.doAnimateActionUI(true)
 
         let show = UserManager.sharedInstance.getShowFPS()
         self.performanceHUD.isHidden = !show
+        
+        self.doAnimateActionUI(hide: !show)
     }
 
     func setupAVCapture() {
@@ -230,7 +232,7 @@ class ViewController: UIViewController {
         self.actionLabel.text = max_label
     }
     
-    func doAnimateActionUI(_ hide: Bool) {
+    func doAnimateActionUI(hide: Bool) {
 //        self.videoCapture.stopCaptureSession()
         
         UIView.animate(withDuration: 0.33, delay: 0.1, options: .curveEaseOut, animations: { () -> Void in
@@ -325,7 +327,7 @@ extension ViewController {
         guard text != nil || objectLabel != nil else { return }
         
         
-        self.doAnimateActionUI(false)
+        self.doAnimateActionUI(hide:false)
 
         let action = ActionManager.sharedInstance.estimateAction(text: text, objectLabel: objectLabel)
         
@@ -350,7 +352,13 @@ extension ViewController {
 
         case .meishi:
             self.actionLabel.text = "CARD\n\(action.prompt)"
-
+            
+        case .web:
+            self.actionLabel.text = "WWW\n\(action.prompt)"
+            
+        case .text:
+            self.actionLabel.text = "TEXT\n\(action.prompt)"
+            
         }
     }
     

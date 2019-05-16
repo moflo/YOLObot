@@ -19,6 +19,8 @@ enum MFActionType :String, Codable {
     case upc = "barCode"
     case qr = "QRCode"
     case meishi = "businessCard"
+    case web = "webSite"
+    case text = "text"
     
     func title() -> String {
         switch self {
@@ -29,6 +31,8 @@ enum MFActionType :String, Codable {
         case .upc : return "Bar Code"
         case .qr : return "QR Code"
         case .meishi : return "Business Card"
+        case .web : return "Website"
+        case .text : return "text"
         }
     }
     
@@ -41,6 +45,8 @@ enum MFActionType :String, Codable {
         case .upc : return "Lookup Bar Code"
         case .qr : return "Scan QRCode"
         case .meishi : return "Import Biz Card"
+        case .web : return "Open Website"
+        case .text : return "View Text"
         }
     }
     
@@ -53,6 +59,8 @@ enum MFActionType :String, Codable {
         case .upc : return "UPC Code details"
         case .qr : return "QR Code details"
         case .meishi : return "Contact information"
+        case .web : return "Open Website"
+        case .text : return "Copy Text"
         }
     }
 }
@@ -111,9 +119,9 @@ class ActionManager : NSObject {
         }
 
         // Default value
-        recentAction = .meishi
+        recentAction = .text
         recentActionText = text
-        return (.meishi, text ?? "Unknown")
+        return (.text, text ?? "Unknown")
         
     }
     
@@ -361,6 +369,22 @@ class ActionManager : NSObject {
             cvc.delegate = self
             let nav = UINavigationController(rootViewController: cvc)
             vc.present(nav, animated: true, completion: nil)
+
+        }
+        
+        if action == .text {
+            let pasteboard = UIPasteboard.general
+            pasteboard.string = self.recentActionText
+
+            let alert = UIAlertController(title: "Text Copied",
+                                          message: "Text was copied to the clipboard.",
+                                          preferredStyle: .alert)
+            alert.addAction(UIAlertAction(title: "OK", style: .cancel, handler: {
+                (alertAction :UIAlertAction) -> Void in
+                // Ready to score...
+                print("Cancel")
+            }))
+            vc.present(alert, animated: true, completion:nil)
 
         }
     }

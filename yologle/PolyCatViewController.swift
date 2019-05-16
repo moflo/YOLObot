@@ -61,7 +61,10 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
     @IBOutlet weak var trainingButtonView: MFTrainingButtonView!
     @IBOutlet weak var trainDoneButton: UIButton!
     
-    var dataSetObj :MFDataSet? = nil
+    var dataSetObj :MFDataSet? = MFDataSet(
+        categoryArray:["Phone","Email","Address","Contact","Code","Other"]
+    )
+
     
     var responseString: String = "Other"
     var responsePolyArray = [BoundingBoxPoly]()
@@ -116,7 +119,7 @@ class PolyCatViewController: UIViewController, UIScrollViewDelegate {
     
     func doPreloadDataSet() {
     
-        self.imageView.image = self.dataSetObj?.currentImage
+        self.imageView.image = self.dataSetObj?.currentImage ?? UIImage(named:"placeholder_image")
 
         setupStatButtons()
     }
