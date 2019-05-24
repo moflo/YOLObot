@@ -393,7 +393,7 @@ class ActionManager : NSObject {
             })
         }
 
-        if action == .www {
+        if action == .web {
             let url = URL(string: actionText)
             let options :[UIApplication.OpenExternalURLOptionsKey : Any] = [:]
             UIApplication.shared.open(url!,options:options,completionHandler: { done in

@@ -26,6 +26,7 @@ class MFUser : NSObject, NSCoding {
     var fbid :String? = nil
     var defaultActions :[MFActionType:MFActionItem] = [
         .phone      : MFActionItem(.phone),
+        .web        : MFActionItem(.web),
         .map        : MFActionItem(.map),
         .email      : MFActionItem(.email),
         .food       : MFActionItem(.food),
@@ -121,7 +122,9 @@ class MFUser : NSObject, NSCoding {
             let decoder = JSONDecoder()
             if let data = action_json_str.data(using: .utf8),
                 let array = try? decoder.decode([MFActionType:MFActionItem].self, from: data) {
-                    self.defaultActions = array
+//                    self.defaultActions = array
+                self.defaultActions.merge(array) { (_, new) in new }
+
             }
         }
     }
@@ -222,7 +225,7 @@ class UserManager : NSObject {
 
     fileprivate var userObj = MFUser()
     
-    fileprivate var showFPS = true
+    fileprivate var showFPS = false
 
     fileprivate let defaultsFile = "\(NSHomeDirectory())/Documents/DefaultsData.plist"
     

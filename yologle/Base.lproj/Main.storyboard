@@ -961,6 +961,7 @@
                     <connections>
                         <outlet property="cardAction" destination="b5Q-4y-34f" id="F94-q1-TwA"/>
                         <outlet property="dialAction" destination="tWB-4e-UgQ" id="w4A-Sw-L2F"/>
+                        <outlet property="emailAction" destination="zT1-7n-QNw" id="SNf-nU-VZL"/>
                         <outlet property="foodAction" destination="CBn-Rt-Ak0" id="NZK-hh-ZMI"/>
                         <outlet property="mapAction" destination="Rkd-kv-SkW" id="rc1-SY-EBj"/>
                         <outlet property="qrAction" destination="XzH-ke-upW" id="9sW-b7-ZgY"/>
