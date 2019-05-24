@@ -104,18 +104,18 @@ class ActionManager : NSObject {
             return (.phone, phone.number)
         }
 
-        let www = containsWebsite(text: text)
-        if www.valid {
-            recentAction = .web
-            recentActionText = www.url
-            return (.web, www.url)
-        }
-
         let email = containsEmail(text: text)
         if email.valid {
             recentAction = .email
             recentActionText = email.address
             return (.email, email.address)
+        }
+        
+        let www = containsWebsite(text: text)
+        if www.valid {
+            recentAction = .web
+            recentActionText = www.url
+            return (.web, www.url)
         }
 
         let map = containsAddress(text: text)
@@ -191,13 +191,13 @@ class ActionManager : NSObject {
         guard let text = text else { return (false,"") }
         
         
-        let componentArray = ["http", "company", "tld"]
+        let componentArray = ["prefix", "company", "tld"]
         
         let pattern = """
         (?xi)
-        (?<http>
-            [[http][https]]+
-        )\\:\\/\\/
+        (?<prefix>
+            [[a-z][\\.]]+
+        )
         (?<company>
             [[a-z][\\w][-][0-9][\\.]]+
         )\\.
@@ -232,11 +232,16 @@ class ActionManager : NSObject {
             return (false,"")
         }
         
-        let result_string = "\(result["http"] ?? "http"):\\\(result["company"] ?? "address").\(result["tld"] ?? "com")"
+//        let prefix = (result["prefix"] != nil) ? "\(result["prefix"]!)." : ""
+        let prefix = result["prefix"] ?? ""
+        let company = result["company"] ?? "address"
+        let tld = result["tld"] ?? "com"
+        let result_string = "http://\(prefix)\(company).\(tld)"
         
         return (true,result_string )
         
     }
+
     private func containsEmail(text: String?) -> (valid :Bool, address:String) {
         guard let text = text else { return (false,"") }
         

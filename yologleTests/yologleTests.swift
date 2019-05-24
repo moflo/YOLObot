@@ -319,7 +319,35 @@ class yologleTests: XCTestCase {
             expect(e.type) == .email
             expect(e.prompt) == email
 
+            print(e.prompt)
         }
+        
+        
+        // Web testing
+        
+        let w1 = ActionManager.sharedInstance.estimateAction(text: "www.testing.com", objectLabel: nil)
+        
+        expect(w1.type) == .web
+        expect(w1.prompt) == "http://www.testing.com"
+        
+        
+        let websites = ["www.testing.com","testing.com","info.testing.com","TESTING.COM"]
+        
+        for web in websites {
+            let w = ActionManager.sharedInstance.estimateAction(text: web, objectLabel: nil)
+            
+            if w.type != .web {
+                print("Error: ",web, w.type)
+                abort()
+            }
+            
+            expect(w.type) == .web
+            expect(w.prompt) == "http://" + web
+            
+            print(w.prompt)
+            
+        }
+
 
     }
 }
