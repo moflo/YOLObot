@@ -20,20 +20,22 @@ class ActionViewController: UITableViewController {
 
     }
 
-    let ACTION_ORDER :[MFActionType] = [.phone,.email,.map,.upc,.qr,.meishi,.food]
+    let ACTION_ORDER :[MFActionType] = [.phone,.web,.email,.map,.upc,.qr,.meishi,.food]
     enum ACTIONS {
         static let ROW_COUNT = 7
         static let PHONE_ROW = 0
-        static let EMAIL_ROW = 1
-        static let MAP_ROW = 2
-        static let CARD_ROW = 3
-        static let UPC_ROW = 4
-        static let QR_ROW = 5
-        static let FOOD_ROW = 6
+        static let WEB_ROW = 1
+        static let EMAIL_ROW = 2
+        static let MAP_ROW = 3
+        static let CARD_ROW = 4
+        static let UPC_ROW = 5
+        static let QR_ROW = 6
+        static let FOOD_ROW = 7
     }
 
     @IBOutlet weak var dialAction: UILabel!
     @IBOutlet weak var mapAction: UILabel!
+    @IBOutlet weak var webAction: UILabel!
     @IBOutlet weak var emailAction: UILabel!
     @IBOutlet weak var upcAction: UILabel!
     @IBOutlet weak var qrAction: UILabel!
@@ -52,6 +54,7 @@ class ActionViewController: UITableViewController {
         let actions = UserManager.sharedInstance.getUserDefaultActions()
         
         dialAction.text = actions[.phone]?.actionTitle()
+        webAction.text = actions[.web]?.actionTitle()
         mapAction.text = actions[.map]?.actionTitle()
         emailAction.text = actions[.email]?.actionTitle()
         upcAction.text = actions[.upc]?.actionTitle()

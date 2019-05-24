@@ -104,11 +104,11 @@ class ActionManager : NSObject {
             return (.phone, phone.number)
         }
 
-        let map = containsAddress(text: text)
-        if map.valid {
-            recentAction = .map
-            recentActionText = map.address
-            return (.map, map.address)
+        let www = containsWebsite(text: text)
+        if www.valid {
+            recentAction = .web
+            recentActionText = www.url
+            return (.web, www.url)
         }
 
         let email = containsEmail(text: text)
@@ -118,6 +118,13 @@ class ActionManager : NSObject {
             return (.email, email.address)
         }
 
+        let map = containsAddress(text: text)
+        if map.valid {
+            recentAction = .map
+            recentActionText = map.address
+            return (.map, map.address)
+        }
+        
         // Default value
         recentAction = .text
         recentActionText = text
@@ -180,6 +187,56 @@ class ActionManager : NSObject {
     }
 
     
+    private func containsWebsite(text: String?) -> (valid :Bool, url:String) {
+        guard let text = text else { return (false,"") }
+        
+        
+        let componentArray = ["http", "company", "tld"]
+        
+        let pattern = """
+        (?xi)
+        (?<http>
+            [[http][https]]+
+        )\\:\\/\\/
+        (?<company>
+            [[a-z][\\w][-][0-9][\\.]]+
+        )\\.
+        (?<tld>
+            COM | CO | ORG | CA | EDU | CN | DE | NET | UK | INFO | NL | EU
+        )
+        """
+        
+        var result = [String:String]()
+        
+        if let regex = try? NSRegularExpression(pattern: pattern, options: []) {
+            let nsrange = NSRange(text.startIndex..<text.endIndex,
+                                  in: text)
+            if let match = regex.firstMatch(in: text,
+                                            options: [],
+                                            range: nsrange)
+            {
+                for component in componentArray {
+                    let nsrange = match.range(withName: component)
+                    if nsrange.location != NSNotFound,
+                        let range = Range(nsrange, in: text)
+                    {
+                        //                        print("\(component): \(text[range])")
+                        result[component] = String(text[range])
+                    }
+                }
+            }
+            
+        }
+        
+        if result.count == 0 {
+            return (false,"")
+        }
+        
+        let result_string = "\(result["http"] ?? "http"):\\\(result["company"] ?? "address").\(result["tld"] ?? "com")"
+        
+        return (true,result_string )
+        
+    }
     private func containsEmail(text: String?) -> (valid :Bool, address:String) {
         guard let text = text else { return (false,"") }
         
@@ -335,7 +392,15 @@ class ActionManager : NSObject {
                 print("URL open :", done)
             })
         }
-        
+
+        if action == .www {
+            let url = URL(string: actionText)
+            let options :[UIApplication.OpenExternalURLOptionsKey : Any] = [:]
+            UIApplication.shared.open(url!,options:options,completionHandler: { done in
+                print("URL open :", done)
+            })
+        }
+
         if action == .map {
         
             let address = URLEncodedString(actionText) ?? "cupertino,ca"
