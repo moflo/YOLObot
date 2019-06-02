@@ -32,6 +32,7 @@
 		918EEAA12280FB2A00920FF8 /* MFButtons.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEA9F2280FB2A00920FF8 /* MFButtons.swift */; };
 		918EEAA32280FBA800920FF8 /* DataSetManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 918EEAA22280FBA800920FF8 /* DataSetManager.swift */; };
 		918EEAA52281005C00920FF8 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 918EEAA42281005C00920FF8 /* GoogleService-Info.plist */; };
+		91940F2022A3279B0095787C /* yologleUITests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91940F1F22A3279B0095787C /* yologleUITests.swift */; };
 		91A655C22284DF1A00DEFCEB /* SetActionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91A655C12284DF1A00DEFCEB /* SetActionViewController.swift */; };
 		91F4087E228B3FC300ACCE92 /* OverlayTextView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F4087D228B3FC300ACCE92 /* OverlayTextView.swift */; };
 		91F40880228B96AB00ACCE92 /* OverlayYOLOView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 91F4087F228B96AB00ACCE92 /* OverlayYOLOView.swift */; };
@@ -40,6 +41,13 @@
 
 /* Begin PBXContainerItemProxy section */
 		918EEA832280EC8F00920FF8 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 918EEA662280EC8C00920FF8 /* Project object */;
+			proxyType = 1;
+			remoteGlobalIDString = 918EEA6D2280EC8C00920FF8;
+			remoteInfo = yologle;
+		};
+		91940F2222A3279B0095787C /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 918EEA662280EC8C00920FF8 /* Project object */;
 			proxyType = 1;
@@ -95,6 +103,9 @@
 		918EEAA42281005C00920FF8 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
 		918EEAA62281006800920FF8 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		918EEAA72281006800920FF8 /* Podfile */ = {isa = PBXFileReference; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; xcLanguageSpecificationIdentifier = xcode.lang.ruby; };
+		91940F1D22A3279B0095787C /* yologleUITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = yologleUITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
+		91940F1F22A3279B0095787C /* yologleUITests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = yologleUITests.swift; sourceTree = "<group>"; };
+		91940F2122A3279B0095787C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		91A655C12284DF1A00DEFCEB /* SetActionViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetActionViewController.swift; sourceTree = "<group>"; };
 		91F4087D228B3FC300ACCE92 /* OverlayTextView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayTextView.swift; sourceTree = "<group>"; };
 		91F4087F228B96AB00ACCE92 /* OverlayYOLOView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OverlayYOLOView.swift; sourceTree = "<group>"; };
@@ -122,6 +133,13 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		91940F1A22A3279B0095787C /* Frameworks */ = {
+			isa = PBXFrameworksBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
@@ -132,6 +150,7 @@
 				918EEAA72281006800920FF8 /* Podfile */,
 				918EEA702280EC8D00920FF8 /* yologle */,
 				918EEA852280EC8F00920FF8 /* yologleTests */,
+				91940F1E22A3279B0095787C /* yologleUITests */,
 				918EEA6F2280EC8D00920FF8 /* Products */,
 				918EEA912280ECA100920FF8 /* Frameworks */,
 				D8CC4DD5E34B7F663BC49D7E /* Pods */,
@@ -143,6 +162,7 @@
 			children = (
 				918EEA6E2280EC8D00920FF8 /* yologle.app */,
 				918EEA822280EC8F00920FF8 /* yologleTests.xctest */,
+				91940F1D22A3279B0095787C /* yologleUITests.xctest */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -208,6 +228,15 @@
 			path = Support;
 			sourceTree = "<group>";
 		};
+		91940F1E22A3279B0095787C /* yologleUITests */ = {
+			isa = PBXGroup;
+			children = (
+				91940F1F22A3279B0095787C /* yologleUITests.swift */,
+				91940F2122A3279B0095787C /* Info.plist */,
+			);
+			path = yologleUITests;
+			sourceTree = "<group>";
+		};
 		D8CC4DD5E34B7F663BC49D7E /* Pods */ = {
 			isa = PBXGroup;
 			children = (
@@ -264,13 +293,31 @@
 			productReference = 918EEA822280EC8F00920FF8 /* yologleTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
+		91940F1C22A3279B0095787C /* yologleUITests */ = {
+			isa = PBXNativeTarget;
+			buildConfigurationList = 91940F2422A3279B0095787C /* Build configuration list for PBXNativeTarget "yologleUITests" */;
+			buildPhases = (
+				91940F1922A3279B0095787C /* Sources */,
+				91940F1A22A3279B0095787C /* Frameworks */,
+				91940F1B22A3279B0095787C /* Resources */,
+			);
+			buildRules = (
+			);
+			dependencies = (
+				91940F2322A3279B0095787C /* PBXTargetDependency */,
+			);
+			name = yologleUITests;
+			productName = yologleUITests;
+			productReference = 91940F1D22A3279B0095787C /* yologleUITests.xctest */;
+			productType = "com.apple.product-type.bundle.ui-testing";
+		};
 /* End PBXNativeTarget section */
 
 /* Begin PBXProject section */
 		918EEA662280EC8C00920FF8 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastSwiftUpdateCheck = 1010;
+				LastSwiftUpdateCheck = 1020;
 				LastUpgradeCheck = 1010;
 				ORGANIZATIONNAME = "Mobile Flow LLC";
 				TargetAttributes = {
@@ -287,6 +334,10 @@
 					};
 					918EEA812280EC8F00920FF8 = {
 						CreatedOnToolsVersion = 10.1;
+						TestTargetID = 918EEA6D2280EC8C00920FF8;
+					};
+					91940F1C22A3279B0095787C = {
+						CreatedOnToolsVersion = 10.2.1;
 						TestTargetID = 918EEA6D2280EC8C00920FF8;
 					};
 				};
@@ -306,6 +357,7 @@
 			targets = (
 				918EEA6D2280EC8C00920FF8 /* yologle */,
 				918EEA812280EC8F00920FF8 /* yologleTests */,
+				91940F1C22A3279B0095787C /* yologleUITests */,
 			);
 		};
 /* End PBXProject section */
@@ -324,6 +376,13 @@
 			runOnlyForDeploymentPostprocessing = 0;
 		};
 		918EEA802280EC8F00920FF8 /* Resources */ = {
+			isa = PBXResourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
+		91940F1B22A3279B0095787C /* Resources */ = {
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
@@ -416,7 +475,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "# Type a script or drag a script file from your workspace to inse# Ty#printenv | sort > ~/xcode_environ_vars.txt\nOLD_NUMBER=`/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$PRODUCT_SETTINGS_PATH\"`\nNEW_NUMBER=$((OLD_NUMBER+=1))\n`/usr/libexec/PlistBuddy -c \"Set CFBundleVersion $NEW_NUMBER\" \"$PRODUCT_SETTINGS_PATH\"`\n\n";
+			shellScript = "# Type a script or drag a script file from your workspace to inse# Ty#printenv | sort > ~/xcode_environ_vars.txt\nOLD_NUMBER=`/usr/libexec/PlistBuddy -c \"Print CFBundleVersion\" \"$PRODUCT_SETTINGS_PATH\"`\nNEW_NUMBER=$((OLD_NUMBER+=1))\n`/usr/libexec/PlistBuddy -c \"Set CFBundleVersion $NEW_NUMBER\" \"$PRODUCT_SETTINGS_PATH\"`\n\n\"${PODS_ROOT}/Fabric/run\"\n";
 		};
 		E61D8DA73A29F3F4A3340463 /* [CP] Check Pods Manifest.lock */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -522,6 +581,14 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
+		91940F1922A3279B0095787C /* Sources */ = {
+			isa = PBXSourcesBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+				91940F2022A3279B0095787C /* yologleUITests.swift in Sources */,
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+		};
 /* End PBXSourcesBuildPhase section */
 
 /* Begin PBXTargetDependency section */
@@ -529,6 +596,11 @@
 			isa = PBXTargetDependency;
 			target = 918EEA6D2280EC8C00920FF8 /* yologle */;
 			targetProxy = 918EEA832280EC8F00920FF8 /* PBXContainerItemProxy */;
+		};
+		91940F2322A3279B0095787C /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			target = 918EEA6D2280EC8C00920FF8 /* yologle */;
+			targetProxy = 91940F2222A3279B0095787C /* PBXContainerItemProxy */;
 		};
 /* End PBXTargetDependency section */
 
@@ -752,6 +824,46 @@
 			};
 			name = Release;
 		};
+		91940F2522A3279B0095787C /* Debug */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4W8SEMVXD2;
+				INFOPLIST_FILE = yologleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobileflowllc.yologleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = yologle;
+			};
+			name = Debug;
+		};
+		91940F2622A3279B0095787C /* Release */ = {
+			isa = XCBuildConfiguration;
+			buildSettings = {
+				CODE_SIGN_STYLE = Automatic;
+				DEVELOPMENT_TEAM = 4W8SEMVXD2;
+				INFOPLIST_FILE = yologleUITests/Info.plist;
+				IPHONEOS_DEPLOYMENT_TARGET = 12.2;
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
+				PRODUCT_BUNDLE_IDENTIFIER = com.mobileflowllc.yologleUITests;
+				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_VERSION = 5.0;
+				TARGETED_DEVICE_FAMILY = "1,2";
+				TEST_TARGET_NAME = yologle;
+			};
+			name = Release;
+		};
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
@@ -778,6 +890,15 @@
 			buildConfigurations = (
 				918EEA8F2280EC8F00920FF8 /* Debug */,
 				918EEA902280EC8F00920FF8 /* Release */,
+			);
+			defaultConfigurationIsVisible = 0;
+			defaultConfigurationName = Debug;
+		};
+		91940F2422A3279B0095787C /* Build configuration list for PBXNativeTarget "yologleUITests" */ = {
+			isa = XCConfigurationList;
+			buildConfigurations = (
+				91940F2522A3279B0095787C /* Debug */,
+				91940F2622A3279B0095787C /* Release */,
 			);
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Debug;
