@@ -146,6 +146,7 @@ class ViewController: UIViewController {
             }
             else {
                 print("Error setting up AV Capture")
+                self.previewView.backgroundColor = .lightGray
                 return
             }
 
