@@ -1,7 +1,7 @@
 YOLO-bot
 ==========
 
-Perhaps the second dumbest idea I've ever had.
+Smart camera application.
 
 Promo
 - Smart camera application. Add smart "vision" to your camera, connect what you "see" to Apple Shortcuts.
